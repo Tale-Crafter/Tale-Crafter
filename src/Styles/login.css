@@ -45,7 +45,7 @@
 
 .loginForm {
     width: 400px;
-    height: 96px;
+    height: 51px;
     flex-shrink: 0;
     top: 295px;
     left: 649px;
@@ -55,7 +55,7 @@
 
 .passwordForm {
     width: 400px;
-    height: 96px;
+    height: 51px;
     flex-shrink: 0;
     top: 399px;
     left: 649px;
@@ -89,6 +89,31 @@
     border-radius: 10px;
     position: absolute;
 
+}
+.loginForm input,
+.passwordForm input {
+  /* Styles for email and password input fields */
+  .loginForm input,
+.passwordForm input {
+  /* Styles for email and password input fields */
+  width: 400px;
+    height: 51px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  top: 25px;
+  position: absolute;
+  padding: 10px;
+  background-color: lightgray; /* Set background color to lightgray */
+  border: 1px solid lightgray; /* Add a lightgray border */
+}
+
+  flex-shrink: 0;
+  border-radius: 10px;
+  top: 25px;
+  position: absolute;
+  padding: 10px;
+  background-color: lightgray; /* Set background color to lightgray */
+  border: 1px solid lightgray; /* Add a lightgray border */
 }
 
 .nextButton {
