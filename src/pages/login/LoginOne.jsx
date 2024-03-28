@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../styles/login.css'
+import '../../Styles/login.css'
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,13 +44,19 @@ const SignIn = () => {
               onChange={(e) => setPassword(e.target.value)}
               className="input-field"
             />
+            <span>
+                    <Link to="/ForgotPasswordOne" className='forgotPasswordLabel'>
+                        Forgot?
+                    </Link>
+                </span>
           </div>
           <div className="form-group">
             <button type="submit" className="sign-in-btn">
               Sign In
             </button>
-            <a href="#">Forgot?</a>
+           
           </div>
+
         </form>
         <p>Don't have an account business? <a href="#">Sign up</a></p>
       </main>
