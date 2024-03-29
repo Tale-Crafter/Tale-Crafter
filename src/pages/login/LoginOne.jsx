@@ -71,7 +71,7 @@ function LoginOne() {
     };
     const placeholderStyle = {
         width: "400px",
-        height: "51px",
+        height: "35px",
         flexShrink: "0",
         borderRadius: "10px",
         top: "25px",

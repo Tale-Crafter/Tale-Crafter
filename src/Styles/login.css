@@ -96,15 +96,12 @@
   .loginForm input,
 .passwordForm input {
   /* Styles for email and password input fields */
-  width: 400px;
-    height: 51px;
-  flex-shrink: 0;
+  width: 400px; /* Réduire la largeur de l'input */
+  height: 51px; /* Réduire la hauteur de l'input */
   border-radius: 10px;
-  top: 25px;
-  position: absolute;
   padding: 10px;
   background-color: lightgray; /* Set background color to lightgray */
-  border: 1px solid lightgray; /* Add a lightgray border */
+  border: solid lightgray; /* Add a lightgray border */
 }
 
   flex-shrink: 0;
