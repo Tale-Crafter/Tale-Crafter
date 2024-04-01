@@ -4,10 +4,14 @@ import {  RouterProvider,createBrowserRouter } from 'react-router-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import LoginOne from './pages/login/LoginOne';
+import BusinessRegister from './pages/BusinessRegister';
 const routes = createBrowserRouter([
   
   {
     path: "/login", element: <LoginOne />,
+  },
+  {
+    path: "/BusinessRegister", element: <BusinessRegister />,
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
