@@ -1,0 +1,96 @@
+.dropdown-box {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  padding: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-option {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-option:hover {
+  background-color: #f0f0f0;
+}
+.dropdown-menu {
+  /* ... other styles ... */
+  width: 150px; /* Fixed width for the menu */
+}
+
+.dropdown-wrapper {
+position: relative; /* Ensure proper positioning */
+}
+
+.btn {
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: transparent; /* Transparent background */
+border: none;
+padding: 8px 12px; /* Adjust padding as needed */
+cursor: pointer;
+}
+
+.btn span {
+/* Apply styles to both spans in the button */
+font-family: Arial, sans-serif;
+font-size: 14px;
+color: #000; /* Black color */
+}
+
+.dropdown-box {
+position: absolute; /* Absolute positioning */
+top: 100%;
+left: 0;
+background: transparent; /* Transparent background */
+border: 1px solid black; /* Black border */
+border-radius: 5px;
+padding: 5px;
+width: 150px; /* Fixed width */
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+z-index: 1;
+
+}
+
+.dropdown-option {
+font-family: Arial, sans-serif;
+font-size: 14px;
+padding: 8px 12px; /* Adjust padding for desired spacing */
+cursor: pointer;
+color: #000; /* Black color */
+display: block;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+text-align: left; /* Left-align text within the box */
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+flex-shrink: 0;
+
+height: 51px;
+position: absolute;
+top: 25px;
+width: 400px
+}
+
+.dropdown-option:hover {
+background-color: #f0f0f0;
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+flex-shrink: 0;
+
+height: 51px;
+position: absolute;
+top: 25px;
+width: 400px
+}
