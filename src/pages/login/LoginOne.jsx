@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import SocialMedia from '../../components/socialmedia';
 import LeftBackground from '../../components/LeftBackground';
 import { useParams } from 'react-router-dom';
 
@@ -109,7 +109,7 @@ function LoginOne() {
     return (
         <div className='login'>
             <text className="loginTitle">Sign in to TALE</text>
-            <socialmedia />
+            <SocialMedia />
             <span className="emailAccount">Or use your email account</span>
             <span className="reCAPTCHA">This site is protected by reCAPTCHA and the <u>Google Privacy Policy</u> and  <u>Terms of Service </u> apply.</span>
             <div className="loginForm">
