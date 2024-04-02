@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import LoginOne from './pages/blogin';
 import BusinessRegister from './pages/BusinessRegister';
 import Bverif from './pages/Bemailverif';
+import Chsurvey from './pages/ChSurvey';
 const routes = createBrowserRouter([
   
   {
@@ -19,7 +20,9 @@ const routes = createBrowserRouter([
     path: "/Verif", element: <Bverif />,
   },
 
-
+  {
+    path: "/chsurvey", element: <Chsurvey />,
+  },
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
