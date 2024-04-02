@@ -5,14 +5,21 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import LoginOne from './pages/blogin';
 import BusinessRegister from './pages/BusinessRegister';
+import Bverif from './pages/Bemailverif';
 const routes = createBrowserRouter([
   
   {
     path: "/login", element: <LoginOne />,
   },
+
   {
     path: "/BusinessRegister", element: <BusinessRegister />,
   },
+  {
+    path: "/Verif", element: <Bverif />,
+  },
+
+
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

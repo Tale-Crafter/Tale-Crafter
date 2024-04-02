@@ -91,7 +91,9 @@ function LoginOne() {
 
     };
     const buttonStyle = {
-        background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)',
+        // Add hover style for visual feedback
+    background: '&:hover linear-gradient(90deg, #FE346E 0%, #F9BC33 100%)',
+  
         width: '400px',
         height: '51px',
         padding: '16px',
