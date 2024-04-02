@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from './bbutton';
-import FB from '../images/FB.png';
-import X from '../images/X.png';
-import Linkedin from '../images/Linkedin.png';
-import Gmail from '../images/Gmail.png';
 import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 

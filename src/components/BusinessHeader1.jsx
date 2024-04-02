@@ -17,7 +17,7 @@ function Header() {
     return (
         <div className="row-4" >
             <div>
-                <img src={process.env.PUBLIC_URL + '/blogotale.png'} alt="Logo" style={imglogo} />
+                <img alt="Logo" style={imglogo} />
             </div>
             <div className="d-flex" style={imglanguage}>
                 <img src={process.env.PUBLIC_URL + '/btraduction.png'} alt="Language" />

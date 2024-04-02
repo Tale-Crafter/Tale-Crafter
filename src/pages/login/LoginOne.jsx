@@ -156,8 +156,7 @@ function LoginOne() {
 
                 </div>
             </div>
-            <LeftBackground mainText={"Hello, Friend!"}
-                detailsText={"To stay connected with us, please log in using your personal information"} />
+            <LeftBackground />
         </div>
     )
 }

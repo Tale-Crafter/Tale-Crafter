@@ -2,10 +2,7 @@ import React from 'react'
 
 import { Link } from 'react-router-dom';
 
-import facebook from '../images/facebook.png';
-import gmail from '../images/Gmail.png';
-import twitter from '../images/twitter.png';
-import linkedIn from '../images/Linkedin.png';
+
 
 function SocialMedia() {
 
