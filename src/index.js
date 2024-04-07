@@ -7,6 +7,7 @@ import LoginOne from './pages/blogin';
 import BusinessRegister from './pages/BusinessRegister';
 import Bverif from './pages/Bemailverif';
 import Chsurvey from './pages/ChSurvey';
+import Simplesurvey from './pages/SipmleSurvey';
 const routes = createBrowserRouter([
   
   {
@@ -22,6 +23,9 @@ const routes = createBrowserRouter([
 
   {
     path: "/chsurvey", element: <Chsurvey />,
+  },
+  {
+    path: "/simplesurvey", element: <Simplesurvey />,
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
