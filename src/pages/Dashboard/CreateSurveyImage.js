@@ -245,7 +245,7 @@ const CreateSurveyImage = () => {
                         </div>}
                         <div style={{width: 868, height: 96, left: 64, top: 740, position: 'absolute'}}>
                             <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Question</div>
-                            <input style={{width: 868, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10}} />
+                            <input style={{width: 868, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10,border:"none"}} />
                             <div style={{left: 16, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Enter you question</div>
                         </div>
                         <div style={{width: 127, height: 19.19, left: 805, top: 740, position: 'absolute', color: '#00BDA9', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>+Add a description</div>
@@ -364,7 +364,7 @@ const CreateSurveyImage = () => {
                                     <FaEye style={{width: 19.23, height: 14, position: 'relative'}}>
                                     </FaEye>
                                 </div>
-                                <div style={{flex: '1 1 0', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Preview</div>
+                                <div style={{flex: '1 1 0', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '400', lineHeight: 1, wordWrap: 'break-word'}}>Preview</div>
                             </div>
 
                         </div>

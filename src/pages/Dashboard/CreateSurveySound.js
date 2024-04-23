@@ -16,6 +16,7 @@ import BHeader from "./BHeader";
 import EndPopup from "./EndPopup";
 import SubBrandPopup from "./SubBrandPopup";
 import ProductOffers from "./ProductOffers";
+import Select from "react-select";
 const opencage = require('opencage-api-client');
 
 
@@ -30,17 +31,30 @@ const CreateSurveySound = () => {
     const [textareaContent, setTextareaContent] = useState('');
     const [charCount, setCharCount] = useState(0);
     const [checkboxValues1, setCheckboxValues1] = useState(Array(3).fill(false));
-    const [selectedFiles, setSelectedFiles] = useState([]);
     const navigate = useNavigate();
 
     const [errorMessage, setErrorMessage] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
     const [showDropdown, setShowDropdown] = useState(false);
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [showSoundBox, setShowSoundBox] = useState(false);
 
+    const handleFileChange = (e) => {
+        const files = Array.from(e.target.files);
+        setSelectedFiles(files);
+        setShowSoundBox(true);
+    };
+
+    const handleDelete = () => {
+        setSelectedFiles([]);
+        setShowSoundBox(false);
+    };
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };
-
+    const handleSelectChange = (selectedOption) => {
+        setSelectedOption(selectedOption);
+    };
 
     const handleChange = (e) => {
         setSelectedOption(e.target.value);
@@ -65,7 +79,19 @@ const CreateSurveySound = () => {
         const files = event.dataTransfer.files;
         setSelectedFiles(files);
     };
+    const options = [
+        { value: 'Radio box', label: 'Radio box', icon: '/box.png' },
+        { value: 'Check boxes', label: 'Check boxes', icon: '/check.png' },
 
+        { value: 'Dropdown', label: 'Dropdown', icon: '/drop.png' },
+        { value: 'Single textbox', label: 'Single textbox', icon: '/textbox.png' },
+        { value: 'Comment', label: 'Comment Box', icon: '/Comment.png' },
+        { value: 'Choice of 1 to 10', label: 'Choice of 1 to 10', icon: '/choice.png' },
+        { value: 'Smile rating', label: 'Smile rating', icon: '/smile.png' },
+        { value: 'Star rating', label: 'Star rating', icon: '/star.png' },
+
+        // Add other options with their respective icons
+    ];
     const handleSubmit = () => {
         // Handle submitting files (e.g., send them to a server)
         if (selectedFiles) {
@@ -76,14 +102,6 @@ const CreateSurveySound = () => {
         }
     };
 
-    const handleFileChange = (event) => {
-        const files = event.target.files;
-        const selectedFilesArray = Array.from(files);
-        setSelectedFiles(selectedFilesArray);
-        // Automatically submit files here or trigger an upload function
-        // For demonstration, I'm logging the selected files to the console
-        console.log('Selected Files:', selectedFilesArray);
-    };
     const isNextDisabled = textareaContent.trim() === '' || textareaContent.length > 1000;
 
 
@@ -172,13 +190,11 @@ const CreateSurveySound = () => {
 
     return (
         <div className="App">
-            <div style={{width: '100%', height: '100%', position: 'relative', background: '#EFEFEF', marginLeft: !sidebarVisible ? -100 : 0, transition: 'margin-left 0.3s ease', filter: showConfirmation || showConfirmation1 ? 'blur(5px)' : 'none' }}>
                     {/* Intégrez le formulaire de contact ici */}
                     <div style={{position:"relative",top:-80}}>
                         <div style={{width: 1200, height: 780, left: 40, top: 249, position: 'absolute', background: '#F5F5F5', borderRadius: 10}} />
 
                         <div style={{width: 1152, height: 0, left: 64, top: 837, position: 'absolute', border: '1px #DDDDDD solid'}}></div>
-                        <div style={{width: 260, height: 51, left: 956, top: 765, position: 'absolute', background: 'white', borderRadius: 10, border: '1px #CCCCCC solid'}} />
 
                         <div style={{width: 24, height: 24, left: 40, top: 924, position: 'absolute'}}>
                             <div style={{width: 16, height: 6, left: 15, top: 4, position: 'absolute', transform: 'rotate(90deg)', transformOrigin: '0 0', background: 'rgba(0, 0, 0, 0.30)'}}></div>
@@ -196,9 +212,26 @@ const CreateSurveySound = () => {
                             </label>
                         </div>
                         <div style={{left: 104, top: 880, position: 'absolute'}}><span style={{color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Add an option or </span><span style={{color: '#00BDA9', fontSize: 14, fontFamily: 'revert', fontWeight: '700', wordWrap: 'break-word'}}>add "other"</span></div>
-                        <div style={{left: 1004, top: 781, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Cases a cocher</div>
-                        <div style={{width: 24, height: 24, left: 1182, top: 778, position: 'absolute'}}>
-                            <FaAngleDown ></FaAngleDown>
+                        {/*<div style={{left: 1004, top: 781, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Cases a cocher</div>*/}
+                        {/*<div style={{width: 24, height: 24, left: 1182, top: 778, position: 'absolute'}}>*/}
+                        {/*    <FaAngleDown ></FaAngleDown>*/}
+                        {/*</div>*/}
+                        <div style={{ textAlign:"left",width:240,background:"white",height:40,padding:10,zIndex: 99999, left: 955, top: 765, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word' }}>
+                            <Select
+                                options={options}
+                                value={options.find(option => option.value === selectedOption?.value)} // Optional chaining here
+                                onChange={handleSelectChange}
+                                getOptionLabel={option => (
+                                    <div>
+                                        <img src={process.env.PUBLIC_URL + option.icon} alt={option.label} style={{ width: 24, marginRight: 10 }} />
+                                        {option.label}
+                                    </div>
+                                )}
+                                getOptionValue={option => option.value}
+                            />
+                            <div style={{ left: 18, top: 16, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word' }}>
+                                {/*{selectedOption?.label || ''}*/}
+                            </div>
                         </div>
                         {/*<div style={{ width: 260, height: 51, left: 956, top: 445, position: 'absolute' }}>*/}
                         {/*    <div style={{ width: 260, height: 51, left: 0, top: 0, position: 'absolute', background: 'white', borderRadius: 10, border: '1px #CCCCCC solid' }}>*/}
@@ -224,26 +257,60 @@ const CreateSurveySound = () => {
                         {/*    </div>*/}
 
                         {/*</div>*/}
-                        {!showConfirmation && !showConfirmation1 &&<div style={{ width:  388, height: 229, left: 400, top: 357, position: 'absolute' }}>
-                            <div style={{ width: 588, height: 339,left: 0, top: 27, position: 'absolute', background: 'rgba(17, 17, 17, 0.04)', borderRadius: 20 }} />
-                            <div style={{width: 172, left: 0, top: 0, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Cover photo of the survey</div>
-                            <div style={{width: 120, left: 458, top: 0, position: 'absolute', textAlign: 'right', color: '#666666', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>JPG,PNG,JPEG</div>
-                            <div style={{ width: 556, height: 307, borderRadius: 20, border: '2px #CCCCCC dotted', marginTop: 20, textAlign: 'center', position: 'relative',left:13,top:20 }}>
-                                <input type="file" style={{ display: 'none' }} onChange={handleFileChange} multiple />
-                                <img src={process.env.PUBLIC_URL + '/upload.png'} alt="Upload Icon" style={{ width: 60, height: 60, marginTop: 50, cursor: 'pointer' }} onClick={() => document.querySelector('input[type="file"]').click()} />
-                                <div style={{ color: 'black', fontSize: 14, fontWeight: '600', marginTop: 10 }}>Select files to upload</div>
-                                <div style={{ color: '#666666', fontSize: 12, fontWeight: '400', marginTop: 5 }}>or Drag and Drop, Copy and Paste Files</div>
-                            </div>
-                            <div style={{ display: 'flex',left: 100, top: -150, position: 'relative', flexWrap: 'wrap', justifyContent: 'center', marginTop: 20 }}>
-                                {selectedFiles.map((file, index) => (
-                                    <div key={index} style={{ margin: 10 }}>
-                                        <img src={URL.createObjectURL(file)} alt={`File ${index}`} style={{ width: 150, height: 110, objectFit: 'cover', borderRadius: 10 }} />
-                                        <p style={{ textAlign: 'center', marginTop: 5 }}>{file.name}</p>
+
+                        {!showSoundBox && (
+                            <div style={{ width:  388, height: 229, left: 400, top: 357, position: 'absolute' }}>
+                                {/* Your file upload UI */}
+                                <div style={{ width: 588, height: 339,left: 0, top: 27, position: 'absolute', background: 'rgba(17, 17, 17, 0.04)', borderRadius: 20 }} />
+                                <div style={{width: 172, left: 0, top: 0, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Cover photo of the survey</div>
+                                <div style={{width: 120, left: 458, top: 0, position: 'absolute', textAlign: 'right', color: '#666666', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>JPG,PNG,JPEG</div>
+                                <div style={{ width: 556, height: 307, borderRadius: 20, border: '2px #CCCCCC dotted', marginTop: 20, textAlign: 'center', position: 'relative',left:13,top:20 }}>
+                                    <input type="file" style={{ display: 'none' }} onChange={handleFileChange} multiple />
+                                    <img src={process.env.PUBLIC_URL + '/upload.png'} alt="Upload Icon" style={{ width: 60, height: 60, marginTop: 50, cursor: 'pointer' }} onClick={() => document.querySelector('input[type="file"]').click()} />
+                                    <div style={{ color: 'black', fontSize: 14, fontWeight: '600', marginTop: 10 }}>Select files to upload</div>
+                                    <div style={{ color: '#666666', fontSize: 12, fontWeight: '400', marginTop: 5 }}>or Drag and Drop, Copy and Paste Files</div>
+                                    {/* Display uploaded files */}
+                                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: 20 }}>
+                                        {selectedFiles.map((file, index) => (
+                                            <div key={index} style={{ margin: 10 }}>
+                                                <img src={URL.createObjectURL(file)} alt={`File ${index}`} style={{ width: 150, height: 110, objectFit: 'cover', borderRadius: 10 }} />
+                                                <p style={{ textAlign: 'center', marginTop: 5 }}>{file.name}</p>
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
+                                </div>
                             </div>
-                        </div>}
-                        <div style={{width: 868, height: 96, left: 64, top: 740, position: 'absolute'}}>
+                                )}
+
+                                {showSoundBox && (
+                                    <div className="question-container" style={{ position:"absolute",top:460,left:250,textAlign: 'center', marginLeft: "10px" }}>
+                                        <audio controls style={{ width: '702px', height: '64px', borderRadius: '0px', margin: 'auto' }}>
+                                            <source src={URL.createObjectURL(selectedFiles[0])} type="audio/mpeg" />
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                        <button
+                                            style={{
+                                                marginTop: 10,
+                                                backgroundColor: 'transparent',
+                                                color: 'white',
+                                                border: 'none',
+                                                borderRadius: '10px',
+                                                padding: '5px 10px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                            }}
+                                            onClick={handleDelete}
+                                        >
+                                            <img
+                                                src={process.env.PUBLIC_URL + '/poubelle.png'}
+                                                alt="Delete Icon"
+                                                style={{ marginRight: 5,position:"absolute",right:-50,top:20,width:24,height:30 }}
+                                            />
+                                        </button>
+                                    </div>
+                                )}
+
+                                <div style={{width: 868, height: 96, left: 64, top: 740, position: 'absolute'}}>
                             <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Question</div>
                             <input style={{width: 868, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10}} />
                             <div style={{left: 16, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Enter you question</div>
@@ -320,9 +387,7 @@ const CreateSurveySound = () => {
                             <FaPlus style={{width: 13.33, height: 13.33, position: 'relative',color:"white"}}>
                             </FaPlus>
                         </div>
-                        <div style={{width: 24, height: 24, left: 972, top: 780, position: 'absolute'}}>
-                            <img src={process.env.PUBLIC_URL + '/check.png'} style={{width: 20, height: 20, left: 2, top: 2, position: 'absolute'}}></img>
-                        </div>
+
                         <div style={{width: 1152, height: 36, left: 64, top: 286, position: 'absolute', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex'}}>
                             <div style={{justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
                                 <div style={{padding: 8, background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 4, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
@@ -374,7 +439,6 @@ const CreateSurveySound = () => {
                             <div style={{width: 16, height: 6, left: 4, top: 9, position: 'absolute', background: 'rgba(0, 0, 0, 0.30)'}}></div>
                         </div>
                     </div>
-                </div>
         </div>
     );
 };

@@ -17,10 +17,14 @@ import EndPopup from "./EndPopup";
 import SubBrandPopup from "./SubBrandPopup";
 import ProductOffers from "./ProductOffers";
 import CreateSurveyImage from "./CreateSurveyImage";
+import CreateSurveySound from "./CreateSurveySound";
+import Select from "react-select";
+import EmojiComponent from "../../components/EmojisComponent";
+import EmojiComponentSurvey from "../../components/EmojisComponentSurvey";
 const opencage = require('opencage-api-client');
 
 
-const CreateSurveySTEP3 = () => {
+const CreateSurveySTEP7 = () => {
     const { iduser } = useParams();
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const [checkboxValues, setCheckboxValues] = useState(Array(5).fill(false));
@@ -37,15 +41,31 @@ const CreateSurveySTEP3 = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
     const [showDropdown, setShowDropdown] = useState(false);
-    const [isChecked, setIsChecked] = useState(false);
-    const [isChecked1, setIsChecked1] = useState(false);
+    const [youtubeLink, setYoutubeLink] = useState('');
+    const [uploadedLink, setUploadedLink] = useState('');
+    const [selectedEmoji, setSelectedEmoji] = useState(null); // State to track selected emoji
 
-    const handleToggle = () => {
-        setIsChecked((prevState) => !prevState);
+
+    // Function to handle radio button choice
+    const handleEmojiSelect = (emojiSrc) => {
+        setSelectedEmoji(emojiSrc);
     };
-    const handleToggle1 = () => {
-        setIsChecked1((prevState) => !prevState);
+
+    const handleLinkChange = (e) => {
+        setYoutubeLink(e.target.value);
     };
+
+    const handleUpload = () => {
+        // Here you can add validation or processing logic before setting the uploaded link
+        setUploadedLink(youtubeLink);
+    };
+
+    const handleDelete = () => {
+        setUploadedLink('');
+        setYoutubeLink('');
+    };
+
+
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -156,7 +176,19 @@ const CreateSurveySTEP3 = () => {
         sujet: '', // No predefined message for the subject
         description: '', // No predefined message for the description
     };
+    const options = [
+        { value: 'Radio box', label: 'Radio box', icon: '/box.png' },
+        { value: 'Check boxes', label: 'Check boxes', icon: '/check.png' },
 
+        { value: 'Dropdown', label: 'Dropdown', icon: '/drop.png' },
+        { value: 'Single textbox', label: 'Single textbox', icon: '/textbox.png' },
+        { value: 'Comment', label: 'Comment Box', icon: '/Comment.png' },
+        { value: 'Choice of 1 to 10', label: 'Choice of 1 to 10', icon: '/choice.png' },
+        { value: 'Smile rating', label: 'Smile rating', icon: '/smile.png' },
+        { value: 'Star rating', label: 'Star rating', icon: '/star.png' },
+
+        // Add other options with their respective icons
+    ];
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
@@ -175,7 +207,9 @@ const CreateSurveySTEP3 = () => {
         }
     };
 
-
+    const handleSelectChange = (selectedOption) => {
+        setSelectedOption(selectedOption);
+    };
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
@@ -183,11 +217,11 @@ const CreateSurveySTEP3 = () => {
     return (
         <div className="App">
             <div style={{filter: showConfirmation || showConfirmation1 ? 'blur(5px)' : 'none' }}>
-            <BusinessLeftsidebar sidebarVisible={sidebarVisible} toggleSidebar={toggleSidebar} style={{filter: showConfirmation || showConfirmation1 ?  'blur(5px)' : 'none'}} />
+                <BusinessLeftsidebar sidebarVisible={sidebarVisible} toggleSidebar={toggleSidebar} style={{filter: showConfirmation || showConfirmation1 ?  'blur(5px)' : 'none'}} />
             </div>
             <div style={{width: '100%', height: '100%', position: 'relative', background: '#EFEFEF', marginLeft: !sidebarVisible ? -100 : 0, transition: 'margin-left 0.3s ease', filter: showConfirmation || showConfirmation1 ? 'blur(5px)' : 'none' }}>
                 <BHeader/>
-                <div style={{width: 1400, height: 1500, left: 340, top: 80, position: 'absolute', background: 'white', borderRadius: 16}} >
+                <div style={{width: 1400, height: 1225, left: 340, top: 80, position: 'absolute', background: 'white', borderRadius: 16}} >
                     {/* Intégrez le formulaire de contact ici */}
                     <div style={{position:"relative",top:-80}}>
                         <div style={{left: 40, top: 105, position: 'absolute', color: '#111111', fontSize: 24, fontFamily: 'revert', fontWeight: '700',  wordWrap: 'break-word'}}>Creating a new survey</div>
@@ -222,47 +256,67 @@ const CreateSurveySTEP3 = () => {
                         <div style={{width: 143, height: 0, left: 886, top: 171, position: 'absolute', transform: 'rotate(-180deg)', transformOrigin: '0 0', border: '1px #DDDDDD solid'}}></div>
                         <div style={{width: 143, height: 0, left: 1061, top: 171, position: 'absolute', transform: 'rotate(-180deg)', transformOrigin: '0 0', border: '1px #DDDDDD solid'}}></div>
                         <div style={{width: 143, height: 0, left: 361, top: 171, position: 'absolute', transform: 'rotate(180deg)', transformOrigin: '0 0', border: '1px #00BDA9 solid'}}></div>
-                                               <div style={{width: 1200, height: 423, left: 40, top: 249, position: 'absolute', background: '#F5F5F5', borderRadius: 10}} />
-                        <div style={{left: 67, top: 461, position: 'absolute', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'inline-flex'}}>
-                            <div style={{justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
-                                <div style={{color: '#111111', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Generate responses</div>
-                            </div>
-                            <div style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'inline-flex'}}>
-                                <div style={{width: 32, height: 18.13, position: 'relative'}}>
-                                    <div style={{width: 32, height: 13.87, left: 0, top: 2.13, position: 'absolute', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 30}} />
-                                    <div style={{width: 18.13, height: 18.13, left: 13.87, top: 0, position: 'absolute', background: 'white', boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.25)', borderRadius: 9999}} />
-                                </div>
-                            </div>
-                        </div>
-                        <div style={{width: 1152, height: 0, left: 64, top: 504, position: 'absolute', border: '1px #DDDDDD solid'}}></div>
-                        <div style={{width: 1152, height: 0, left: 64, top: 437, position: 'absolute', border: '1px #DDDDDD solid'}}></div>
-                        <div style={{width: 260, height: 51, left: 956, top: 365, position: 'absolute', background: 'white', borderRadius: 10, border: '1px #CCCCCC solid'}} />
+                    </div>
+                    <div style={{position:"relative",top:-80}}>
+                        <div style={{padding:50,paddingLeft:20,width: 1200, height: 780, left: 40, top: 249, position: 'absolute', background: '#F5F5F5', borderRadius: 10}} />
 
-                        <div style={{width: 24, height: 24, left: 40, top: 524, position: 'absolute'}}>
+
+                        <div style={{width: 24, height: 24, left: 40, top: 924, position: 'absolute'}}>
                             <div style={{width: 16, height: 6, left: 15, top: 4, position: 'absolute', transform: 'rotate(90deg)', transformOrigin: '0 0', background: 'rgba(0, 0, 0, 0.30)'}}></div>
                         </div>
-                        <div style={{width: 400, height: 32, left: -40, top: 615, position: 'absolute'}}>
-                                <label style={{ margin: '0 150px', position: 'relative', cursor: 'pointer', display: 'block',top:-5 }}>
-                                    <input type="radio" name="language" value="op1" onChange={() => handleLanguageChange('op1')} checked={selectedLanguage === 'op1'} style={{ display: 'none' }} />
-                                    <span style={{ marginLeft: 5,left:0,top:-100,position:"absolute", color: selectedLanguage === 'op1' ? '#00BDA9' : 'black' }}>Option 1</span>
-                                    <div style={{ width: selectedLanguage === 'op1' ? 20 : 20, height: selectedLanguage === 'op1' ? 20 : 20, position: 'absolute', borderRadius: 50, border: selectedLanguage === 'op1' ? '6px solid #00BDA9' : '3px solid #CCCCCC', top: -100, left: -40 }} />
-                                </label>
-                            <label style={{ margin: '0 150px', position: 'relative', cursor: 'pointer', display: 'block',top:30 }}>
-                                <input type="radio" name="language" value="op2" onChange={() => handleLanguageChange('op2')} checked={selectedLanguage === 'op2'} style={{ display: 'none' }} />
-                                <span style={{ marginLeft: 5,left:0,top:-100,position:"absolute", color: selectedLanguage === 'op2' ? '#00BDA9' : 'black' }}>Option 2</span>
-                                <div style={{ width: selectedLanguage === 'op2' ? 20 : 20, height: selectedLanguage === 'op2' ? 20 : 20, position: 'absolute', borderRadius: 50, border: selectedLanguage === 'op2' ? '6px solid #00BDA9' : '3px solid #CCCCCC', top: -100, left: -40 }} />
-                            </label>
-                            <label style={{ margin: '0 150px', position: 'relative', cursor: 'pointer', display: 'block',top:25 }}>
-                                <input type="radio" name="language" value="Similar, equal" onChange={() => handleLanguageChange('Similar, equal')} checked={selectedLanguage === 'Similar, equal'} style={{ display: 'none' }} />
-                                <div style={{ width: selectedLanguage === 'Similar, equal' ? 20 : 20, height: selectedLanguage === 'Similar, equal' ? 20 : 20, position: 'absolute', borderRadius: 50, border: selectedLanguage === 'Similar, equal' ? '6px solid #00BDA9' : '3px solid #CCCCCC', top: -50, left: -40 }} />
-                            </label>
+
+                        <div style={{ width: 260, height: 51, left: 70, top: 945, position: 'absolute', zIndex:9999 }}>
+                            <div style={{ width: 150, height: 51, left: 0, top: 5, position: 'absolute', background: 'white', borderRadius: 10, border: '1px #CCCCCC solid' }}>
+                                <div style={{left: 0, top: -30, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Scale</div>
+
+                                <select
+                                    style={{ width: '100%', height: '100%', background: 'none', border: 'none', outline: 'none', padding: '0 10px' }}
+                                    value={selectedOption}
+                                    onChange={handleChange}
+                                >
+                                    <option value="">-Select-</option>
+                                    <option value="op1">op1</option>
+
+                                </select>
+                            </div>
+                            <div style={{ left: 18, top: 16, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word' }}>
+                                {/*{selectedOption || ''}*/}
+                            </div>
+                            <div style={{width: 250, height: 96, left: 180, top: -20, position: 'absolute'}}>
+                                <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Labeled on the left</div>
+                                <input style={{width: 250, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10,border:"none"}} />
+                                <div style={{left: 16, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Enter Labeled on the left</div>
+                            </div>
+                            <div style={{width: 250, height: 96, left: 470, top: -20, position: 'absolute'}}>
+                                <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Labeled on the right</div>
+                                <input style={{width: 250, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10,border:"none"}} />
+                                <div style={{left: 16, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Enter Labeled on the right</div>
+                            </div>
+                            <button style={{backgroundColor:"transparent",border:"none",position:"absolute",left:780,top:15,color: '#111111', fontSize: 16, fontFamily: 'revert', fontWeight: '500', wordWrap: 'break-word'}}>Preview</button>
+                            <div style={{ marginLeft:"10px",position:"absolute",left:850 }}>
+                                <EmojiComponentSurvey onEmojiSelect={handleEmojiSelect} selectedEmoji={selectedEmoji} />
+                            </div>
                         </div>
-                        <div style={{left: 104, top: 597, position: 'absolute'}}><span style={{color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Add an option or </span><span style={{color: '#00BDA9', fontSize: 14, fontFamily: 'revert', fontWeight: '700', wordWrap: 'break-word'}}>add "other"</span></div>
-                        <div style={{left: 1004, top: 381, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Radio box</div>
-                        <div style={{width: 24, height: 24, left: 1182, top: 378, position: 'absolute'}}>
-                            <FaAngleDown ></FaAngleDown>
-                        </div>
-                        {/*<div style={{ width: 260, height: 51, left: 956, top: 445, position: 'absolute' }}>*/}
+                        <div style={{width: 1152, height: 0, left: 64, top: 1060, position: 'absolute', border: '1px #DDDDDD solid'}}></div>
+                        <div style={{width: 1200, height: 0, left: 64, top: 1220, position: 'absolute', border: '1px #DDDDDD solid'}}></div>
+
+                        <div style={{ textAlign:"left",width:240,background:"white",height:40,padding:10,zIndex: 99999, left: 955, top: 760, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word' }}>
+                            <Select
+                                options={options}
+                                value={options.find(option => option.value === selectedOption?.value)} // Optional chaining here
+                                onChange={handleSelectChange}
+                                getOptionLabel={option => (
+                                    <div>
+                                        <img src={process.env.PUBLIC_URL + option.icon} alt={option.label} style={{ width: 24, marginRight: 10 }} />
+                                        {option.label}
+                                    </div>
+                                )}
+                                getOptionValue={option => option.value}
+                            />
+                            <div style={{ left: 18, top: 16, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word' }}>
+                                {/*{selectedOption?.label || ''}*/}
+                            </div>
+                        </div>                        {/*<div style={{ width: 260, height: 51, left: 956, top: 445, position: 'absolute' }}>*/}
                         {/*    <div style={{ width: 260, height: 51, left: 0, top: 0, position: 'absolute', background: 'white', borderRadius: 10, border: '1px #CCCCCC solid' }}>*/}
                         {/*        <select*/}
                         {/*            style={{ width: '100%', height: '100%', background: 'none', border: 'none', outline: 'none', padding: '0 10px' }}*/}
@@ -286,15 +340,130 @@ const CreateSurveySTEP3 = () => {
                         {/*    </div>*/}
 
                         {/*</div>*/}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: 700, height: 32, left: 190, top: 485, position: 'absolute' }}>
+                            <label style={{ cursor: 'pointer', position: 'relative', top: -5,width:250 }}>
+                                <input type="radio" name="language" value="op1" onChange={() => handleLanguageChange('op1')} checked={selectedLanguage === 'op1'} style={{ display: 'none' }} />
+                                <span style={{ textAlign:"left",marginLeft: 5, left: 0, top: -100, position: "absolute", color: selectedLanguage === 'op1' ? '#00BDA9' : 'black' }}>Upload video (Max 100 Mo)</span>
+                                <div style={{ width: selectedLanguage === 'op1' ? 20 : 20, height: selectedLanguage === 'op1' ? 20 : 20, position: 'absolute', borderRadius: 55, border: selectedLanguage === 'op1' ? '3px solid #00BDA9' : '3px solid #CCCCCC', top: -100, left: -40 }} />
+                            </label>
 
-                        <div style={{width: 868, height: 96, left: 64, top: 341, position: 'absolute'}}>
+                            <label style={{ textAlign:"left",cursor: 'pointer', position: 'relative', top: -5,width:200,left:120 }}>
+                                <input type="radio" name="language" value="Link youtube" onChange={() => handleLanguageChange('Link youtube')} checked={selectedLanguage === 'Link youtube'} style={{ display: 'none' }} />
+                                <span style={{ marginLeft: 5, left: 0, top: -100, position: "absolute", color: selectedLanguage === 'Link youtube' ? '#00BDA9' : 'black' }}>Link youtube</span>
+                                <div style={{ width: selectedLanguage === 'Link youtube' ? 20 : 20, height: selectedLanguage === 'Link youtube' ? 20 : 20, position: 'absolute', borderRadius: 55, border: selectedLanguage === 'Link youtube' ? '3px solid #00BDA9' : '3px solid #CCCCCC', top: -100, left: -40 }} />
+                            </label>
+                        </div>
+                        {!uploadedLink && (
+                            <div style={{ width: 380, height: 60, left: 805, top: 405, position: 'absolute' }}>
+                                <input
+                                    style={{
+                                        width: 350,
+                                        height: 51,
+                                        left: 0,
+                                        top: 0,
+                                        position: 'absolute',
+                                        background: 'rgba(17, 17, 17, 0.10)',
+                                        borderRadius: 10,
+                                        border: 'none'
+                                    }}
+                                    value={youtubeLink}
+                                    onChange={handleLinkChange}
+                                />
+                                <div
+                                    style={{
+                                        left: 16,
+                                        top: 15,
+                                        position: 'absolute',
+                                        color: 'rgba(0, 0, 0, 0.40)',
+                                        fontSize: 14,
+                                        fontFamily: 'revert',
+                                        fontWeight: '400',
+                                        wordWrap: 'break-word'
+                                    }}
+                                >
+                                    Enter the link of YouTube
+                                </div>
+                                <button
+                                    style={{
+                                        width: 81,
+                                        height: 51,
+                                        border: 'none',
+                                        borderRadius: '10px',
+                                        left: 270,
+                                        top: 100,
+                                        position: 'absolute',
+                                        background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        display: 'inline-flex'
+                                    }}
+                                    onClick={handleUpload}
+                                >
+                                    <div style={{ color: 'white', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word' }}>Upload</div>
+                                </button>
+                            </div>
+                        )}
+
+                        {uploadedLink && (
+                            <div style={{ marginTop: 20,zIndex:99999,position:"absolute",left:800,top:380,borderRadius:10 }}>
+                                <iframe
+                                    title="Uploaded Video"
+                                    width="420"
+                                    height="261"
+                                    src={`https://www.youtube.com/embed/${uploadedLink}`}
+                                    frameBorder="0"
+                                    allowFullScreen
+                                ></iframe>
+                                <button
+                                    style={{
+                                        position:"absolute",
+                                        top:-35,
+                                        left:370,
+                                        marginTop: 10,
+                                        backgroundColor: 'transparent',
+                                        color: '#00BDA9',
+                                        fontWeight:600,
+                                        padding: '5px 10px',
+                                        border:"none"
+                                    }}
+                                    onClick={handleDelete}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        )}
+                        {!showConfirmation && !showConfirmation1 &&<div style={{ width:  388, height: 229, left: 400, top: 357, position: 'absolute' }}>
+                            <div style={{ width: 420, height: 261,left: -220, top: 45, position: 'absolute', background: 'rgba(17, 17, 17, 0.04)', borderRadius: 20 }} >
+                            {/*<div style={{width: 200, left: 0, top: -20, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert',textAlign:"left", fontWeight: '600', wordWrap: 'break-word'}}>Upload video (Max 100 Mo)</div>*/}
+                            <div style={{width: 120, left: 300, top: -20, position: 'absolute', textAlign: 'right', color: '#666666', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>.mp4 .mov .avi</div>
+                            <div style={{ width: 388, height: 229, borderRadius: 20, border: '2px #CCCCCC dotted', marginTop: 20, textAlign: 'center', position: 'relative',left:13,top:-5 }}>
+                                <input type="file" style={{ display: 'none' }} onChange={handleFileChange} multiple />
+                                <img src={process.env.PUBLIC_URL + '/upload.png'} alt="Upload Icon" style={{ width: 60, height: 60, marginTop: 50, cursor: 'pointer' }} onClick={() => document.querySelector('input[type="file"]').click()} />
+                                <div style={{ color: 'black', fontSize: 14, fontWeight: '600', marginTop: 10 }}>Select files to upload</div>
+                                <div style={{ color: '#666666', fontSize: 12, fontWeight: '400', marginTop: 5 }}>or Drag and Drop, Copy and Paste Files</div>
+                            </div>
+                            <div style={{ display: 'flex',left: 100, top: -150, position: 'relative', flexWrap: 'wrap', justifyContent: 'center', marginTop: 20 }}>
+                                {selectedFiles.map((file, index) => (
+                                    <div key={index} style={{ margin: 10 }}>
+                                        <img src={URL.createObjectURL(file)} alt={`File ${index}`} style={{ width: 150, height: 110, objectFit: 'cover', borderRadius: 10 }} />
+                                        <p style={{ textAlign: 'center', marginTop: 5 }}>{file.name}</p>
+                                    </div>
+                                ))}
+                            </div>
+                            </div>
+                        </div>}
+                        <div style={{width: 868, height: 96, left: 64, top: 740, position: 'absolute'}}>
                             <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Question</div>
                             <input style={{width: 868, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10}} />
                             <div style={{left: 16, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Enter you question</div>
                         </div>
-                        <div style={{width: 127, height: 19.19, left: 805, top: 341, position: 'absolute', color: '#00BDA9', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>+Add a description</div>
-                        <div style={{width: 1152, height: 0, left: 64, top: 622, position: 'absolute', border: '1px #DDDDDD solid'}}></div>
-                        <div style={{padding: 8, left: 963, top: 616, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 16, display: 'inline-flex'}}>
+                        <div style={{width: 868, height: 96, left: 64, top: 830, position: 'absolute'}}>
+                            <div style={{left: 0, top: 5, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Description</div>
+                            <input style={{width: 868, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10}} />
+                            <div style={{left: 16, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Enter you question</div>
+                        </div>
+
+                        <div style={{padding: 8, left: 963, top: 1070, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 16, display: 'inline-flex'}}>
                             <div style={{width: 32, height: 32, position: 'relative'}}>
                                 <img src={process.env.PUBLIC_URL + '/add.png'} style={{width: 28.44, height: 28.44, left: 8, top: 4, position: 'absolute'}}></img>
                             </div>
@@ -302,42 +471,9 @@ const CreateSurveySTEP3 = () => {
                             </img>
                             <div style={{justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
                                 <div style={{color: '#111111', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Mandatory</div>
-
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: 8,
-                                        position: 'absolute',
-                                        left: 167,
-                                        top: 15,
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            width: 30,
-                                            height: 15,
-                                            position: 'relative',
-                                            borderRadius: 30,
-                                            background: isChecked1 ? 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)' : '#ccc',
-                                            cursor: 'pointer',
-                                        }}
-                                        onClick={handleToggle1}
-                                    >
-                                        <div
-                                            style={{
-                                                width: 16,
-                                                height: 16,
-                                                position: 'absolute',
-                                                left: isChecked1 ? 20 : 0,
-                                                top: 0,
-                                                borderRadius: '50%',
-                                                background: 'white',
-                                                boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.25)',
-                                                transition: 'left 0.3s ease-in-out',
-                                            }}
-                                        />
-                                    </div>
+                                <div style={{width: 32, height: 18.13, position: 'relative'}}>
+                                    <div style={{width: 32, height: 13.87, left: 0, top: 2.13, position: 'absolute', background: 'rgba(0, 0, 0, 0.20)', borderRadius: 30}} />
+                                    <div style={{width: 18.13, height: 18.13, left: 0, top: 0, position: 'absolute', background: 'white', boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.25)', borderRadius: 9999}} />
                                 </div>
                             </div>
                             <div>
@@ -346,7 +482,6 @@ const CreateSurveySTEP3 = () => {
                                         width: 24,
                                         height: 24,
                                         position: 'relative',
-                                        left:5,
                                         top: 7,
                                         cursor: 'pointer', // Add cursor pointer to indicate it's clickable
                                     }}
@@ -357,7 +492,7 @@ const CreateSurveySTEP3 = () => {
                                         style={{
                                             width: 24,
                                             height: 24,
-                                            left: 30,
+                                            left: -8,
                                             top: -8,
                                             position: 'absolute',
                                             background: 'rgba(0, 0, 0, 0.08)',
@@ -388,13 +523,15 @@ const CreateSurveySTEP3 = () => {
                             </div>
 
                         </div>
-                        <div style={{width: 16, height: 16, padding: 1.33, left: 71, top: 705, position: 'absolute', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
+
+                        <div style={{width: 204, padding: 16, left: 40, top: 1150, position: 'absolute', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 10, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
+                            <div style={{color: 'white', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>New question</div>
+                        </div>
+                        <div style={{width: 16, height: 16, padding: 1.33, left: 71, top: 1105, position: 'absolute', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
                             <FaPlus style={{width: 13.33, height: 13.33, position: 'relative',color:"white"}}>
                             </FaPlus>
                         </div>
-                        <div style={{width: 24, height: 24, left: 972, top: 378, position: 'absolute'}}>
-                            <img src={process.env.PUBLIC_URL + '/check.png'} style={{width: 20, height: 20, left: 2, top: 2, position: 'absolute'}}></img>
-                        </div>
+
                         <div style={{width: 1152, height: 36, left: 64, top: 286, position: 'absolute', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex'}}>
                             <div style={{justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
                                 <div style={{padding: 8, background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 4, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
@@ -407,14 +544,14 @@ const CreateSurveySTEP3 = () => {
                             <div style={{justifyContent: 'center', alignItems: 'center', gap: 24, display: 'flex'}}>
                                 <div style={{justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'flex'}}>
                                     <div style={{width: 32, height: 32, position: 'relative'}}>
-                                        <div style={{width: 32, height: 32, left: 0, top: 0, position: 'absolute', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 50}} />
-                                        <div style={{width: 16, height: 16, left: 8, top: 8, position: 'absolute', background: 'white', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.25)', borderRadius: 9999}} />
+                                        <div style={{width: 32, height: 32, left: 0, top: 0, position: 'absolute', borderRadius: 50, border: '3px #CCCCCC solid'}} />
                                     </div>
                                     <div style={{color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Text</div>
                                 </div>
                                 <div style={{justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'flex'}}>
                                     <div style={{width: 32, height: 32, position: 'relative'}}>
-                                        <div style={{width: 32, height: 32, left: 0, top: 0, position: 'absolute', borderRadius: 50, border: '3px #CCCCCC solid'}} />
+                                        <div style={{width: 32, height: 32, left: 0, top: 0, position: 'absolute', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 50}} />
+                                        <div style={{width: 16, height: 16, left: 8, top: 8, position: 'absolute', background: 'white', boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.25)', borderRadius: 9999}} />
                                     </div>
                                     <div style={{color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Image</div>
                                 </div>
@@ -438,14 +575,18 @@ const CreateSurveySTEP3 = () => {
                                 </div>
                                 <div style={{flex: '1 1 0', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Preview</div>
                             </div>
+
                         </div>
-                        <div style={{width: 375, height: 0, left: 104, top: 585, position: 'absolute', border: '2px #CCCCCC solid'}}></div>
+
                         <div style={{width: 24, height: 24, left: 628, top: 257, position: 'absolute'}}>
                             <div style={{width: 16, height: 6, left: 4, top: 9, position: 'absolute', background: 'rgba(0, 0, 0, 0.30)'}}></div>
                         </div>
-                    </div>
-                    <div style={{position:"relative",top:450}}>
-                        <CreateSurveyImage></CreateSurveyImage>
+                        <button style={{border:"2px solid black",backgroundColor:"white",position:"absolute",top:1235,left:40,width: 147, height: 51, padding: 16, background: '#DDDDDD', borderRadius: 10, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
+                            <div style={{color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Previous</div>
+                        </button>
+                        <button style={{border:"none",position:"absolute",top:1235,right:100,width: 147, height: 51, padding: 16, background: '#DDDDDD', borderRadius: 10, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
+                            <div style={{color: '#666666', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Next</div>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -453,4 +594,4 @@ const CreateSurveySTEP3 = () => {
     );
 };
 
-export default CreateSurveySTEP3;
+export default CreateSurveySTEP7;
