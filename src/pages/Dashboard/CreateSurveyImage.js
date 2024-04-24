@@ -16,6 +16,7 @@ import BHeader from "./BHeader";
 import EndPopup from "./EndPopup";
 import SubBrandPopup from "./SubBrandPopup";
 import ProductOffers from "./ProductOffers";
+import Select from "react-select";
 const opencage = require('opencage-api-client');
 
 
@@ -36,7 +37,25 @@ const CreateSurveyImage = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
     const [showDropdown, setShowDropdown] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked1, setIsChecked1] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
+    const [selectedOption1, setSelectedOption1] = useState('');
+    const [selectedOption2, setSelectedOption2] = useState('');
 
+    const handleFocus = () => {
+        setIsFocused(true);
+    };
+
+    const handleBlur = () => {
+        setIsFocused(false);
+    };
+    const handleToggle = () => {
+        setIsChecked((prevState) => !prevState);
+    };
+    const handleToggle1 = () => {
+        setIsChecked1((prevState) => !prevState);
+    };
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };
@@ -166,8 +185,28 @@ const CreateSurveyImage = () => {
     };
 
 
+    const handleOptionClick2 = (option2) => {
+        setSelectedOption2(option2);
+    };
+
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
+    };
+    const options = [
+        { value: 'Radio box', label: 'Radio box', icon: '/box.png' },
+        { value: 'Check boxes', label: 'Check boxes', icon: '/check.png' },
+
+        { value: 'Dropdown', label: 'Dropdown', icon: '/drop.png' },
+        { value: 'Single textbox', label: 'Single textbox', icon: '/textbox.png' },
+        { value: 'Comment', label: 'Comment Box', icon: '/Comment.png' },
+        { value: 'Choice of 1 to 10', label: 'Choice of 1 to 10', icon: '/choice.png' },
+        { value: 'Smile rating', label: 'Smile rating', icon: '/smile.png' },
+        { value: 'Star rating', label: 'Star rating', icon: '/star.png' },
+        // Add other options with their respective icons
+    ];
+
+    const handleSelectChange = (selectedOption1) => {
+        setSelectedOption1(selectedOption1);
     };
 
     return (
@@ -178,11 +217,7 @@ const CreateSurveyImage = () => {
                         <div style={{width: 1200, height: 780, left: 40, top: 249, position: 'absolute', background: '#F5F5F5', borderRadius: 10}} />
 
                         <div style={{width: 1152, height: 0, left: 64, top: 837, position: 'absolute', border: '1px #DDDDDD solid'}}></div>
-                        <div style={{width: 260, height: 51, left: 956, top: 765, position: 'absolute', background: 'white', borderRadius: 10, border: '1px #CCCCCC solid'}} />
 
-                        <div style={{width: 24, height: 24, left: 40, top: 924, position: 'absolute'}}>
-                            <div style={{width: 16, height: 6, left: 15, top: 4, position: 'absolute', transform: 'rotate(90deg)', transformOrigin: '0 0', background: 'rgba(0, 0, 0, 0.30)'}}></div>
-                        </div>
                         <div style={{width: 400, height: 32, left: -40, top: 950, position: 'absolute'}}>
                             <label style={{ margin: '0 150px', position: 'relative', cursor: 'pointer', display: 'block',top:-5 }}>
                                 <input type="checkbox" name="language" value="op1" onChange={() => handleLanguageChange('op1')} checked={selectedLanguage === 'op1'} style={{ display: 'none' }} />
@@ -196,9 +231,22 @@ const CreateSurveyImage = () => {
                             </label>
                         </div>
                         <div style={{left: 104, top: 880, position: 'absolute'}}><span style={{color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Add an option or </span><span style={{color: '#00BDA9', fontSize: 14, fontFamily: 'revert', fontWeight: '700', wordWrap: 'break-word'}}>add "other"</span></div>
-                        <div style={{left: 1004, top: 781, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Radio box</div>
-                        <div style={{width: 24, height: 24, left: 1182, top: 778, position: 'absolute'}}>
-                            <FaAngleDown ></FaAngleDown>
+                        <div style={{ textAlign:"left",width:240,background:"white",height:40,padding:10,zIndex: 99999, left: 955, top: 760, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word' }}>
+                            <Select
+                                options={options}
+                                value={options.find(option => option.value === selectedOption?.value)} // Optional chaining here
+                                onChange={handleSelectChange}
+                                getOptionLabel={option => (
+                                    <div>
+                                        <img src={process.env.PUBLIC_URL + option.icon} alt={option.label} style={{ width: 24, marginRight: 10 }} />
+                                        {option.label}
+                                    </div>
+                                )}
+                                getOptionValue={option => option.value}
+                            />
+                            <div style={{ left: 18, top: 16, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word' }}>
+                                {/*{selectedOption?.label || ''}*/}
+                            </div>
                         </div>
                         {/*<div style={{ width: 260, height: 51, left: 956, top: 445, position: 'absolute' }}>*/}
                         {/*    <div style={{ width: 260, height: 51, left: 0, top: 0, position: 'absolute', background: 'white', borderRadius: 10, border: '1px #CCCCCC solid' }}>*/}
@@ -243,11 +291,54 @@ const CreateSurveyImage = () => {
                                 ))}
                             </div>
                         </div>}
-                        <div style={{width: 868, height: 96, left: 64, top: 740, position: 'absolute'}}>
-                            <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Question</div>
-                            <input style={{width: 868, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10,border:"none"}} />
-                            <div style={{left: 16, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Enter you question</div>
+                        <div style={{ width: 868, height: 96, left: 64, top: 740, position: 'absolute' }}>
+                            <div
+                                style={{
+                                    left: 0,
+                                    top: -2,
+                                    position: 'absolute',
+                                    color: 'black',
+                                    fontSize: 14,
+                                    fontFamily: 'revert',
+                                    fontWeight: '600',
+                                    wordWrap: 'break-word',
+                                }}
+                            >
+                                Question
+                            </div>
+                            <input
+                                style={{
+                                    width: 840,
+                                    height: 51,
+                                    left: 0,
+                                    top: 25,
+                                    position: 'absolute',
+                                    background: 'rgba(17, 17, 17, 0.10)',
+                                    borderColor: isFocused ? '#00BDA9' : 'transparent',
+                                    borderRadius: 10,
+                                    padding: '0 10px',
+                                }}
+                                onFocus={handleFocus}
+                                onBlur={handleBlur}
+                            />
+                            {!isFocused && (
+                                <div
+                                    style={{
+                                        left: 16,
+                                        top: 41,
+                                        position: 'absolute',
+                                        color: 'rgba(0, 0, 0, 0.40)',
+                                        fontSize: 14,
+                                        fontFamily: 'revert',
+                                        fontWeight: '400',
+                                        wordWrap: 'break-word'
+                                    }}
+                                >
+                                    Enter your question
+                                </div>
+                            )}
                         </div>
+
                         <div style={{width: 127, height: 19.19, left: 805, top: 740, position: 'absolute', color: '#00BDA9', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>+Add a description</div>
 
                         <div style={{width: 1152, height: 0, left: 64, top: 920, position: 'absolute', border: '1px #DDDDDD solid'}}></div>
@@ -260,9 +351,42 @@ const CreateSurveyImage = () => {
                             </img>
                             <div style={{justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
                                 <div style={{color: '#111111', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Mandatory</div>
-                                <div style={{width: 32, height: 18.13, position: 'relative'}}>
-                                    <div style={{width: 32, height: 13.87, left: 0, top: 2.13, position: 'absolute', background: 'rgba(0, 0, 0, 0.20)', borderRadius: 30}} />
-                                    <div style={{width: 18.13, height: 18.13, left: 0, top: 0, position: 'absolute', background: 'white', boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.25)', borderRadius: 9999}} />
+
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 8,
+                                        position: 'absolute',
+                                        left: 167,
+                                        top: 15,
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            width: 30,
+                                            height: 15,
+                                            position: 'relative',
+                                            borderRadius: 30,
+                                            background: isChecked1 ? 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)' : '#ccc',
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={handleToggle1}
+                                    >
+                                        <div
+                                            style={{
+                                                width: 16,
+                                                height: 16,
+                                                position: 'absolute',
+                                                left: isChecked1 ? 20 : 0,
+                                                top: 0,
+                                                borderRadius: '50%',
+                                                background: 'white',
+                                                boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.25)',
+                                                transition: 'left 0.3s ease-in-out',
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div>
@@ -272,7 +396,8 @@ const CreateSurveyImage = () => {
                                         height: 24,
                                         position: 'relative',
                                         top: 7,
-                                        cursor: 'pointer', // Add cursor pointer to indicate it's clickable
+                                        left: 25,
+                                        cursor: 'pointer',
                                     }}
                                     onClick={toggleDropdown}
                                 >
@@ -281,7 +406,7 @@ const CreateSurveyImage = () => {
                                         style={{
                                             width: 24,
                                             height: 24,
-                                            left: -8,
+                                            left: 5,
                                             top: -8,
                                             position: 'absolute',
                                             background: 'rgba(0, 0, 0, 0.08)',
@@ -295,18 +420,47 @@ const CreateSurveyImage = () => {
                                     <div
                                         style={{
                                             position: 'absolute',
-                                            top: 35, // Adjust the positioning as needed
-                                            left: 0,
+                                            top: 35,
+                                            left: -60,
                                             background: '#fff',
                                             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
                                             borderRadius: 5,
-                                            padding: '8px 12px',
+                                            padding: '5px 10px',
+                                            width: 280,
                                             zIndex: 10,
-                                            textAlign:"left"
+                                            textAlign: 'left',
                                         }}
                                     >
-                                        <div>Add a description</div>
-                                        <div>Access a section based on the answer</div>
+                                        <button
+                                            style={{
+                                                marginBottom: 5,
+                                                borderRadius:10,
+                                                padding:18,
+                                                paddingLeft:25,
+                                                textAlign:"left",
+                                                backgroundColor: selectedOption2 === 'description' ? 'lightgray' : 'transparent',
+                                                border: 'none',
+                                            }}
+                                            onClick={() => handleOptionClick2('description')}
+                                        >
+                                            Add a description
+                                            {selectedOption2 === 'description' && <span style={{position:"absolute",left:15,top:10,fontSize:24,marginRight:10}}>&#10003;</span>}
+                                        </button>
+                                        <button
+                                            style={{
+                                                marginBottom: 10,
+                                                borderRadius:10,
+                                                padding:18,
+                                                paddingLeft:25,
+                                                textAlign:"left",
+                                                backgroundColor: selectedOption2 === 'access' ? 'lightgray' : 'transparent',
+                                                border: 'none',
+                                            }}
+                                            onClick={() => handleOptionClick2('access')}
+                                        >
+                                            Access a section based on the answer
+                                            {selectedOption2 === 'access' && <span style={{position:"absolute",left:15,top:65,fontSize:24,marginRight:10}}>&#10003;</span>}
+                                        </button>
                                     </div>
                                 )}
                             </div>
@@ -320,17 +474,49 @@ const CreateSurveyImage = () => {
                             <FaPlus style={{width: 13.33, height: 13.33, position: 'relative',color:"white"}}>
                             </FaPlus>
                         </div>
-                        <div style={{width: 24, height: 24, left: 972, top: 780, position: 'absolute'}}>
-                            <img src={process.env.PUBLIC_URL + '/check.png'} style={{width: 20, height: 20, left: 2, top: 2, position: 'absolute'}}></img>
-                        </div>
+
                         <div style={{width: 1152, height: 36, left: 64, top: 286, position: 'absolute', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex'}}>
                             <div style={{justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
-                                <div style={{padding: 8, background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 4, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
-                                    <div style={{color: 'white', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Français</div>
-                                </div>
-                                <div style={{padding: 8, background: 'white', borderRadius: 4, border: '1px #999999 solid', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
-                                    <div style={{color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Arabe Tunisien</div>
-                                </div>
+                                <button
+                                    style={{
+                                        padding: 8,
+                                        background:
+                                            selectedLanguage === 'fr'
+                                                ? 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)'
+                                                : 'white',
+                                        color: selectedLanguage === 'fr' ? 'white' : '#111111',
+                                        borderRadius: 4,
+                                        border: '1px #999999 solid',
+                                        flexDirection: 'column',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        gap: 10,
+                                        display: 'inline-flex',
+                                    }}
+                                    onClick={() => handleLanguageChange('fr')}
+                                >
+                                    <div style={{ fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word' }}>Français</div>
+                                </button>
+                                <button
+                                    style={{
+                                        padding: 8,
+                                        background:
+                                            selectedLanguage === 'ar'
+                                                ? 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)'
+                                                : 'white',
+                                        color: selectedLanguage === 'ar' ? 'white' : '#111111',
+                                        borderRadius: 4,
+                                        border: '1px #999999 solid',
+                                        flexDirection: 'column',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        gap: 10,
+                                        display: 'inline-flex',
+                                    }}
+                                    onClick={() => handleLanguageChange('ar')}
+                                >
+                                    <div style={{ fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word' }}>Arabe Tunisien</div>
+                                </button>
                             </div>
                             <div style={{justifyContent: 'center', alignItems: 'center', gap: 24, display: 'flex'}}>
                                 <div style={{justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'flex'}}>

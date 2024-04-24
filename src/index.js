@@ -82,6 +82,7 @@ import CreateSurveySTEP5 from "./pages/Dashboard/CreateSurveySTEP5";
 import CreateSurveySTEP6 from "./pages/Dashboard/CreateSurveySTEP6";
 import CreateSurveySTEP7 from "./pages/Dashboard/CreateSurveySTEP7";
 import CreateSurveySTEP8 from "./pages/Dashboard/CreateSurveySTEP8";
+import CreateSurveySTEP9 from "./pages/Dashboard/CreateSurveySTEP9";
 const routes = createBrowserRouter([
   {path:"/Businesshome/:iduser", element: <Businesshome/>},
   {path:"/Businesshomedata/:iduser", element: <Businesshomedata />},
@@ -147,6 +148,8 @@ const routes = createBrowserRouter([
     path: "/createsurvey7", element: <CreateSurveySTEP7 />,
   },{
     path: "/createsurvey8", element: <CreateSurveySTEP8 />,
+  },{
+    path: "/createsurvey9", element: <CreateSurveySTEP9 />,
   },
   {
     path: "/tale", element: <Tale5 />,

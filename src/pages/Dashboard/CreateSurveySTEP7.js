@@ -37,20 +37,104 @@ const CreateSurveySTEP7 = () => {
     const [checkboxValues1, setCheckboxValues1] = useState(Array(3).fill(false));
     const [selectedFiles, setSelectedFiles] = useState([]);
     const navigate = useNavigate();
-
+    const [selectedLanguage1, setSelectedLanguage1] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
     const [showDropdown, setShowDropdown] = useState(false);
     const [youtubeLink, setYoutubeLink] = useState('');
     const [uploadedLink, setUploadedLink] = useState('');
     const [selectedEmoji, setSelectedEmoji] = useState(null); // State to track selected emoji
+    const [selectedOption2, setSelectedOption2] = useState('');
+    const [isChecked1, setIsChecked1] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
+    const [isFocused1, setIsFocused1] = useState(false);
+    const [isFocused2, setIsFocused2] = useState(false);
+    const [isFocused3, setIsFocused3] = useState(false);
 
+    const [selectedOption1, setSelectedOption1] = useState('');
+    const [selectedOption3, setSelectedOption3] = useState('');
+    const [selectedOption4, setSelectedOption4] = useState('');
+    const [selectedOption5, setSelectedOption5] = useState('');
+    const [selectedOption6, setSelectedOption6] = useState('');
+    const [uploadProgress, setUploadProgress] = useState(0);
 
+    const handleFileChange = (event) => {
+        const files = event.target.files;
+        setSelectedFiles([...selectedFiles, ...files]);
+    };
+
+    const uploadFiles = () => {
+        // Simulating upload progress
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 10;
+            setUploadProgress(progress);
+            if (progress >= 100) {
+                clearInterval(interval);
+                setUploadProgress(0);
+                setSelectedFiles([]);
+            }
+        }, 1000);
+    };
+    const handleFocus = () => {
+        setIsFocused(true);
+    };
+
+    const handleBlur = () => {
+        setIsFocused(false);
+    };
+    const handleFocus1 = () => {
+        setIsFocused1(true);
+    };
+
+    const handleBlur1 = () => {
+        setIsFocused1(false);
+    };
+    const handleFocus2 = () => {
+        setIsFocused2(true);
+    };
+
+    const handleBlur2 = () => {
+        setIsFocused2(false);
+    };
+    const handleFocus3 = () => {
+        setIsFocused3(true);
+    };
+
+    const handleBlur3 = () => {
+        setIsFocused3(false);
+    };
+    const handleToggle = () => {
+        setIsChecked((prevState) => !prevState);
+    };
+
+    const handleChange3 = (e) => {
+        setSelectedOption3(e.target.value);
+    };
+    const handleChange4 = (e) => {
+        setSelectedOption4(e.target.value);
+    };
+    const handleChange5 = (e) => {
+        setSelectedOption5(e.target.value);
+    };
+    const handleChange6 = (e) => {
+        setSelectedOption6(e.target.value);
+    };
+    const handleOptionClick2 = (option2) => {
+        setSelectedOption2(option2);
+    };
+
+    const handleLanguageChange1 = (language1) => {
+        setSelectedLanguage1(language1);
+    };
     // Function to handle radio button choice
     const handleEmojiSelect = (emojiSrc) => {
         setSelectedEmoji(emojiSrc);
     };
-
+    const handleToggle1 = () => {
+        setIsChecked1((prevState) => !prevState);
+    };
     const handleLinkChange = (e) => {
         setYoutubeLink(e.target.value);
     };
@@ -106,14 +190,7 @@ const CreateSurveySTEP7 = () => {
         }
     };
 
-    const handleFileChange = (event) => {
-        const files = event.target.files;
-        const selectedFilesArray = Array.from(files);
-        setSelectedFiles(selectedFilesArray);
-        // Automatically submit files here or trigger an upload function
-        // For demonstration, I'm logging the selected files to the console
-        console.log('Selected Files:', selectedFilesArray);
-    };
+
     const isNextDisabled = textareaContent.trim() === '' || textareaContent.length > 1000;
 
 
@@ -283,14 +360,98 @@ const CreateSurveySTEP7 = () => {
                                 {/*{selectedOption || ''}*/}
                             </div>
                             <div style={{width: 250, height: 96, left: 180, top: -20, position: 'absolute'}}>
-                                <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Labeled on the left</div>
-                                <input style={{width: 250, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10,border:"none"}} />
-                                <div style={{left: 16, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Enter Labeled on the left</div>
-                            </div>
+                                    <div
+                                        style={{
+                                            left: 0,
+                                            top: -2,
+                                            position: 'absolute',
+                                            color: 'black',
+                                            fontSize: 14,
+                                            fontFamily: 'revert',
+                                            fontWeight: '600',
+                                            wordWrap: 'break-word',
+                                        }}
+                                    >
+                                        Labeled on the left
+                                    </div>
+                                    <input
+                                        style={{
+                                            width: 250,
+                                            height: 51,
+                                            left: 0,
+                                            top: 25,
+                                            position: 'absolute',
+                                            background: 'rgba(17, 17, 17, 0.10)',
+                                            borderColor: isFocused1 ? '#00BDA9' : 'transparent',
+                                            borderRadius: 10,
+                                            padding: '0 10px',
+                                        }}
+                                        onFocus={handleFocus1}
+                                        onBlur={handleBlur1}
+                                    />
+                                    {!isFocused1 && (
+                                        <div
+                                            style={{
+                                                left: 16,
+                                                top: 41,
+                                                position: 'absolute',
+                                                color: 'rgba(0, 0, 0, 0.40)',
+                                                fontSize: 14,
+                                                fontFamily: 'revert',
+                                                fontWeight: '400',
+                                                wordWrap: 'break-word'
+                                            }}
+                                        >
+                                            Enter your question
+                                        </div>
+                                    )}
+                                </div>
                             <div style={{width: 250, height: 96, left: 470, top: -20, position: 'absolute'}}>
-                                <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Labeled on the right</div>
-                                <input style={{width: 250, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10,border:"none"}} />
-                                <div style={{left: 16, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Enter Labeled on the right</div>
+                                <div
+                                    style={{
+                                        left: 0,
+                                        top: -2,
+                                        position: 'absolute',
+                                        color: 'black',
+                                        fontSize: 14,
+                                        fontFamily: 'revert',
+                                        fontWeight: '600',
+                                        wordWrap: 'break-word',
+                                    }}
+                                >
+                                    Labeled on the right
+                                </div>
+                                <input
+                                    style={{
+                                        width: 250,
+                                        height: 51,
+                                        left: 0,
+                                        top: 25,
+                                        position: 'absolute',
+                                        background: 'rgba(17, 17, 17, 0.10)',
+                                        borderColor: isFocused3 ? '#00BDA9' : 'transparent',
+                                        borderRadius: 10,
+                                        padding: '0 10px',
+                                    }}
+                                    onFocus={handleFocus3}
+                                    onBlur={handleBlur3}
+                                />
+                                {!isFocused3 && (
+                                    <div
+                                        style={{
+                                            left: 16,
+                                            top: 41,
+                                            position: 'absolute',
+                                            color: 'rgba(0, 0, 0, 0.40)',
+                                            fontSize: 14,
+                                            fontFamily: 'revert',
+                                            fontWeight: '400',
+                                            wordWrap: 'break-word'
+                                        }}
+                                    >
+                                        Enter your question
+                                    </div>
+                                )}
                             </div>
                             <button style={{backgroundColor:"transparent",border:"none",position:"absolute",left:780,top:15,color: '#111111', fontSize: 16, fontFamily: 'revert', fontWeight: '500', wordWrap: 'break-word'}}>Preview</button>
                             <div style={{ marginLeft:"10px",position:"absolute",left:850 }}>
@@ -452,30 +613,225 @@ const CreateSurveySTEP7 = () => {
                             </div>
                             </div>
                         </div>}
-                        <div style={{width: 868, height: 96, left: 64, top: 740, position: 'absolute'}}>
-                            <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Question</div>
-                            <input style={{width: 868, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10}} />
-                            <div style={{left: 16, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Enter you question</div>
+                        <div style={{ width: 868, height: 96, left: 64, top:737, position: 'absolute' }}>
+                            <div
+                                style={{
+                                    left: 0,
+                                    top: -2,
+                                    position: 'absolute',
+                                    color: 'black',
+                                    fontSize: 14,
+                                    fontFamily: 'revert',
+                                    fontWeight: '600',
+                                    wordWrap: 'break-word',
+                                }}
+                            >
+                                Question
+                            </div>
+                            <input
+                                style={{
+                                    width: 840,
+                                    height: 51,
+                                    left: 0,
+                                    top: 25,
+                                    position: 'absolute',
+                                    background: 'rgba(17, 17, 17, 0.10)',
+                                    borderColor: isFocused ? '#00BDA9' : 'transparent',
+                                    borderRadius: 10,
+                                    padding: '0 10px',
+                                }}
+                                onFocus={handleFocus}
+                                onBlur={handleBlur}
+                            />
+                            {!isFocused && (
+                                <div
+                                    style={{
+                                        left: 16,
+                                        top: 41,
+                                        position: 'absolute',
+                                        color: 'rgba(0, 0, 0, 0.40)',
+                                        fontSize: 14,
+                                        fontFamily: 'revert',
+                                        fontWeight: '400',
+                                        wordWrap: 'break-word'
+                                    }}
+                                >
+                                    Enter your question
+                                </div>
+                            )}
                         </div>
-                        <div style={{width: 868, height: 96, left: 64, top: 830, position: 'absolute'}}>
-                            <div style={{left: 0, top: 5, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Description</div>
-                            <input style={{width: 868, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10}} />
-                            <div style={{left: 16, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Enter you question</div>
+                        <div style={{ width: 868, height: 96, left: 64, top: 825, position: 'absolute' }}>
+                            <div
+                                style={{
+                                    left: 0,
+                                    top: -2,
+                                    position: 'absolute',
+                                    color: 'black',
+                                    fontSize: 14,
+                                    fontFamily: 'revert',
+                                    fontWeight: '600',
+                                    wordWrap: 'break-word',
+                                }}
+                            >
+                                Question
+                            </div>
+                            <input
+                                style={{
+                                    width: 840,
+                                    height: 51,
+                                    left: 0,
+                                    top: 25,
+                                    position: 'absolute',
+                                    background: 'rgba(17, 17, 17, 0.10)',
+                                    borderColor: isFocused2 ? '#00BDA9' : 'transparent',
+                                    borderRadius: 10,
+                                    padding: '0 10px',
+                                }}
+                                onFocus={handleFocus2}
+                                onBlur={handleBlur2}
+                            />
+                            {!isFocused2 && (
+                                <div
+                                    style={{
+                                        left: 16,
+                                        top: 41,
+                                        position: 'absolute',
+                                        color: 'rgba(0, 0, 0, 0.40)',
+                                        fontSize: 14,
+                                        fontFamily: 'revert',
+                                        fontWeight: '400',
+                                        wordWrap: 'break-word'
+                                    }}
+                                >
+                                    Enter your question
+                                </div>
+                            )}
                         </div>
 
-                        <div style={{padding: 8, left: 963, top: 1070, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 16, display: 'inline-flex'}}>
-                            <div style={{width: 32, height: 32, position: 'relative'}}>
-                                <img src={process.env.PUBLIC_URL + '/add.png'} style={{width: 28.44, height: 28.44, left: 8, top: 4, position: 'absolute'}}></img>
-                            </div>
-                            <img src={process.env.PUBLIC_URL + '/poubelle.png'} style={{width: 28.44, height: 32, position: 'relative'}}>
-                            </img>
-                            <div style={{justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
-                                <div style={{color: '#111111', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Mandatory</div>
-                                <div style={{width: 32, height: 18.13, position: 'relative'}}>
-                                    <div style={{width: 32, height: 13.87, left: 0, top: 2.13, position: 'absolute', background: 'rgba(0, 0, 0, 0.20)', borderRadius: 30}} />
-                                    <div style={{width: 18.13, height: 18.13, left: 0, top: 0, position: 'absolute', background: 'white', boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.25)', borderRadius: 9999}} />
+                            <div style={{padding: 8, left: 963, top: 1010, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 16, display: 'inline-flex'}}>
+                                <div style={{width: 32, height: 32, position: 'relative'}}>
+                                    <img src={process.env.PUBLIC_URL + '/add.png'} style={{width: 28.44, height: 28.44, left: 8, top: 4, position: 'absolute'}}></img>
                                 </div>
+                                <img src={process.env.PUBLIC_URL + '/poubelle.png'} style={{width: 28.44, height: 32, position: 'relative'}}>
+                                </img>
+                                <div style={{justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
+                                    <div style={{color: '#111111', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Mandatory</div>
+
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 8,
+                                            position: 'absolute',
+                                            left: 167,
+                                            top: 15,
+                                        }}
+                                    >
+                                        <div
+                                            style={{
+                                                width: 30,
+                                                height: 15,
+                                                position: 'relative',
+                                                borderRadius: 30,
+                                                background: isChecked1 ? 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)' : '#ccc',
+                                                cursor: 'pointer',
+                                            }}
+                                            onClick={handleToggle1}
+                                        >
+                                            <div
+                                                style={{
+                                                    width: 16,
+                                                    height: 16,
+                                                    position: 'absolute',
+                                                    left: isChecked1 ? 20 : 0,
+                                                    top: 0,
+                                                    borderRadius: '50%',
+                                                    background: 'white',
+                                                    boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.25)',
+                                                    transition: 'left 0.3s ease-in-out',
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div
+                                        style={{
+                                            width: 24,
+                                            height: 24,
+                                            position: 'relative',
+                                            top: 7,
+                                            left: 30,
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={toggleDropdown}
+                                    >
+                                        <img
+                                            src={process.env.PUBLIC_URL + '/pt.png'}
+                                            style={{
+                                                width: 24,
+                                                height: 24,
+                                                left: 5,
+                                                top: -8,
+                                                position: 'absolute',
+                                                background: 'rgba(0, 0, 0, 0.08)',
+                                                borderRadius: 9999,
+                                            }}
+                                            alt="Dropdown Toggle"
+                                        />
+                                    </div>
+
+                                    {showDropdown && (
+                                        <div
+                                            style={{
+                                                position: 'absolute',
+                                                top: 35,
+                                                left: -60,
+                                                background: '#fff',
+                                                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+                                                borderRadius: 5,
+                                                padding: '5px 10px',
+                                                width: 280,
+                                                zIndex: 10,
+                                                textAlign: 'left',
+                                            }}
+                                        >
+                                            <button
+                                                style={{
+                                                    marginBottom: 5,
+                                                    borderRadius:10,
+                                                    padding:18,
+                                                    paddingLeft:25,
+                                                    textAlign:"left",
+                                                    backgroundColor: selectedOption2 === 'description' ? 'lightgray' : 'transparent',
+                                                    border: 'none',
+                                                }}
+                                                onClick={() => handleOptionClick2('description')}
+                                            >
+                                                Add a description
+                                                {selectedOption2 === 'description' && <span style={{position:"absolute",left:15,top:10,fontSize:24,marginRight:10}}>&#10003;</span>}
+                                            </button>
+                                            <button
+                                                style={{
+                                                    marginBottom: 10,
+                                                    borderRadius:10,
+                                                    padding:18,
+                                                    paddingLeft:25,
+                                                    textAlign:"left",
+                                                    backgroundColor: selectedOption2 === 'access' ? 'lightgray' : 'transparent',
+                                                    border: 'none',
+                                                }}
+                                                onClick={() => handleOptionClick2('access')}
+                                            >
+                                                Access a section based on the answer
+                                                {selectedOption2 === 'access' && <span style={{position:"absolute",left:15,top:65,fontSize:24,marginRight:10}}>&#10003;</span>}
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+
                             </div>
+
                             <div>
                                 <div
                                     style={{
@@ -522,8 +878,6 @@ const CreateSurveySTEP7 = () => {
                                 )}
                             </div>
 
-                        </div>
-
                         <div style={{width: 204, padding: 16, left: 40, top: 1150, position: 'absolute', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 10, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
                             <div style={{color: 'white', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>New question</div>
                         </div>
@@ -534,12 +888,46 @@ const CreateSurveySTEP7 = () => {
 
                         <div style={{width: 1152, height: 36, left: 64, top: 286, position: 'absolute', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex'}}>
                             <div style={{justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
-                                <div style={{padding: 8, background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 4, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
-                                    <div style={{color: 'white', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Français</div>
-                                </div>
-                                <div style={{padding: 8, background: 'white', borderRadius: 4, border: '1px #999999 solid', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
-                                    <div style={{color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Arabe Tunisien</div>
-                                </div>
+                                <button
+                                    style={{
+                                        padding: 8,
+                                        background:
+                                            selectedLanguage1 === 'fr'
+                                                ? 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)'
+                                                : 'white',
+                                        color: selectedLanguage1 === 'fr' ? 'white' : '#111111',
+                                        borderRadius: 4,
+                                        border: '1px #999999 solid',
+                                        flexDirection: 'column',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        gap: 10,
+                                        display: 'inline-flex',
+                                    }}
+                                    onClick={() => handleLanguageChange1('fr')}
+                                >
+                                    <div style={{ fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word' }}>Français</div>
+                                </button>
+                                <button
+                                    style={{
+                                        padding: 8,
+                                        background:
+                                            selectedLanguage1 === 'ar'
+                                                ? 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)'
+                                                : 'white',
+                                        color: selectedLanguage1 === 'ar' ? 'white' : '#111111',
+                                        borderRadius: 4,
+                                        border: '1px #999999 solid',
+                                        flexDirection: 'column',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        gap: 10,
+                                        display: 'inline-flex',
+                                    }}
+                                    onClick={() => handleLanguageChange1('ar')}
+                                >
+                                    <div style={{ fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word' }}>Arabe Tunisien</div>
+                                </button>
                             </div>
                             <div style={{justifyContent: 'center', alignItems: 'center', gap: 24, display: 'flex'}}>
                                 <div style={{justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'flex'}}>

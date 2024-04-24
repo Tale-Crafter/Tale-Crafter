@@ -218,6 +218,8 @@ const CreateSurveySTEP6 = () => {
                     <div style={{position:"relative",top:0,left:50}}>
                         <CreateSurveySound></CreateSurveySound>
                     </div>
+                    <div style={{width: 1152, height: 0, left: 100, top: 1020, position: 'absolute', border: '1px #DDDDDD solid'}}></div>
+
                     <button style={{border:"2px solid black",backgroundColor:"transparent",position:"absolute",top:1040,left:90,width: 147, height: 51, padding: 16, borderRadius: 10, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
                         <div style={{color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Previous</div>
                     </button>
