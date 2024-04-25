@@ -1,0 +1,155 @@
+.login {
+    height: 100%;
+    flex: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+
+}
+
+.loginTitle {
+    color: #111;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    position: absolute;
+    width: 266px;
+    height: 44px;
+    top: 120px;
+    left: 716px;
+}
+
+.emailAccount {
+    color: var(--text-666, #666);
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    position: absolute;
+    width: 172px;
+    height: 19px;
+    top: 252px;
+    left: 763px;
+
+}
+
+.loginForm {
+    width: 400px;
+    height: 96px;
+    flex-shrink: 0;
+    top: 295px;
+    left: 649px;
+    position: absolute;
+
+}
+
+.passwordForm {
+    width: 400px;
+    height: 96px;
+    flex-shrink: 0;
+    top: 399px;
+    left: 649px;
+    position: absolute;
+
+}
+
+.emailAddress {
+    color: #000;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    width: 96px;
+    height: 19px;
+    top: -2px;
+    position: absolute;
+
+}
+
+.emailPlaceholder {
+    width: 400px;
+    height: 51px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: rgba(17, 17, 17, 0.10);
+    top: 25px;
+    border-radius: 10px;
+    position: absolute;
+
+}
+
+.nextButton {
+    top: 503px;
+    left: 649px;
+    position: relative;
+
+}
+
+.signupLink {
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+
+    font-size: 14px;
+    font-style: normal;
+    line-height: normal;
+    width: 205px;
+    height: 19px;
+    top: 586px;
+    left: 747px;
+    position: absolute;
+
+}
+
+.loginContainer {
+    margin-left: auto;
+}
+
+.forgotPasswordLabel {
+    color: #00BDA9;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    width: 400px;
+    height: 19px;
+    top: -2px;
+    position: absolute;
+    text-align: right;
+}
+
+.reCAPTCHA {
+    color: var(--text-666, #666);
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    position: relative;
+    width: 273px;
+    height: 28px;
+    top: 713px;
+    left: 713px;
+
+}
