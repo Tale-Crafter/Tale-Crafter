@@ -58,7 +58,7 @@ const Leftsidebar = ({ sidebarVisible, toggleSidebar }) => {
                 <div style={{width: 265, height: 736, left: 16, top: 80, position: 'absolute', background: 'white', borderRadius: 16}}/>
             ) : (
                 // BSidebarButtonHide when sidebar is hidden
-                <div style={{width: 80, height: 736, left: 16, top: 80, position: 'absolute', background: 'white', borderRadius: 16}} />
+                <div style={{width: 90, height: 736, left: 16, top: 80, position: 'absolute', background: 'white', borderRadius: 16}} />
             )}
 
             {sidebarVisible ? (
@@ -67,7 +67,7 @@ const Leftsidebar = ({ sidebarVisible, toggleSidebar }) => {
                     <Link to={`/home/${iduser}`}>
                         <BSidebarButton label="Dashboard" icon1="ic.png" icon="image3.png" active={activeButton === 'Dashboard'} onClick={() => handleButtonClick('Dashboard')} />
                     </Link>
-                    <Link to={`/surveys/${iduser}`}>
+                    <Link to={`/bsurveys/${iduser}`}>
                         <BSidebarButton label="Surveys" icon="image12.png" active={activeButton === 'Surveys'} onClick={() => handleButtonClick('Surveys')} />
                     </Link>
                     <Link to={`/Focusgroup/${iduser}`}>
@@ -86,7 +86,7 @@ const Leftsidebar = ({ sidebarVisible, toggleSidebar }) => {
                     <Link to={`/home/${iduser}`}>
                     <BSidebarButtonHide label="Dashboard" icon="image3.png" active={activeButton === 'Dashboard'} onClick={() => handleButtonClick('Dashboard')} />
                     </Link>
-                    <Link to={`/surveys/${iduser}`}>
+                    <Link to={`/bsurveys/${iduser}`}>
                     <BSidebarButtonHide label="Surveys" icon="image12.png" active={activeButton === 'Surveys'} onClick={() => handleButtonClick('Surveys')} />
                     </Link>
                     <Link to={`/Focusgroup/${iduser}`}>

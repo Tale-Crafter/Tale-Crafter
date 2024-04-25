@@ -24,6 +24,7 @@ import Headcomponent from "./Headcomponent";
 import Policy from "./Policy";
 import Changepwd from "./Changepwd";
 import Assistancechangepwd from "./Assistancechangepwd";
+import BusinessSurveys from "./BusinessSurveys";
 
 function App() {
     return (
@@ -42,12 +43,14 @@ function App() {
                 <Route path="/generallyspeaking/:iduser" element={<OneanswerSurv />} />
                 <Route path="/endsurvey/:iduser" element={<EarnsPage />} />
                 <Route path="/very/:iduser" element={<VerylikelyVierge />} />
+                <Route path="/veryl/:iduser" element={<Verylikely />} />
                 <Route path="/livesurvey/:iduser" element={<LiveSurvey />} />
                 <Route path="/livesurvey1/:iduser" element={<LiveSurvey1 />} />
                 <Route path="/assistancevid/:iduser" element={<AssistanceRegisterAccountmanagement />} />
                 <Route path="/policy/:iduser" element={<Policy />} />
                 <Route path="/account/:iduser" element={<Assistance />} />
                 <Route path="/account1/:iduser" element={<Assistancechangepwd />} />
+                <Route path="/bsurveys/:iduser" element={<BusinessSurveys/>} />
 
 
             </Routes>

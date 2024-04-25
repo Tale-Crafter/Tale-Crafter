@@ -61,7 +61,32 @@ import Changepwd from "./pages/Dashboard/Changepwd";
 import Assistancechangepwd from "./pages/Dashboard/Assistancechangepwd";
 import AssistanceO from './pages/Dashboard/AssistanceO';
 import TaleCustomerSubscribe from "./pages/TaleCustomerSubscribe";
+import BusinessSurveys from "./pages/Dashboard/BusinessSurveys";
+import CreateSurveySTEP1 from "./pages/Dashboard/CreateSurveySTEP1";
+import CreateSurveySTEP2 from "./pages/Dashboard/CreateSurveySTEP2";
+import CreateSurveySTEP3 from "./pages/Dashboard/CreateSurveySTEP3";
+import Tale5 from "./pages/Dashboard/Tale5";
+import LoginO from './pages/blogin';
+import BusinessRegister from './pages/BusinessRegister';
+import Bverif from './pages/Bemailverif';
+import Chsurvey from './pages/ChSurvey';
+import Simplesurvey from './pages/SipmleSurvey';
+import Createpwd from "./components/Createpwd";
+import Createpassword from "./pages/Createpassword";
+import Businesshome from "./pages/Dashboard/Businesshome";
+import Businesshomedata from "./pages/Dashboard/Businesshomedata";
+import Surveyia from "./pages/Dashboard/Surveyia";
+import Importqs1 from "./pages/Dashboard/Importqs1";
+import CreateSurveySTEP4 from "./pages/Dashboard/CreateSurveySTEP4";
+import CreateSurveySTEP5 from "./pages/Dashboard/CreateSurveySTEP5";
+import CreateSurveySTEP6 from "./pages/Dashboard/CreateSurveySTEP6";
+import CreateSurveySTEP7 from "./pages/Dashboard/CreateSurveySTEP7";
+import CreateSurveySTEP8 from "./pages/Dashboard/CreateSurveySTEP8";
+import CreateSurveySTEP9 from "./pages/Dashboard/CreateSurveySTEP9";
 const routes = createBrowserRouter([
+  {path:"/Businesshome/:iduser", element: <Businesshome/>},
+  {path:"/Businesshomedata/:iduser", element: <Businesshomedata />},
+  {path:"/Surveyia/:iduser", element: <Surveyia/>},
   {
     path: "/register", element: <Register />,
   },
@@ -72,7 +97,22 @@ const routes = createBrowserRouter([
     path: "/*", element: <Notfound />,
   },
   {
-    path: "/login", element: <LoginOne />,
+    path: "/login", element: <LoginO />,
+  },{
+    path: "/BusinessRegister", element: <BusinessRegister />,
+  },
+  {
+    path: "/Verif", element: <Bverif />,
+  },
+
+  {
+    path: "/chsurvey", element: <Chsurvey />,
+  },
+  {
+    path: "/simplesurvey", element: <Simplesurvey />,
+  },{path:"/Importqs1/:iduser", element: <Importqs1/>},
+  {
+    path: "/createpwd", element: <Createpassword />,
   },
   {
     path: "/ForgotPasswordOne", element: <ForgotPasswordOne />,
@@ -88,6 +128,34 @@ const routes = createBrowserRouter([
   },
   {
     path: "/surveys/:iduser", element: <Surveys />,
+  },
+  {
+    path: "/createsurvey", element: <CreateSurveySTEP1 />,
+  },
+  {
+    path: "/createsurvey2", element: <CreateSurveySTEP2 />,
+  },
+  {
+    path: "/createsurvey3", element: <CreateSurveySTEP3 />,
+  },
+  {
+    path: "/createsurvey4", element: <CreateSurveySTEP4 />,
+  },{
+    path: "/createsurvey5", element: <CreateSurveySTEP5 />,
+  },{
+    path: "/createsurvey6", element: <CreateSurveySTEP6 />,
+  },{
+    path: "/createsurvey7", element: <CreateSurveySTEP7 />,
+  },{
+    path: "/createsurvey8", element: <CreateSurveySTEP8 />,
+  },{
+    path: "/createsurvey9", element: <CreateSurveySTEP9 />,
+  },
+  {
+    path: "/tale", element: <Tale5 />,
+  },
+  {
+    path: "/bsurveys/:iduser", element: <BusinessSurveys />,
   },
   {
     path: "/Focusgroup/:iduser", element: <Focusgroup />,
@@ -149,7 +217,7 @@ const routes = createBrowserRouter([
 { path: "/opinionsurvey/:iduser", element: <OpinionSurvey /> },
 { path: "/generallyspeaking/:iduser", element: <OneanswerSurv /> },
 { path: "/endsurvey/:iduser", element: <EarnsPage /> },
-{ path: "/very/:iduser", element: <Verylikely /> },
+// { path: "/very/:iduser", element: <Verylikely /> },
 { path: "/DashboardSurvery101", element: <DashboardSurvery101 /> },
 { path: "/Dashboard909", element: <DashboardSurvery909 /> },
 { path: "/jitci", element: <Jitci /> },
@@ -164,6 +232,7 @@ const routes = createBrowserRouter([
 {path:"/livesurvey1/:iduser", element: <LiveSurvey1 />},
 {path:"/livesurvey/:iduser", element: <LiveSurvey />},
 {path:"/very/:iduser", element: <VerylikelyVierge />},
+  {path:"/veryl/:iduser", element: <Verylikely />},
 
 {path:"/endsurvey/:iduser", element: <EarnsPage />},
 {path:"/AssistanceO/:iduser", element: <AssistanceO/>},
