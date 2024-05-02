@@ -87,6 +87,8 @@ import CreateSurveySTEP9 from "./pages/Dashboard/CreateSurveySTEP9";
 import CustomerExperienceSurveylv3 from "./pages/Dashboard/CustomerExperienceSurveylv3";
 import ReviewPreview1 from "./pages/Review&Preview1";
 import ReviewPreview2 from "./pages/Review&Preview2";
+import SurveyLink from "./pages/Dashboard/SurveyLink";
+import ReviewPreview3 from "./pages/Review&Preview3";
 const routes = createBrowserRouter([
   {path:"/Businesshome/:iduser", element: <Businesshome/>},
   {path:"/Businesshomedata/:iduser", element: <Businesshomedata />},
@@ -111,6 +113,8 @@ const routes = createBrowserRouter([
     path: "/CustomerExperience", element: <CustomerExperience/>,
   }, {
     path: "/CustomerExperiencelv3", element: <CustomerExperienceSurveylv3/>,
+  },{
+    path: "/SurveyLink", element: <SurveyLink/>,
   },
   {
     path: "/chsurvey", element: <Chsurvey />,
@@ -118,6 +122,8 @@ const routes = createBrowserRouter([
     path: "/chsurvey1", element: <ReviewPreview1 />,
   },{
     path: "/chsurvey2", element: <ReviewPreview2 />,
+  },{
+    path: "/chsurvey3", element: <ReviewPreview3 />,
   },
   {
     path: "/simplesurvey", element: <Simplesurvey />,
