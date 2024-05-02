@@ -61,6 +61,7 @@ import Changepwd from "./pages/Dashboard/Changepwd";
 import Assistancechangepwd from "./pages/Dashboard/Assistancechangepwd";
 import AssistanceO from './pages/Dashboard/AssistanceO';
 import TaleCustomerSubscribe from "./pages/TaleCustomerSubscribe";
+import CustomerExperience from "./pages/Dashboard/CustomerExperienceSurvey";
 import BusinessSurveys from "./pages/Dashboard/BusinessSurveys";
 import CreateSurveySTEP1 from "./pages/Dashboard/CreateSurveySTEP1";
 import CreateSurveySTEP2 from "./pages/Dashboard/CreateSurveySTEP2";
@@ -83,6 +84,9 @@ import CreateSurveySTEP6 from "./pages/Dashboard/CreateSurveySTEP6";
 import CreateSurveySTEP7 from "./pages/Dashboard/CreateSurveySTEP7";
 import CreateSurveySTEP8 from "./pages/Dashboard/CreateSurveySTEP8";
 import CreateSurveySTEP9 from "./pages/Dashboard/CreateSurveySTEP9";
+import CustomerExperienceSurveylv3 from "./pages/Dashboard/CustomerExperienceSurveylv3";
+import ReviewPreview1 from "./pages/Review&Preview1";
+import ReviewPreview2 from "./pages/Review&Preview2";
 const routes = createBrowserRouter([
   {path:"/Businesshome/:iduser", element: <Businesshome/>},
   {path:"/Businesshomedata/:iduser", element: <Businesshomedata />},
@@ -103,10 +107,17 @@ const routes = createBrowserRouter([
   },
   {
     path: "/Verif", element: <Bverif />,
+  }, {
+    path: "/CustomerExperience", element: <CustomerExperience/>,
+  }, {
+    path: "/CustomerExperiencelv3", element: <CustomerExperienceSurveylv3/>,
   },
-
   {
     path: "/chsurvey", element: <Chsurvey />,
+  },{
+    path: "/chsurvey1", element: <ReviewPreview1 />,
+  },{
+    path: "/chsurvey2", element: <ReviewPreview2 />,
   },
   {
     path: "/simplesurvey", element: <Simplesurvey />,

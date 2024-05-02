@@ -98,9 +98,15 @@ const ContactForm = () => {
     };
     const [selectedYN, setSelectedYN] = useState('');
 
+    // State to track whether to show "Work email" or "Email" label
+    const [showWorkEmail, setShowWorkEmail] = useState(false);
+
+    // Update label based on user selection
     const handleYNChange = (YN) => {
         setSelectedYN(YN);
+        setShowWorkEmail(YN === 'yes'); // Show "Work email" if Yes, otherwise show "Email"
     };
+
     return (
         <form onSubmit={handleSubmit} style={{  padding: 20,width:'auto',height:"auto" }}>
             <div style={{marginTop:100,left: 40, top: 10, position: 'absolute', color: 'black', fontSize: 24, fontFamily: 'revert', fontWeight: '700', wordWrap: 'break-word' }}>Let’s provision your instance</div>
@@ -145,7 +151,7 @@ const ContactForm = () => {
                 {/* Email Address */}
                 <div style={{ flex: 1, marginRight: 10, width: '100%', height: '100%', position: 'relative' }}>
                     <label>
-                        <div style={{ left: 20, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word' }}>Work email</div>
+                        <div style={{ left: 20, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word' }}>{showWorkEmail ? 'Work email' : 'Email'}</div>
                         <input type="email" name="email" value={formData.email} onChange={handleInputChange} style={{ border: 0, width: 596, height: 35, left: 20, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10, padding: '10px' }} />
                         <div style={{left: 30, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>{formData.email === '' && predefinedMessages.email}</div>
                     </label>
