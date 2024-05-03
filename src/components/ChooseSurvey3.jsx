@@ -71,10 +71,24 @@ const SquareButton = ({ title, description, imageUrl, to, onClick }) => {
 
 const MainPage = () => {
     const [showEmbedBlock, setShowEmbedBlock] = useState(false);
+    const [showpopupinv, setShowpopupinv] = useState(false);
+    const [showpopupsurvey, setShowpopupsurvey] = useState(false);
     const [codeName, setCodeName] = useState('');
 
     const handleButtonClick = () => {
         setShowEmbedBlock(true);
+        setShowpopupsurvey(false);
+        setShowpopupinv(false);
+    };
+    const handleButtonClick1 = () => {
+        setShowpopupinv(true);
+        setShowEmbedBlock(false);
+        setShowpopupsurvey(false);
+    };
+    const handleButtonClick2 = () => {
+        setShowpopupsurvey(true);
+        setShowpopupinv(false);
+        setShowEmbedBlock(false);
     };
 
     const handleCopyCode = () => {
@@ -127,8 +141,8 @@ const MainPage = () => {
 
                 <section className="content" style={{ textAlign: "center", position: "absolute", top: 350, left: 20, display: "flex" }}>
                     <SquareButton title="Embedded Survey" description="Integrate this survey directly onto your website or blog." imageUrl={process.env.PUBLIC_URL + '/link.png'} onClick={handleButtonClick} />
-                    <SquareButton title="Popup Invitation" description="Display a survey invitation in a popup window on selected pages of your website." imageUrl={process.env.PUBLIC_URL + '/embed.png'} to="/simplesurvey" onClick={handleButtonClick} />
-                    <SquareButton title="Popup Survey" description="Present your survey in a popup window on designated pages of your website." imageUrl={process.env.PUBLIC_URL + '/sm.png'} to="/survey3" onClick={handleButtonClick} />
+                    <SquareButton title="Popup Invitation" description="Display a survey invitation in a popup window on selected pages of your website." imageUrl={process.env.PUBLIC_URL + '/embed.png'}  onClick={handleButtonClick1} />
+                    <SquareButton title="Popup Survey" description="Present your survey in a popup window on designated pages of your website." imageUrl={process.env.PUBLIC_URL + '/sm.png'} onClick={handleButtonClick2} />
                 </section>
 
                 {/* Embed block */}
@@ -138,6 +152,84 @@ const MainPage = () => {
                         <div style={{position:"relative",left:-100,top:60}}>
                         <div style={{position:"relative",left:30,textAlign:"left",color: '#111111', fontSize: 18, fontFamily: 'revert', fontWeight: '700', lineHeight: 3, wordWrap: 'break-word'}}>Embedded Survey</div>
                         <div style={{position:"relative",left:30,textAlign:"left",width: '100%', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', lineHeight: 1, wordWrap: 'break-word'}}>Copy and paste the embed code wherever you want the form or survey to  appear on your website. After you paste the code, changes you make here  will sync to your website automatically</div>
+                        </div>
+
+                        <div style={{left: -70, top: 160, position: 'absolute', color: '#111111', fontSize: 16, fontFamily: 'REVERT', fontWeight: '700',  wordWrap: 'break-word'}}>Code name</div>
+                        <input
+                            type="text"
+                            value={codeName}
+                            onChange={(e) => setCodeName(e.target.value)}
+                            placeholder="Enter code name"
+                            style={{position:"relative",left:-70,top:120, width: 700,height:30, padding: 10, marginRight: 10,background:'rgba(0, 0, 0, 0.07)',borderRadius:16,border:"none" }}
+                        />
+                        <div style={{left: -70, top: 270, position: 'absolute', color: '#111111', fontSize: 16, fontFamily: 'REVERT', fontWeight: '700',  wordWrap: 'break-word'}}>Embed code</div>
+                        <div style={{ position:"relative",top:180,left:-70,display:"flex",width: '1200px',gap: 10, padding:10,borderRadius:16,height:'120px', border: '1px solid lightgray', marginTop: 10,background:'rgba(0, 0, 0, 0.07)',textAlign:"left" }}>
+                            {/* Display your embed code here */}
+                            <p style={{width:1000,position:"relative",top:-10,left:10}}>{ "<"}{"script"}{">"}{"(function(t,e,s,n)"}{"var o,a,c;t.SMCX=t.SMCX||[],e.getElementById(n)||(o=e.getElementsByTagName(s),a=o[o.length-1],c=e.createElement(s),c.type="}{"text/javascript"}{",c.async=!0,c.id=n,c.src="}{"https://widget.surveymonkey.com/collect/website/js\n/tRaiETqnLgj758hTBazgd6YclTSEknK0PIY9G3\nZNPDOcDemMVkqRVD9JxqmpLyYm.js"}{",a.parentNode.insertBefore(c,a))})(window,document,"}{"script,smcx-sdk"}{");&lt;/script&gt;&lt;a style="}{"font: 12px Helvetica, sans-serif; color: #999; text-decoration: none;"}{" href=fr.surveymonkey.com> Create your own user feedback survey &lt;/a&gt;"}</p>
+                            <button onClick={handleCopyCode} style={{    border: "none",
+                                position: "relative",
+                                top: 0,
+                                left: 20,
+                                width: 147,
+                                height: 51,
+                                fontWeight:600,
+                                color:"white",
+                                padding: 16,
+                                background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)',
+                                borderRadius: 10,
+                                textAlign:"center",
+                                justifyContent: 'right'
+                            }}>Copy</button>
+
+                        </div>
+                    </div>
+                )}
+                {/* inv block */}
+                {showpopupinv && (
+                    <div style={{ position: "relative",top:150 }}>
+                        <div style={{width: '117%', height: '100%', border: '1px #CCCCCC solid',position:"relative",top:45,left:-100}}></div>
+                        <div style={{position:"relative",left:-100,top:60}}>
+                            <div style={{position:"relative",left:30,textAlign:"left",color: '#111111', fontSize: 18, fontFamily: 'revert', fontWeight: '700', lineHeight: 3, wordWrap: 'break-word'}}>Popup Invitation</div>
+                            <div style={{position:"relative",left:30,textAlign:"left",width: '100%', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', lineHeight: 1, wordWrap: 'break-word'}}>Copy and paste this code immediately before your closing &tl;/body&tg; tag</div>
+                        </div>
+
+                        <div style={{left: -70, top: 160, position: 'absolute', color: '#111111', fontSize: 16, fontFamily: 'REVERT', fontWeight: '700',  wordWrap: 'break-word'}}>Code name</div>
+                        <input
+                            type="text"
+                            value={codeName}
+                            onChange={(e) => setCodeName(e.target.value)}
+                            placeholder="Enter code name"
+                            style={{position:"relative",left:-70,top:120, width: 700,height:30, padding: 10, marginRight: 10,background:'rgba(0, 0, 0, 0.07)',borderRadius:16,border:"none" }}
+                        />
+                        <div style={{left: -70, top: 270, position: 'absolute', color: '#111111', fontSize: 16, fontFamily: 'REVERT', fontWeight: '700',  wordWrap: 'break-word'}}>Embed code</div>
+                        <div style={{ position:"relative",top:180,left:-70,display:"flex",width: '1200px',gap: 10, padding:10,borderRadius:16,height:'120px', border: '1px solid lightgray', marginTop: 10,background:'rgba(0, 0, 0, 0.07)',textAlign:"left" }}>
+                            {/* Display your embed code here */}
+                            <p style={{width:1000,position:"relative",top:-10,left:10}}>{ "<"}{"script"}{">"}{"(function(t,e,s,n)"}{"var o,a,c;t.SMCX=t.SMCX||[],e.getElementById(n)||(o=e.getElementsByTagName(s),a=o[o.length-1],c=e.createElement(s),c.type="}{"text/javascript"}{",c.async=!0,c.id=n,c.src="}{"https://widget.surveymonkey.com/collect/website/js\n/tRaiETqnLgj758hTBazgd6YclTSEknK0PIY9G3\nZNPDOcDemMVkqRVD9JxqmpLyYm.js"}{",a.parentNode.insertBefore(c,a))})(window,document,"}{"script,smcx-sdk"}{");&lt;/script&gt;&lt;a style="}{"font: 12px Helvetica, sans-serif; color: #999; text-decoration: none;"}{" href=fr.surveymonkey.com> Create your own user feedback survey &lt;/a&gt;"}</p>
+                            <button onClick={handleCopyCode} style={{    border: "none",
+                                position: "relative",
+                                top: 0,
+                                left: 20,
+                                width: 147,
+                                height: 51,
+                                fontWeight:600,
+                                color:"white",
+                                padding: 16,
+                                background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)',
+                                borderRadius: 10,
+                                textAlign:"center",
+                                justifyContent: 'right'
+                            }}>Copy</button>
+
+                        </div>
+                    </div>
+                )}
+                {/* Embed block */}
+                {showpopupsurvey && (
+                    <div style={{ position: "relative",top:150 }}>
+                        <div style={{width: '117%', height: '100%', border: '1px #CCCCCC solid',position:"relative",top:45,left:-100}}></div>
+                        <div style={{position:"relative",left:-100,top:60}}>
+                            <div style={{position:"relative",left:30,textAlign:"left",color: '#111111', fontSize: 18, fontFamily: 'revert', fontWeight: '700', lineHeight: 3, wordWrap: 'break-word'}}>Popup Survey</div>
+                            <div style={{position:"relative",left:30,textAlign:"left",width: '100%', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '400', lineHeight: 1, wordWrap: 'break-word'}}>Copy and paste this code immediately before your closing &tl;/body&tg; tag</div>
                         </div>
 
                         <div style={{left: -70, top: 160, position: 'absolute', color: '#111111', fontSize: 16, fontFamily: 'REVERT', fontWeight: '700',  wordWrap: 'break-word'}}>Code name</div>
