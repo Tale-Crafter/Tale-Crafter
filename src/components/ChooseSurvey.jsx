@@ -1,9 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import  { useState } from 'react';
+import BusinessLeftsidebar from "../pages/Dashboard/BusinessLeftsidebar";
+import BHeader from "../pages/Dashboard/BHeader";
 const SquareButton = ({ title, description, imageUrl, to }) => {
     const [isHovered, setIsHovered] = useState(false);
-  
+    const { iduser } = useParams();
+
     const handleMouseEnter = () => {
       setIsHovered(true);
     };
@@ -27,13 +30,14 @@ const SquareButton = ({ title, description, imageUrl, to }) => {
 
 const MainPage = () => {
   return (
-    <div className="container" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: 'absolute', left: 450 }}>
+    <div className="container" style={{ borderRadius:10,display: "flex", justifyContent: "center", alignItems: "center", height: "80vh", position: 'absolute', left: 340,top:84, background:"white",width:'76%' }}>
       <main className="main">
-      <h1 style={{ color:" #f9bc33",fontSize: 36, fontFamily: "revert", fontWeight: "700", textAlign: "center", position: 'absolute', top: '20%', left: '50%', transform: 'translate(-50%, -50%)' }}>What would you like to do?</h1>
+
+          <h1 style={{ background: 'linear-gradient(90deg, #F9BC33 0%, #FE346E 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',fontSize: 36, fontFamily: "revert", fontWeight: "700", textAlign: "center", position: 'absolute', top: '10%', left: '50%', transform: 'translate(-50%, -50%)' }}>What would you like to do?</h1>
 
         <section className="content" style={{ textAlign: "center" }}>
-          <SquareButton title="Start from Scratch" description="Begin with a blank survey or copy and paste a survey you've already drafted." imageUrl={process.env.PUBLIC_URL + '/survey1.png'} to="/survey1" />
-          <SquareButton title="Simplified Survey Template" description="Use a template to create and send a survey more quickly." imageUrl={process.env.PUBLIC_URL + '/survey2.png'} to="/survey2" />
+          <SquareButton title="Start from Scratch" description="Begin with a blank survey or copy and paste a survey you've already drafted." imageUrl={process.env.PUBLIC_URL + '/survey1.png'} to="/createsurvey" />
+          <SquareButton title="Simplified Survey Template" description="Use a template to create and send a survey more quickly." imageUrl={process.env.PUBLIC_URL + '/survey2.png'} to="/simplesurvey" />
           <SquareButton title="Create with AI Assistance" description="Enter a brief prompt. AI will generate a survey tailored to your needs." imageUrl={process.env.PUBLIC_URL + '/survey3.png'} to="/survey3" />
         </section>
       </main>

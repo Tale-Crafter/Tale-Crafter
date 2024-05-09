@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import SocialMedia from '../../components/socialmedia';
+import SocialMedia from '../../components/Bsocialmedia';
 import LeftBackground from '../../components/LeftBackground';
 import { useParams } from 'react-router-dom';
 
-import '../../Styles/login.css'
+import '../../styles/login.css'
 import { Link, useNavigate } from 'react-router-dom';
+import BLeftBackground from "../../components/BLeftBackground";
 
 function LoginOne() {
     const { iduser } = useParams();
@@ -41,7 +42,7 @@ function LoginOne() {
     const handleSubmit = () => {
         if (isFormValid) {
             console.log('Form submitted successfully!');
-            navigate(`/home/${iduser}`);
+            navigate(`/businesshomedata/${iduser}`);
         } else {
             console.log('Form is not valid. Errors:');
             if (emailError) {
@@ -86,14 +87,14 @@ function LoginOne() {
         height: "51px",
         flexShrink: "0",
         borderRadius: "10px",
-        bottom: "-50px",
+        bottom: "-42px",
         position: "absolute",
 
     };
     const buttonStyle = {
         // Add hover style for visual feedback
-    background: ' linear-gradient(90deg, #FE346E 0%, #F9BC33 100%)',
-  
+        background: ' linear-gradient(90deg, #FE346E 0%, #F9BC33 100%)',
+
         width: '400px',
         height: '51px',
         padding: '16px',
@@ -109,7 +110,7 @@ function LoginOne() {
     }
 
     return (
-        <div className='login'>
+        <div className='login'  >
             <text className="loginTitle">Sign in to TALE</text>
             <SocialMedia />
             <span className="emailAccount">Or use your email account</span>
@@ -117,10 +118,10 @@ function LoginOne() {
             <div className="loginForm">
                 <label style={titleStyle}>Email Address</label>
                 <input style={placeholderStyle}
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={handleEmailChange}
+                       type="email"
+                       placeholder="Enter your email"
+                       value={email}
+                       onChange={handleEmailChange}
                 />
                 {emailError && <p style={errorStyle}>{emailError}</p>}
 
@@ -129,10 +130,10 @@ function LoginOne() {
 
                 <label style={titleStyle}>Password</label>
                 <input style={placeholderStyle}
-                    type="password"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={handlePasswordChange}
+                       type="password"
+                       placeholder="Enter your password"
+                       value={password}
+                       onChange={handlePasswordChange}
                 />
                 {passwordError && <p style={errorStyle}>{passwordError}</p>}
                 <span>
@@ -146,7 +147,7 @@ function LoginOne() {
                 <div className='signupLink'>
                     <span style={{ color: "#666", fontWeight: "400", }}>Don't have an account? </span>
                     <span style={{ color: "#000", fontWeight: "600", }}>
-                        <Link to="/Register">
+                        <Link to="/BusinessRegister">
                             <span>Sign up</span>
                         </Link>
                     </span>
@@ -158,7 +159,7 @@ function LoginOne() {
 
                 </div>
             </div>
-            <LeftBackground />
+            <BLeftBackground />
         </div>
     )
 }

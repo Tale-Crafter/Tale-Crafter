@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Header = ({ to }) => {
   return (
-    <header style={{ backgroundColor: '#ffffff', padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' ,textAlign:'center' ,marginBottom:'2rem' }}>
+    <header style={{textAlign:"left",width:'45%',position:"absolute",left:-120, top:100, padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' ,marginBottom:'2rem',zIndex:999 }}>
      
       
     
@@ -39,7 +39,7 @@ const Header = ({ to }) => {
  
 
 <div className="actions">
-<div><span style={{color: '#111111', fontSize: 24, fontFamily: 'revert', fontWeight: '700', wordWrap: 'break-word'}}>Simplified </span><span style={{color: '#F9BC33', fontSize: 24, fontFamily: 'revert', fontWeight: '700', wordWrap: 'break-word'}}>Survey Template<br/></span><span style={{color: '#333333', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Use a template to create and send a survey more quickly</span></div></div>
+<div><span style={{color: '#111111', fontSize: 24, fontFamily: 'revert', fontWeight: '700', wordWrap: 'break-word'}}>Simplified </span><span style={{background: 'linear-gradient(90deg, #F9BC33 0%, #FE346E 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontSize: 24, fontFamily: 'revert', fontWeight: '700', wordWrap: 'break-word'}}>Survey Template<br/></span><span style={{color: '#333333', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>Use a template to create and send a survey more quickly</span></div></div>
     </header>
   );
 };

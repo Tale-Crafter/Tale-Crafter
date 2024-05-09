@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Header() {
- 
+
     const imglanguage = {
         position: 'absolute',
         top: '16px',
@@ -11,7 +11,7 @@ function Header() {
     }
     return (
         <div className="row-4" >
-           
+
             <div className="d-flex" style={imglanguage}>
                 <img src={process.env.PUBLIC_URL + '/btraduction.png'} alt="Language" />
                 <select className="language-dropdown" style={{ position:"relative",top:-10,border: 'none' }}>

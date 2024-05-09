@@ -6,13 +6,16 @@ import BusinessHeader from '../components/BusinessHeader1';
 function Register() {
     return (
         <div>
-            <div style={{ display: 'flex' ,background:"white"}}>
-                <div>
+            <div style={{ display: 'flex' ,backgroundColor: 'white !important'}}>
+                <div style={{backgroundColor:"white", zIndex:999}}>
                     <BusinessHeader />
                     <Bnavbar1 />
                 </div>
-                <LoginOne />
-            </div>
+
+                <div style={{backgroundColor:"white"}}>
+
+                    <LoginOne /></div>
+                </div>
         </div>
 
     );

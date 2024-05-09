@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from './bbutton';
+import Button from './BButton';
 import { Link } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEyeSlash, FaEye, FaCheck } from 'react-icons/fa';
+import BusinessHeader from "./BusinessHeader";
+import Bnavbar from "./bnavbar";
+import Bemail from "./Bemail";
 
 function Form() {
     const navigate = useNavigate();
@@ -18,27 +21,40 @@ function Form() {
     const [checked, setChecked] = React.useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
+    const [newPassword, setNewPassword] = useState('');
+    const [currentPassword, setCurrentPassword] = useState('');
+
+    const [passwordStrength, setPasswordStrength] = useState({
+        length: false,
+        containsSymbolOrNumber: false,
+        containsNameOrEmail: false
+    });
+
+
+    const handleClick = (e) => {
+        setNewPassword(e.target.value);
+        // Check password strength if the field is not empty
+        if (e.target.value !== '') {
+            const strength = {
+                length: e.target.value.length >= 8,
+                containsSymbolOrNumber: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?0-9]+/.test(e.target.value),
+                containsNameOrEmail: !e.target.value.toLowerCase().includes("hamda") && !e.target.value.toLowerCase().includes("hamda.yedes@gmail.com")
+            };
+            setPasswordStrength(strength);
+        } else {
+            setPasswordStrength({
+                length: false,
+                containsSymbolOrNumber: false,
+                containsNameOrEmail: false
+            });
+        }
+    };
+    const isAllConditionsMet = passwordStrength.length && passwordStrength.containsSymbolOrNumber && passwordStrength.containsNameOrEmail;
+
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleClick = () => {
-        setChecked(!checked);
-        const isWeak = !password.toLowerCase().includes('name') && !password.toLowerCase().includes('@' || '.com' || '.tn');
-        const isGood = password.length >= 8;
-        const isStrong = /[!@#$%^&*()_+\-={};':"\\|,.<>?0-9]/.test(password);
-
-        setChecked1(isWeak);
-        setChecked2(isGood);
-        setChecked3(isStrong);
-
-
-        console.log('Checkbox states:', isChecked1password, isChecked2password, isChecked3password);
-
-        if (isChecked1password && isChecked2password && isChecked3password) {
-            navigate('/dashboard');
-        }
-    };
 
     const handleChange = (event) => {
         setChecked(event.target.checked);
@@ -204,166 +220,150 @@ function Form() {
 
                 </>
             );
-        } else if (step === 2) {
+        }else if(step ===2){
             return (
-                <>
-                    {/***create password interface***/}
-                    <div className="container" style={passwordStyle}>
-                        <div>
-                            <h1>Create Password</h1>
-                        </div>
-                        <div style={{ textAlign: 'Left', paddingTop: '30px' }}>
-                            <form onSubmit={handlePasswordSubmit}>
-                                <div>
-                                    <label htmlFor="formGroupPassword" className="form-label" >
-                                        <strong>
-                                            Password</strong>
-                                    </label>
-                                    <div style={{ display: "flex", paddingTop: "15px", position: "relative" }}>
-                                        <input
-                                            type={showPassword ? 'text' : 'password'}
-                                            className="form-control"
-                                            id="formGroupPassword"
-                                            placeholder="Enter a password"
-                                            style={{ width: '400px !important', height: '51px', border: '2px solid #00C0FC', padding: '12px', transition: 'border-color 0.3s ease', borderColor: '#00C0FC' }}
-                                            onChange={(e) => {
-                                                setPassword(e.target.value);
-                                                validatePassword();
-                                            }}
-                                        />
-                                        <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', paddingTop: '11px' }}>
-                                            {/* Utilisez l'icône de l'oeil pour montrer/masquer le mot de passe */}
-                                            {showPassword ? (
-                                                <FaEyeSlash
-                                                    onClick={togglePasswordVisibility}
-                                                    style={{
-                                                        //position: 'relative',
-                                                        width: '19px',
-                                                        height: '19px',
-                                                        left: '660px',
-                                                        top: '120px',
-                                                        border: 'none',
-                                                        cursor: 'pointer',
-                                                        color: "#606060",
+                <div>
+                    <div style={{ display: 'flex' ,background:"white"}}>
 
-                                                    }}
-                                                />
+                        <Bemail />
+                    </div>
+                </div>
 
-                                            ) : (
-                                                <FaEye
-                                                    onClick={togglePasswordVisibility}
-                                                    style={{
-                                                        //position: 'absolute',
-                                                        width: '19px',
-                                                        height: '19px',
-                                                        left: '660px',
-                                                        top: '180px',
-                                                        border: 'none',
-                                                        cursor: 'pointer',
-                                                        color: "#606060",
-
-                                                    }}
-                                                />
-
-                                            )}
-                                        </div>
-                                    </div>
-
-
-                                    <div style={{ paddingTop: '20px', display: 'flex', color: '#666666', fontSize: '16' }}>Password Strength: <div style={{ color: getColor(), paddingLeft: '15px' }}>{strength}</div></div>
-                                    {/**CHeck valid of Password */}
-                                    <div>
-                                        <div style={{ display: "flex" }}>
-                                            <div className="form-check">
-                                                <input className="form-check-input" style={{
-                                                    marginTop: '5px',
-                                                    border: '2px solid',
-                                                    borderRadius: '14px',
-                                                    marginBottom: '15px',
-                                                    marginRight: '5px',
-                                                    width: '24px', height: '24px', backgroundColor: isChecked1password ? '#00BDA9' : '#ffffff',
-                                                    color: isChecked1password ? '#ffffff' : '#00BDA9',
-
-                                                }}
-
-                                                    onChange={() => handleCheckboxChangep1(isChecked1password)} checked={isChecked1password} type="checkbox" id="gridCheckp1" />
-                                                <label className="form-check-label" htmlFor="gridCheckp1" style={{ paddingLeft: '12px', color: '#666666' }} >
-                                                    Must not contain your name or email
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div style={{ display: "flex" }}>
-                                            <div className="form-check">
-                                                <input className="form-check-input" style={{
-
-                                                    border: '2px solid', // Border color
-                                                    borderRadius: '14px', // Border radius
-                                                    marginBottom: '15px',
-                                                    marginRight: '5px',
-                                                    width: '24px', height: '24px', backgroundColor: isChecked2password ? '#00BDA9' : '#ffffff',
-                                                    color: isChecked2password ? '#ffffff' : '#00BDA9',
-                                                }}
-                                                    onChange={handleChange} checked={isChecked2password} type="checkbox" id="gridCheckp2" />
-                                                <label className="form-check-label" htmlFor="gridCheckp2" style={{ paddingLeft: '12px', color: '#666666' }} required>
-                                                    At least 8 characters
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div style={{ display: "flex", paddingBottom: '24px' }}>
-                                            <div className="form-check" >
-                                                <input className="form-check-input" style={{
-                                                    border: '2px solid',
-                                                    borderRadius: '14px',
-                                                    marginRight: '5px',
-                                                    width: '24px', height: '24px', backgroundColor: isChecked3password ? '#00BDA9' : '#ffffff',
-                                                    color: isChecked3password ? '#ffffff' : '#00BDA9',
-                                                }}
-                                                    checked={isChecked3password} onChange={handleChange} type="checkbox" id="gridCheckp3" />
-                                                <label className="form-check-label" htmlFor="gridCheckp3" style={{ paddingLeft: '12px', color: '#666666' }} required>
-
-                                                    Contains a symbol or a number
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    {/**Buttons Previous Next */}
-                                    <div className="container" style={{ display: 'flex', padding: '24px!important' }}>
-                                        <button style={{
-                                            width: '192px',
-                                            height: '51px',
-                                            borderRadius: '10px',
-                                            background: 'linear-gradient(--Primary-RG, 90deg, #F9BC33 0%, #FE346E 100%)', // White background
-                                            cursor: 'pointer',
-                                            transition: 'background 300ms ease-out',
-                                            border: '2px solid #00BDA9',
-                                            color: '#00BDA9',
-                                            alignItems: 'center',
-                                            justifyContent: 'center !important',
-                                            marginRight: '14px',
-
-                                        }} onClick={handlePreviousClick}>Previous</button>
-
-                                        <button style={{
-                                            width: '192px',
-                                            height: '51px',
-                                            top: ' 463px',
-                                            left: ' 438px',
-                                            borderRadius: '10px', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)',
-                                            cursor: 'pointer',
-                                            transition: 'background 300ms ease-out',
-                                            border: 'none',
-                                            color: '#FFFFFF',
-                                            justifyContent: 'center !important',
-                                        }} onClick={handleClick}  >Next</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div >
-                    </div >
-                </>
             );
         }
+        // else if (step === 3) {
+        //     return (
+        //         <>
+        //             {/***create password interface***/}
+        //             <div className="container" style={passwordStyle}>
+        //                 <div>
+        //                     <h1>Create Password</h1>
+        //                 </div>
+        //                 <div style={{ textAlign: 'Left', paddingTop: '30px' }}>
+        //                     <form onSubmit={handlePasswordSubmit}>
+        //                         <div>
+        //                             <label htmlFor="formGroupPassword" className="form-label" >
+        //                                 <strong>
+        //                                     Password</strong>
+        //                             </label>
+        //                             <div style={{ display: "flex", paddingTop: "15px", position: "relative" }}>
+        //                                 <input
+        //                                     type={showPassword ? 'text' : 'password'}
+        //                                     className="form-control"
+        //                                     id="formGroupPassword"
+        //                                     placeholder="Enter a password"
+        //                                     style={{ width: '380px', height: '35px', border: '0px solid black', padding: '12px', transition: 'border-color 0.3s ease', borderColor: '#00C0FC',background:'rgba(17, 17, 17, 0.10)',borderRadius:10 }}
+        //                                     onChange={handleClick}
+        //
+        //                                 />
+        //                                 <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', paddingTop: '11px' }}>
+        //                                     {/* Utilisez l'icône de l'oeil pour montrer/masquer le mot de passe */}
+        //                                     {showPassword ? (
+        //                                         <FaEyeSlash
+        //                                             onClick={togglePasswordVisibility}
+        //                                             style={{
+        //                                                 //position: 'relative',
+        //                                                 width: '19px',
+        //                                                 height: '19px',
+        //                                                 left: '660px',
+        //                                                 top: '120px',
+        //                                                 border: 'none',
+        //                                                 cursor: 'pointer',
+        //                                                 color: "#606060",
+        //
+        //                                             }}
+        //                                         />
+        //
+        //                                     ) : (
+        //                                         <FaEye
+        //                                             onClick={togglePasswordVisibility}
+        //                                             style={{
+        //                                                 //position: 'absolute',
+        //                                                 width: '19px',
+        //                                                 height: '19px',
+        //                                                 left: '660px',
+        //                                                 top: '180px',
+        //                                                 border: 'none',
+        //                                                 cursor: 'pointer',
+        //                                                 color: "#606060",
+        //
+        //                                             }}
+        //                                         />
+        //
+        //                                     )}
+        //                                 </div>
+        //                             </div>
+        //
+        //
+        //                             <div style={{ paddingTop: '20px', display: 'flex', color: '#666666', fontSize: '16' }}>Password Strength: <div style={{ color: getColor(), paddingLeft: '15px' }}>{strength}</div></div>
+        //                             {/**CHeck valid of Password */}
+        //                             <div>
+        //                                 <div style={{ display: "flex" }}>
+        //                                     <div className="form-check">
+        //                                         <FaCheck className="form-check-input" style={{marginTop: '5px', border: '2px solid', borderRadius: '14px', width: '24px', height: '24px', marginBottom: '15px', marginRight: '5px',color: passwordStrength.containsNameOrEmail ? '#00BDA9' : '#999999', fontSize: 20 }} />
+        //
+        //                                         <label className="form-check-label" htmlFor="gridCheckp1" style={{ position:"relative",top:-20,paddingLeft: '12px', color: '#666666' }} >
+        //                                             Must not contain your name or email
+        //                                         </label>
+        //                                     </div>
+        //                                 </div>
+        //                                 <div style={{ display: "flex" }}>
+        //                                     <div className="form-check">
+        //                                         <FaCheck className="form-check-input" style={{border: '2px solid', borderRadius: '14px', width: '24px', height: '24px', marginBottom: '15px', marginRight: '5px',color: passwordStrength.length ? '#00BDA9' : '#999999', fontSize: 20 }} />
+        //                                         <label className="form-check-label" htmlFor="gridCheckp2" style={{position:"relative",top:-20, paddingLeft: '12px', color: '#666666' }} required>
+        //                                             At least 8 characters
+        //                                         </label>
+        //                                     </div>
+        //                                 </div>
+        //                                 <div style={{ display: "flex", paddingBottom: '24px' }}>
+        //                                     <div className="form-check" >
+        //                                         <FaCheck className="form-check-input" style={{border: '2px solid', borderRadius: '14px', width: '24px', height: '24px', marginBottom: '15px', marginRight: '5px',color: passwordStrength.containsSymbolOrNumber ? '#00BDA9' : '#999999', fontSize: 20 }} />
+        //                                         <label className="form-check-label" htmlFor="gridCheckp3" style={{ position:"relative",top:-20,paddingLeft: '12px', color: '#666666' }} required>
+        //
+        //                                             Contains a symbol or a number
+        //                                         </label>
+        //                                     </div>
+        //                                 </div>
+        //
+        //                             </div>
+        //                             {/**Buttons Previous Next */}
+        //                             <div className="container" style={{ display: 'flex', padding: '24px!important' }}>
+        //                                 <button style={{
+        //                                     width: '192px',
+        //                                     height: '51px',
+        //                                     borderRadius: '10px',
+        //                                     background: 'linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 100%)', // White background
+        //                                     cursor: 'pointer',
+        //                                     transition: 'background 300ms ease-out',
+        //                                     border: '2px solid #F9BC33',
+        //                                     color: '#F9BC33',
+        //                                     alignItems: 'center',
+        //                                     justifyContent: 'center !important',
+        //                                     marginRight: '14px',
+        //
+        //                                 }} onClick={handlePreviousClick}>Previous</button>
+        //
+        //                                 <button style={{
+        //                                     width: '192px',
+        //                                     height: '51px',
+        //                                     top: ' 463px',
+        //                                     left: ' 438px',
+        //                                     borderRadius: '10px', background: 'linear-gradient(90deg, #F9BC33 0%, #FE346E 100%)',
+        //                                     cursor: 'pointer',
+        //                                     transition: 'background 300ms ease-out',
+        //                                     border: 'none',
+        //                                     color: 'white',
+        //                                     justifyContent: 'center !important',
+        //                                 }} onClick={handleClick}  >Next</button>
+        //                             </div>
+        //                         </div>
+        //                     </form>
+        //                 </div >
+        //             </div >
+        //         </>
+        //     );
+        //
+        // }
     };
 
     return (

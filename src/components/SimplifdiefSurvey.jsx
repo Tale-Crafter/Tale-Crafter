@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import  { useState } from 'react';
 const SquareButton = ({ title, description, imageUrl, to }) => {
     const [isHovered, setIsHovered] = useState(false);
-  
+    const { iduser } = useParams();
+
     const handleMouseEnter = () => {
       setIsHovered(true);
     };
@@ -27,7 +28,7 @@ const SquareButton = ({ title, description, imageUrl, to }) => {
 
 const MainPage = () => {
   return (
-    <div className="container" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: 'absolute', left: 450 }}>
+    <div className="container" style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: 'absolute',top:80, left: 340,width:'76%',borderRadius:10,backgroundColor:"white" }}>
       <main className="main">
       
 
