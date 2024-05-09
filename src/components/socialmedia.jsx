@@ -2,7 +2,10 @@ import React from 'react'
 
 import { Link } from 'react-router-dom';
 
-
+import facebook from '../images/facebook.png';
+import gmail from '../images/Gmail.png';
+import twitter from '../images/twitter.png';
+import linkedIn from '../images/Linkedin.png';
 
 function SocialMedia() {
 
@@ -22,22 +25,22 @@ function SocialMedia() {
         <div style={icons}>
             <span>
                 <Link to="https://www.facebook.com">
-                    <img src={process.env.PUBLIC_URL + '/fbf.png'} className="rounded" alt="X" style={{width:56,height:56}}/>
+                    <img src={facebook} alt="Facebook" />
                 </Link>
             </span>
             <span>
                 <Link to="https://www.gmail.com">
-                    <img src={process.env.PUBLIC_URL + '/bmail.png'} className="rounded" alt="Facebook" style={{width:56,height:56}} />
+                    <img src={gmail} alt="Gmail" />
                 </Link>
             </span>
             <span>
                 <Link to="https://www.twitter.com">
-                    <img src={process.env.PUBLIC_URL + '/bx.png'} className="rounded" alt="Gmail" style={{width:56,height:56}}/>
+                    <img src={twitter} alt="X" />
                 </Link>
             </span>
             <span>
                 <Link to="https://www.linkedin.com">
-                    <img src={process.env.PUBLIC_URL + '/bx.png'} className="rounded" alt="Gmail" style={{width:56,height:56}}/>
+                    <img src={linkedIn} alt="Linkedin" />
                 </Link>
             </span>
         </div>

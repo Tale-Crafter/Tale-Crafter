@@ -27,6 +27,12 @@ import Changepwd from "./pages/Dashboard/Changepwd";
 import Assistancechangepwd from "./pages/Dashboard/Assistancechangepwd";
 
 function App() {
+  const[blogs , setblogs] = useState([])
+  useEffect(() => {
+      fetch('http://localhost:4000/')
+      .then(res => res.json())
+      .then(data => setblogs(data))
+  },[])
     return (
         <Router>
             <Routes>
