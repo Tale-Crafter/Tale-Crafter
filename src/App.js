@@ -2,6 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const[blogs , setblogs] = useState([])
+  useEffect(() => {
+      fetch('http://localhost:4000/')
+      .then(res => res.json())
+      .then(data => setblogs(data))
+  },[])
   return (
     <div className="App">
       <header className="App-header">
