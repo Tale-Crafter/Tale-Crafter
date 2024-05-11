@@ -208,7 +208,7 @@ const CreateSurveySTEP1 = () => {
                             </label>
                         </div>
 
-                        <div style={{width: 586, height: 96, left: 40, top: 744, position: 'absolute'}}>
+                        <div style={{width: 586, height: 96, left: 40, top: 580, position: 'absolute'}}>
                                 <label>
                                     <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Brand</div>
                                     <select name="Sub-Brand" value={formData.category} onChange={handleInputChange} style={{ border: 0, width: 590, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10, padding: '10px'  }}>
@@ -219,18 +219,19 @@ const CreateSurveySTEP1 = () => {
                                     </select>
                                 </label>
                       </div>
-                        <div style={{width: 586, height: 150, left: 40, top: 455, position: 'absolute'}}>
-                            <label>
-                                <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Survey category</div>
-                                <select name="sujet" value={formData.category} onChange={handleInputChange} style={{ border: 0, width: 590, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10, padding: '10px'  }}>
-                                    <option value="Select">-Select-</option>
-                                    <option value="interesting insights">Interesting Insights</option>
-                                    <option value="Reclamation">Reclamation</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </label>
-                        </div>
-                        <textarea style={{background: 'rgba(17, 17, 17, 0.10)',position:"relative",top:744,left:255,width: 560, height: 170, outline: 'none', resize: 'none', padding: '8px', fontFamily:"revert", fontSize:14,borderRadius: 16, border: '1.5px #CCCCCC solid'}} placeholder="Desciption" value={textareaContent} onChange={handleTextareaChange} />
+                        {/*<div style={{width: 586, height: 150, left: 40, top: 455, position: 'absolute'}}>*/}
+                        {/*    <label>*/}
+                        {/*        <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Survey category</div>*/}
+                        {/*        <select name="sujet" value={formData.category} onChange={handleInputChange} style={{ border: 0, width: 590, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10, padding: '10px'  }}>*/}
+                        {/*            <option value="Select">-Select-</option>*/}
+                        {/*            <option value="interesting insights">Interesting Insights</option>*/}
+                        {/*            <option value="Reclamation">Reclamation</option>*/}
+                        {/*            <option value="other">Other</option>*/}
+                        {/*        </select>*/}
+                        {/*    </label>*/}
+                        {/*</div>*/}
+                        <div style={{left: 40, top: 770, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Survey description (optional)</div>
+                        <textarea style={{background: 'rgba(17, 17, 17, 0.10)',position:"relative",top:800,left:-370,width: 570, height: 170, outline: 'none', resize: 'none', padding: '8px', fontFamily:"revert", fontSize:14,borderRadius: 16, border: '1.5px #CCCCCC solid'}} placeholder="Description" value={textareaContent} onChange={handleTextareaChange} />
                         <div
                             style={{
                                 position:"absolute",
@@ -246,7 +247,7 @@ const CreateSurveySTEP1 = () => {
                         >
                             {charCount}/1000
                         </div>
-                        <div style={{width: 586, height: 96, left: 40, top: 840, position: 'absolute'}}>
+                        <div style={{width: 586, height: 96, left: 40, top: 670, position: 'absolute'}}>
                             <label>
                                 <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Product / Offers</div>
                                 <select name="Product" value={formData.category} onChange={handleInputChange} style={{ border: 0, width: 590, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10, padding: '10px'  }}>
@@ -278,11 +279,11 @@ const CreateSurveySTEP1 = () => {
                         </div>}
 
 
-                        <button onClick={handleNext} style={{background:"transparent",border:"none",width: 100, height: 17.45, left: 545, top: 744, position: 'absolute', color: '#00BDA9', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>+ Add new</button>
-                        <button onClick={handleNext1} style={{background:"transparent",border:"none",width: 100, height: 17.45, left: 545, top: 839, position: 'absolute', color: '#00BDA9', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>+ Add new</button>
+                        <button onClick={handleNext} style={{background:"transparent",border:"none",width: 100, height: 17.45, left: 545, top: 580, position: 'absolute', color: '#00BDA9', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>+ Add new</button>
+                        <button onClick={handleNext1} style={{background:"transparent",border:"none",width: 100, height: 17.45, left: 545, top: 670, position: 'absolute', color: '#00BDA9', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>+ Add new</button>
 
                         <div style={{ position: 'absolute', left: 30, top: 292 }}>
-                            {Array.from(Array(3).keys()).map(index => (
+                            {['English', 'French', 'Arabic Tounsi'].map(index => (
                                 <label key={index} style={{ margin: '0 10px', marginBottom: '20px', position: 'relative', cursor: 'pointer', display: 'inline-block' }}>
                                     <input type="checkbox" onChange={() => handleCheckboxChange1(index)} checked={checkboxValues1[index]} style={{ display: 'none' }} />
                                     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -294,7 +295,7 @@ const CreateSurveySTEP1 = () => {
                                             )}
                                         </div>
                                     </div>
-                                    <span style={{ position:"relative",top:8,marginLeft: 40, color: checkboxValues1[index] ? '#00BDA9' : 'black' }}>Option {index + 1}</span>
+                                    <span style={{ position:"relative",top:8,marginLeft: 40, color: checkboxValues1[index] ? '#00BDA9' : 'black' }}> {index}</span>
                                 </label>
                             ))}
                         </div>
@@ -303,10 +304,10 @@ const CreateSurveySTEP1 = () => {
                         {/*<div style={{left: 193, top: 298, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>French</div>*/}
                         {/*<div style={{left: 296, top: 298, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Arabic Tounsi</div>*/}
                         <div style={{left: 41, top: 257, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Language(s) in which the survey will be conducted?</div>
-                        <div style={{left: 40, top: 551, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Advanced settings</div>
+                        <div style={{left: 40, top: 450, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Advanced settings</div>
                         {/* Checkboxes */}
-                        <div style={{ position: 'absolute', left: 30, top: 585 }}>
-                            {Array.from(Array(2).keys()).map(index => (
+                        <div style={{ position: 'absolute', left: 30, top: 475 }}>
+                            {Array.from(Array(1).keys()).map(index => (
                                 <label key={index} style={{ margin: '0 10px', marginBottom: '20px', position: 'relative', cursor: 'pointer', display: 'block' }}>
                                     <input type="checkbox" onChange={() => handleCheckboxChange(index)} checked={checkboxValues[index]} style={{ display: 'none' }} />
                                     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
@@ -318,16 +319,16 @@ const CreateSurveySTEP1 = () => {
                                             )}
                                         </div>
                                     </div>
-                                    <span style={{ position:"relative",top:8,marginLeft: 40, color: checkboxValues[index] ? '#00BDA9' : 'black' }}>Option {index + 1}</span>
+                                    <span style={{ position:"relative",top:8,marginLeft: 40, color: checkboxValues[index] ? '#00BDA9' : 'black' }}>Use the Audience panel to purchase targeted responses.</span>
                                 </label>
                             ))}
                         </div>
 
-                        <div style={{left: 40, top: 706, position: 'absolute', color: 'black', fontSize: 16, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Brands info</div>
+                        <div style={{left: 40, top: 550, position: 'absolute', color: 'black', fontSize: 16, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Brands info</div>
                         <div style={{width: 140, height: 30, padding: 16, left: 1075, top: 960, position: 'absolute', background: '#DDDDDD', borderRadius: 10, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
                             <div style={{color: '#666666', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Next</div>
                         </div>
-                        <div style={{width: 583, height: 0, left: 624, top: 690, position: 'absolute', transform: 'rotate(-180deg)', transformOrigin: '0 0', border: '1px #DDDDDD solid'}}></div>
+                        <div style={{width: 583, height: 0, left: 624, top: 540, position: 'absolute', transform: 'rotate(-180deg)', transformOrigin: '0 0', border: '1px #DDDDDD solid'}}></div>
                     </div>
                 </div>
             </div>
