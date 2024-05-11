@@ -1,0 +1,78 @@
+.leftBg {
+    width: 100%;
+    max-width: 411px; /* Set a maximum width for larger screens */
+    height: auto; /* Allow the height to adjust based on content */
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
+.mainText {
+    color: #FFF;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    font-size: 62px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 64px;
+    width: 197px;
+    height: 128px;
+    position: absolute;
+    top: 189px;
+    left: 106px;
+
+}
+
+.leftBg .detailsText {
+    width: 200px;
+    height: 63px;
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    position: absolute;
+    top: 317px;
+    left: 111px;
+
+}
+
+.logoTale {
+    display: flex;
+    width: 126px;
+    height: 37px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    position: absolute;
+    top: 16px;
+    left: 435px;
+
+}
+
+
+.languageStyle {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    width: auto; /* Allow the width to adjust based on content */
+    height: auto; /* Allow the height to adjust based on content */
+    position: absolute;
+    top: 8px;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%);
+    padding: 8px;
+}
