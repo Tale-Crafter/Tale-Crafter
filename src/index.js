@@ -90,6 +90,8 @@ import ReviewPreview2 from "./pages/Review&Preview2";
 import SurveyLink from "./pages/Dashboard/SurveyLink";
 import ReviewPreview3 from "./pages/Review&Preview3";
 import SurveyColl from "./pages/Dashboard/SurveyColl";
+import Order from "./pages/Dashboard/Order";
+import Ordertest from "./pages/Dashboard/Ordertest";
 const routes = createBrowserRouter([
   {path:"/Businesshome/:iduser", element: <Businesshome/>},
   {path:"/Businesshomedata/:iduser", element: <Businesshomedata />},
@@ -109,6 +111,10 @@ const routes = createBrowserRouter([
     path: "/BusinessRegister", element: <BusinessRegister />,
   },{
     path: "/Surveycoll", element: <SurveyColl />,
+  },{
+    path: "/Order", element: <Order />,
+  },{
+    path: "/Ordert", element: <Ordertest />,
   },
   {
     path: "/Verif", element: <Bverif />,
