@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://127.0.0.1:8080",
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.17.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -70,6 +71,8 @@
       "react-app/jest"
     ]
   },
+  
+  
   "browserslist": {
     "production": [
       ">0.2%",
@@ -81,5 +84,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+    
   }
 }
