@@ -25,6 +25,7 @@ import Policy from "./Policy";
 import Changepwd from "./Changepwd";
 import Assistancechangepwd from "./Assistancechangepwd";
 import BusinessSurveys from "./BusinessSurveys";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
     return (

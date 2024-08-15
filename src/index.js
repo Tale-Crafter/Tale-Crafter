@@ -61,6 +61,7 @@ import Changepwd from "./pages/Dashboard/Changepwd";
 import Assistancechangepwd from "./pages/Dashboard/Assistancechangepwd";
 import AssistanceO from './pages/Dashboard/AssistanceO';
 import TaleCustomerSubscribe from "./pages/TaleCustomerSubscribe";
+import CustomerExperience from "./pages/Dashboard/CustomerExperienceSurvey";
 import BusinessSurveys from "./pages/Dashboard/BusinessSurveys";
 import CreateSurveySTEP1 from "./pages/Dashboard/CreateSurveySTEP1";
 import CreateSurveySTEP2 from "./pages/Dashboard/CreateSurveySTEP2";
@@ -83,12 +84,85 @@ import CreateSurveySTEP6 from "./pages/Dashboard/CreateSurveySTEP6";
 import CreateSurveySTEP7 from "./pages/Dashboard/CreateSurveySTEP7";
 import CreateSurveySTEP8 from "./pages/Dashboard/CreateSurveySTEP8";
 import CreateSurveySTEP9 from "./pages/Dashboard/CreateSurveySTEP9";
+import CustomerExperienceSurveylv3 from "./pages/Dashboard/CustomerExperienceSurveylv3";
+import ReviewPreview1 from "./pages/Review&Preview1";
+import ReviewPreview2 from "./pages/Review&Preview2";
+import SurveyLink from "./pages/Dashboard/SurveyLink";
+import ReviewPreview3 from "./pages/Review&Preview3";
+import SurveyColl from "./pages/Dashboard/SurveyColl";
+import Order from "./pages/Dashboard/Order";
+import Ordertest from "./pages/Dashboard/Ordertest";
+import Cigaro from "./pages/Dashboard/Cigaro";
+import TobaccoC from "./pages/Dashboard/TobaccoC";
+import TLanguage from "./pages/Dashboard/TLanguage";
+import TobaccoC10 from "./pages/Dashboard/TobaccoC10";
+import TobaccoC20 from "./pages/Dashboard/TobaccoC20";
+import TobaccoC30 from "./pages/Dashboard/TobaccoC30";
+import TobaccoC40 from "./pages/Dashboard/TobaccoC40";
+import TobaccoC50 from "./pages/Dashboard/TobaccoC50";
+import TobaccoC60 from "./pages/Dashboard/TobaccoC60";
+import TobaccoC70 from "./pages/Dashboard/TobaccoC70";
+import TobaccoC80 from "./pages/Dashboard/TobaccoC80";
+import TobaccoC90 from "./pages/Dashboard/TobaccoC90";
+import TobaccoC100 from "./pages/Dashboard/TobaccoC100";
+import TobaccoC110 from "./pages/Dashboard/TobaccoC110";
+import TSport from "./pages/Dashboard/TSport";
+import TWl from "./pages/Dashboard/TWl";
+import TActivw from "./pages/Dashboard/TActivw";
+import TcarD from "./pages/Dashboard/TcarD";
+import TConsumptionB from "./pages/Dashboard/TConsumptionB";
+import THT from "./pages/Dashboard/THT";
+import TheStudies from "./pages/Dashboard/TheStudies";
+import Tltelevision from "./pages/Dashboard/Tltelevision";
+import SocialNetworks from "./pages/Dashboard/SocialNetworks";
+import ConsumptionHabits from "./pages/Dashboard/ConsumptionHabits";
+import EntOfTunisia from "./pages/Dashboard/EntOfTunisia";
+import EducationFormation from "./pages/Dashboard/Education&Formation";
+import LoginAdmin from "./pages/LoginAdmin";
+import Adminhome from "./pages/Dashboard/Adminhome";
+import Chart from "./pages/Dashboard/chart";
+import GestionUser from "./pages/Dashboard/GestionUser";
+import AssistanceAdmin from "./pages/Dashboard/AssistanceAdmin";
+import ConfirmationPopup from "./pages/Dashboard/ConfirmationPopup";
+import GestionSanction from "./pages/Dashboard/GestionSanction";
 const routes = createBrowserRouter([
   {path:"/Businesshome/:iduser", element: <Businesshome/>},
+  {path:"/GestionDesSanctions/:iduser", element: <GestionSanction/>},
+  {path:"/ConfirmationPopup/:iduser", element: <ConfirmationPopup/>},
+  {path:"/AssistanceAdmin/:iduser", element: <AssistanceAdmin/>},
+  {path:"/GestionDesUtilisateurs/:iduser", element: <GestionUser/>},
+  {path:"/Adminhome/:iduser", element: <Adminhome/>},
   {path:"/Businesshomedata/:iduser", element: <Businesshomedata />},
+  {path:"/chart", element: <Chart />},
   {path:"/Surveyia/:iduser", element: <Surveyia/>},
   {
     path: "/register", element: <Register />,
+  },{
+    path: "/Tobacco", element: <TobaccoC />,
+  },{
+    path: "/TSport", element: <TSport />,
+  },{
+    path: "/tlearning", element: <TWl />,
+  },{
+    path: "/tactiv", element: <TActivw />,
+  },{
+    path: "/tcarD", element: <TcarD />,
+  },{
+    path: "/tconsumptionb", element: <TConsumptionB />,
+  },{
+    path: "/travelhabitst", element: <THT />,
+  },{
+    path: "/studies", element: <TheStudies />,
+  },{
+    path: "/education", element: <EducationFormation />,
+  },{
+    path: "/television", element: <Tltelevision />,
+  },{
+    path: "/socialnet", element: <SocialNetworks />,
+  },{
+    path: "/habits", element: <ConsumptionHabits />,
+  },{
+    path: "/Entertainment", element: <EntOfTunisia />,
   },
   {
     path: "/subscribe", element: <TaleCustomerSubscribe />,
@@ -98,15 +172,35 @@ const routes = createBrowserRouter([
   },
   {
     path: "/login", element: <LoginO />,
+  },
+  {
+    path: "/Adminlogin", element: <LoginAdmin />,
   },{
     path: "/BusinessRegister", element: <BusinessRegister />,
+  },{
+    path: "/Surveycoll", element: <SurveyColl />,
+  },{
+    path: "/Order", element: <Order />,
+  },{
+    path: "/Ordert", element: <Ordertest />,
   },
   {
     path: "/Verif", element: <Bverif />,
+  }, {
+    path: "/CustomerExperience", element: <CustomerExperience/>,
+  }, {
+    path: "/CustomerExperiencelv3", element: <CustomerExperienceSurveylv3/>,
+  },{
+    path: "/SurveyLink", element: <SurveyLink/>,
   },
-
   {
     path: "/chsurvey", element: <Chsurvey />,
+  },{
+    path: "/chsurvey1", element: <ReviewPreview1 />,
+  },{
+    path: "/chsurvey2", element: <ReviewPreview2 />,
+  },{
+    path: "/chsurvey3", element: <ReviewPreview3 />,
   },
   {
     path: "/simplesurvey", element: <Simplesurvey />,
@@ -214,6 +308,18 @@ const routes = createBrowserRouter([
 { path: "/awards/:iduser", element: <Awards /> },
 { path: "/focusgroupdetails/:iduser", element: <Focusgroupdetails /> },
 { path: "/language/:iduser", element: <LanguagePage /> },
+  { path: "/tlanguage/:iduser", element: <TLanguage /> },
+  { path: "/tobacco/:iduser", element: <TobaccoC10 /> },
+  { path: "/tobacco2/:iduser", element: <TobaccoC20 /> },
+  { path: "/tobacco3/:iduser", element: <TobaccoC30 /> },
+  { path: "/tobacco4/:iduser", element: <TobaccoC40 /> },
+  { path: "/tobacco5/:iduser", element: <TobaccoC50 /> },
+  { path: "/tobacco6/:iduser", element: <TobaccoC60 /> },
+  { path: "/tobacco7/:iduser", element: <TobaccoC70 /> },
+  { path: "/tobacco8/:iduser", element: <TobaccoC80 /> },
+  { path: "/tobacco9/:iduser", element: <TobaccoC90 /> },
+  { path: "/tobacco10/:iduser", element: <TobaccoC100 /> },
+  { path: "/tobacco11/:iduser", element: <TobaccoC110 /> },
 { path: "/opinionsurvey/:iduser", element: <OpinionSurvey /> },
 { path: "/generallyspeaking/:iduser", element: <OneanswerSurv /> },
 { path: "/endsurvey/:iduser", element: <EarnsPage /> },

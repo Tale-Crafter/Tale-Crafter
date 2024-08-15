@@ -1,0 +1,496 @@
+.table-container {
+    height: 100%;
+    background: #EFEFEF;
+    border-radius: 8px;
+    /*padding: 20px;*/
+    width: 1365px;
+    position: relative;
+    /*left: 340px;*/
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden; /* Ensures border-radius is applied */
+}
+
+thead {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+th, td {
+    border: 1px solid #DDDDDD;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+th .sort-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+th .sort-icon::after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #000;
+    margin-left: 5px;
+}
+
+th .sort-icon.ascending::after {
+    border-bottom: none;
+    border-top: 5px solid #000;
+}
+
+th .sort-icon.hidden {
+    display: none;
+}
+
+tbody tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.name-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar {
+    width: 39px;
+    height: 39px;
+    background: #DDDDDD;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    margin-right: 10px;
+}
+
+.name-details {
+    text-align: left;
+}
+
+.fullname {
+    font-weight: bold;
+}
+
+.username {
+    color: #888;
+}
+
+.toggle-switch {
+    width: 30px;
+    height: 13px;
+    background: rgba(0, 0, 0, 0.20);
+    border-radius: 30px;
+    position: relative;
+    cursor: pointer;
+}
+
+.toggle-slider {
+    width: 17px;
+    height: 17px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.3s;
+}
+
+.toggle-switch.active {
+    background: #00BFAE;
+}
+
+.toggle-switch.active .toggle-slider {
+    transform: translateX(17px);
+}
+
+.actions-menu {
+    cursor: pointer;
+}
+
+.popup {
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    background: white;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    border-radius: 10px;
+}
+
+.popup button {
+    padding: 10px;
+    border: none;
+    background: #f0f0f0;
+    cursor: pointer;
+    text-align: left;
+}
+
+.popup button:hover {
+    background: #ddd;
+}
+
+/* Custom Checkbox Styles */
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    background: white;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    position: relative;
+    display: inline-block;
+}
+
+input[type="checkbox"]:checked {
+    background: #00BFAE;
+    border-color: #00BFAE;
+}
+
+input[type="checkbox"]:checked::after {
+    content: "\2713"; /* Checkmark symbol */
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+}
+.table-wrapper1 {
+    /*background: white;*/
+    /*border-radius: 8px;*/
+    display: flex;
+    /*padding: 16px;*/
+    flex-direction: column;
+    align-items: flex-end;
+    /*width: 1365px;*/
+    /*left: 340px;*/
+    /*position: relative;*/
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    width: 20%;
+}
+
+.search-input {
+    flex: 1 1;
+    padding: 8px 12px;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #939393;
+}
+
+.search-input::placeholder {
+    color: #666;
+}
+
+.three-dots-button {
+    margin-left: 8px;
+    padding: 8px;
+    border: none;
+    background: #f0f0f0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+}
+
+.three-dots-button:hover {
+    background: #e0e0e0;
+}
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.popup1 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 500px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 101;
+    overflow-y: auto;
+    max-height: 80%;
+}
+.popup2 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 500px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 101;
+    overflow-y: auto;
+    max-height: 80%;
+}
+
+.popup1 h2 {
+    margin-top: 0;
+}
+
+.popup-search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.popup-content {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.popup-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/*//*/
+
+.popup-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.popup-header h2 {
+    font-size: 16px;
+    font-family: revert;
+    text-align: left;
+    font-weight: 700;
+    line-height: 24px;
+    color: black;
+    flex-grow: 1;
+}
+
+.popup-close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.popup-close::before {
+    content: '\21E6';
+    position: relative;
+    font-size: 40px;
+    padding: 3px;
+    top: -10px;
+    border-radius: 10px;
+}
+
+.popup-body {
+    margin-bottom: 16px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    text-align: left;
+    font-family: revert;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    height: 51px;
+    background: rgba(17, 17, 17, 0.10);
+    border: none;
+    border-radius: 10px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-family: revert;
+    color: rgba(0, 0, 0, 0.40);
+}
+
+.popup-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.popup-submit,
+.popup-cancel {
+    width: 162px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-family: revert;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.popup-submit {
+    background: #DDDDDD;
+    color: #666666;
+    border: none;
+}
+
+.popup-cancel {
+    background: white;
+    color: #111111;
+    border: 2px solid #111111;
+}
+
+/*//*/
+.add-button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.close-button {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    float: right;
+    color: #333;
+}
+.popup1 button {
+    padding: 10px;
+    border: none;
+    color: #00BDA9;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+}
+.pagination {
+    width: 100%;
+    /*height: 100%;*/
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2px;
+}
+
+.pagination .page-button {
+    padding: 4px;
+    background: rgb(0, 190, 212);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}.pagination .page-buttonSuivant {
+    padding: 4px;
+    background: rgb(0, 190, 212);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination .page-button div {
+    width: 30px;
+    height: 30px;
+    position: relative;
+}.pagination .page-buttonSuivant div {
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+.pagination .page-button div::before {
+    content: '\2190';
+    display: block;
+    font-size: 25px;
+    position: absolute;
+}.pagination .page-buttonSuivant div::before {
+    content: '\2192';
+    display: block;
+    font-size: 25px;
+    position: absolute;
+}
+
+.pagination .page-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 6px;
+    border-radius: 8px;
+    gap: 10px;
+}
+
+.pagination .active-page {
+    background: #333333;
+    color: white;
+}
+
+.pagination .inactive-page {
+    background: rgba(0, 0, 0, 0.04);
+    color: #333333;
+}
+
+
+.pagination button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 0 5px;
+}
+
+.pagination button:disabled {
+    background-color: #d6d6d6;
+    cursor: not-allowed;
+}

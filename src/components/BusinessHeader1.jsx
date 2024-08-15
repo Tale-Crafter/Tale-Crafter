@@ -5,7 +5,7 @@ function Header() {
     const imglanguage = {
         position: 'absolute',
         top: '16px',
-        right: '440px',
+        right: '0px',
         width: '160px',
         height: '40px',
     }

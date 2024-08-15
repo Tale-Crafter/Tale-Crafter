@@ -66,7 +66,7 @@ const Datasecurity = () => {
         // For example, save the acceptance status to local storage
 
         localStorage.setItem('moralContractAccepted', 'true');
-        window.location.href =`/language/${iduser}`;
+        window.location.href =`/tlanguage/${iduser}`;
 
         // You may also want to redirect the user or perform other actions
         // depending on your application's requirements.
