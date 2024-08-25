@@ -1,0 +1,64 @@
+version: '3.8'
+services:
+  app:
+    image: taleapp
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/taleApp
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://postgresql:5432/taleApp
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=web_app
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=web_app
+      - DB_USER=taleApp
+      - DB_PASSWORD=yh09881592
+      - DB_HOST=postgresql
+      - DB_PORT=5432
+      - DB_DATABASE=taleApp
+    ports:
+      - 127.0.0.1:8080:8081
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -f
+        - http://localhost:8080/management/health
+      interval: 5s
+      timeout: 5s
+      retries: 40
+    depends_on:
+      postgresql:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
+
+  postgresql:
+    image: postgres:16.1
+    environment:
+      - POSTGRES_USER=taleApp
+      - POSTGRES_PASSWORD=taleApp
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - 127.0.0.1:5432:5432
+
+  keycloak:
+    extends:
+      file: ./keycloak.yml
+      service: keycloak
+
+  frontend:
+    build:
+      context: C:\Program Files\focus-app-tale-backend-c0eeed59f0c3
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - app
