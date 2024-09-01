@@ -1,0 +1,82 @@
+pipeline {
+    agent any
+
+    environment {
+        REPO_URL = 'https://github.com/Tale-Crafter/Tale-Crafter.git'
+        GIT_BRANCH = 'containerization'
+        DOCKER_IMAGE = 'tale-crafter-image'
+        GIT_CREDENTIALS = 'credgit'
+        DOCKER_CREDENTIALS = 'dockercred'
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                script {
+                    git branch: "${GIT_BRANCH}", url: "${REPO_URL}", credentialsId: "${GIT_CREDENTIALS}"
+                }
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+                sh 'npm run build'
+            }
+        }
+
+        stage('Verify Docker Compose Installation') {
+            steps {
+                sh 'docker-compose --version'
+            }
+        }
+
+        stage('Login to DockerHub') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS}", passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
+                        sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin'
+                    }
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t ${DOCKERHUB_USERNAME}/${DOCKER_IMAGE}:latest ."
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    sh "docker push ${DOCKERHUB_USERNAME}/${DOCKER_IMAGE}:latest"
+                }
+            }
+        }
+
+        stage('Run Docker Compose') {
+            steps {
+                script {
+                    sh 'docker-compose up -d'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Cleaning up...'
+            sh 'docker-compose down || true'
+            cleanWs()
+        }
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
