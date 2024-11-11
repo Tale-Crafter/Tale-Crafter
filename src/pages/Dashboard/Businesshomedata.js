@@ -231,7 +231,7 @@ const Businesshomedata = () => {
                 </div>
 
 
-                <Link to={`/surveys/${iduser}`}>
+                <Link to={`/surveys`}>
                     <div style={{ left: 710, top: 534, position: 'absolute', textAlign: 'center', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word', whiteSpace: 'nowrap' }}>View all</div>
                     <div style={{width: 16, height: 16, left: 760, top: 534, position: 'absolute'}}>
                         <img src={process.env.PUBLIC_URL + '/image11.png'} alt="" style={{ width: '100%', height: '100%' }} />
@@ -310,7 +310,7 @@ const Businesshomedata = () => {
 
 
 
-                <Link to={`/focusgroup/${iduser}`}>
+                <Link to={`/focusgroup`}>
                     <div style={{ left: 1185, top: 534, position: 'absolute', textAlign: 'center', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word', whiteSpace: 'nowrap' }}>View all</div>
                     <div style={{width: 16, height: 16, left: 1235, top: 534, position: 'absolute'}}>
                         <img src={process.env.PUBLIC_URL + '/image11.png'} alt="" style={{ width: '100%', height: '100%' }} />
@@ -377,7 +377,7 @@ const Businesshomedata = () => {
                 <hr style={{ left: 1310, width: 400, borderTop: '0.2px solid #ccc', top: 465, position: 'absolute' }} />
 
 
-                <Link to={`/focusgroup/${iduser}`}>
+                <Link to={`/focusgroup`}>
                     <div style={{ left: 1660, top: 534, position: 'absolute', textAlign: 'center', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word', whiteSpace: 'nowrap' }}>View all</div>
                     <div style={{width: 16, height: 16, left: 1710, top: 534, position: 'absolute'}}>
                         <img src={process.env.PUBLIC_URL + '/image11.png'} alt="" style={{ width: '100%', height: '100%' }} />

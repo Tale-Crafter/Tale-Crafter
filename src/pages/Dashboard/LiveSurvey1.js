@@ -27,8 +27,8 @@ const LanguagePage = () => {
         setShowConfirmation(true);
     };
     const handleBackClick = () => {
-        // Redirect to /Surveys/:iduser
-        navigate(`/Surveys/${iduser}`);
+        // Redirect to /Surveys
+        navigate(`/Surveys`);
     };
     const handleCloseConfirmation = () => {
         setShowConfirmation(false);

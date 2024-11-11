@@ -42,7 +42,7 @@ function LoginOne() {
     const handleSubmit = () => {
         if (isFormValid) {
             console.log('Form submitted successfully!');
-            navigate(`/businesshomedata/${iduser}`);
+            navigate(`/businesshomedata`);
         } else {
             console.log('Form is not valid. Errors:');
             if (emailError) {

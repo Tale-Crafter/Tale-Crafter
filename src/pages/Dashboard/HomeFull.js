@@ -107,7 +107,7 @@ const Home = () => {
 
     return (
         <div className="App">
-            <BusinessLeftsidebar sidebarVisible={sidebarVisible} toggleSidebar={toggleSidebar} />
+            <Leftsidebar sidebarVisible={sidebarVisible} toggleSidebar={toggleSidebar} />
             <div style={{width: '100%', height: '100%', position: 'relative', background: '#EFEFEF',marginLeft: !sidebarVisible ? -100 : 0, transition: 'margin-left 0.3s ease'}}>
 
                 {/*{sidebarVisible ? (*/}
@@ -125,7 +125,7 @@ const Home = () => {
                     <div><span style={{ left: 20,top:15, position: 'relative',color: '#111111', fontSize: 24, fontFamily: 'revert', fontWeight: '700', lineHeight: 1, wordWrap: 'break-word'}}>Welcome, [Name]!</span><span style={{left: 20, position: 'relative',color: '#111111', fontSize: 24, fontFamily: 'revert', fontWeight: '600', lineHeight: 1.5, wordWrap: 'break-word'}}> <br/></span><span style={{left: 20,top:10, position: 'relative',color: '#333333', fontSize: 14, fontFamily: 'revert', fontWeight: '400', lineHeight: 3, wordWrap: 'break-word'}}>Explore influential opportunities by participating in exciting surveys. Your opinion matters!</span></div>
                 </div>
                 <div style={{width: 670, height: 280, left: 340, top: 312, position: 'absolute', background: 'white', borderRadius: 16}} />
-                <div style={{width: 1400, height: 557, left: 340, top: 608, position: 'absolute', background: 'white', borderRadius: 16}} />
+                <div style={{width: 1400, height: 660, left: 340, top: 608, position: 'absolute', background: 'white', borderRadius: 16}} />
                 <div style={{width: 670, height: 280, left: 1070, top: 312, position: 'absolute', background: 'white', borderRadius: 16}} >
                     <div style={{left: 306, top: 67, position: 'absolute', color: '#111111', fontSize: 16, fontFamily: 'revert', fontWeight: '700', wordWrap: 'break-word'}}>Tech Enthusiasts Insights</div>
                     <div style={{left: 306, top: 97, position: 'absolute', color: '#333333', fontSize: 12, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>25/12/2024 -12:00</div>
@@ -195,13 +195,13 @@ const Home = () => {
                 <div style={{paddingLeft: 8, paddingRight: 8, paddingTop: 4, paddingBottom: 4, left: 1225, top: 333, position: 'absolute', background: '#666666', borderRadius: 30, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
                     <div style={{textAlign: 'center', color: 'white', fontSize: 10, fontFamily: 'revert', fontWeight: '700', wordWrap: 'break-word'}}>2</div>
                 </div>
-                <Link to={`/surveys/${iduser}`}>
+                <Link to={`/surveys`}>
                     <div style={{ left: 910, top: 328, position: 'absolute', textAlign: 'center', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word' }}>View all</div>
                     <div style={{ width: 16, height: 16, left: 970, top: 328, position: 'absolute' }}>
                         <img src={process.env.PUBLIC_URL + '/image11.png'} alt="" style={{ width: '100%', height: '100%' }} />
                     </div>
                 </Link>
-                <Link to={`/focusgroup/${iduser}`}>
+                <Link to={`/focusgroup`}>
                 <div style={{left: 1640, top: 328, position: 'absolute', textAlign: 'center', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>View all</div>
                 <div style={{width: 16, height: 16, left: 1700, top: 328, position: 'absolute'}}>
                     <img src={process.env.PUBLIC_URL + '/image11.png'} alt="" style={{ width: '100%', height: '100%' }} />

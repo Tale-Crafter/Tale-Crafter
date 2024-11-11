@@ -31,7 +31,7 @@ const Assistance = () => {
                 <AccountAreaHeader/>
                 <div style={{width: 1400, height: 586, left: 340, top: 230, position: 'absolute', background: 'white', borderRadius: 16}} >
                     {/* Intégrez le formulaire de contact ici */}
-                    <ContactForm />
+                    <ContactF />
                 </div>
             </div>
         </div>

@@ -30,25 +30,25 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/home/:iduser" element={<HomeFull />} />
-                <Route path="/surveys/:iduser" element={<Surveys/>} />
-                <Route path="/assistance/:iduser" element={<Assistance />} />
-                <Route path="/surveydetails/:iduser" element={<SurveyDetail />} />
-                <Route path="/dataverification/:iduser" element={<Datasecurity />} />
-                <Route path="/focusgroup/:iduser" element={<Focusgroup />} />
-                <Route path="/awards/:iduser" element={<Awards />} />
-                <Route path="/focusgroupdetails/:iduser" element={<Focusgroupdetails />} />
-                <Route path="/language/:iduser" element={<LanguagePage />} />
-                <Route path="/opinionsurvey/:iduser" element={<OpinionSurvey />} />
-                <Route path="/generallyspeaking/:iduser" element={<OneanswerSurv />} />
-                <Route path="/endsurvey/:iduser" element={<EarnsPage />} />
-                <Route path="/very/:iduser" element={<VerylikelyVierge />} />
-                <Route path="/livesurvey/:iduser" element={<LiveSurvey />} />
-                <Route path="/livesurvey1/:iduser" element={<LiveSurvey1 />} />
-                <Route path="/assistancevid/:iduser" element={<AssistanceRegisterAccountmanagement />} />
-                <Route path="/policy/:iduser" element={<Policy />} />
-                <Route path="/account/:iduser" element={<Assistance />} />
-                <Route path="/account1/:iduser" element={<Assistancechangepwd />} />
+                <Route path="/home" element={<HomeFull />} />
+                <Route path="/surveys" element={<Surveys/>} />
+                <Route path="/assistance" element={<Assistance />} />
+                <Route path="/surveydetails" element={<SurveyDetail />} />
+                <Route path="/dataverification" element={<Datasecurity />} />
+                <Route path="/focusgroup" element={<Focusgroup />} />
+                <Route path="/awards" element={<Awards />} />
+                <Route path="/focusgroupdetails" element={<Focusgroupdetails />} />
+                <Route path="/language" element={<LanguagePage />} />
+                <Route path="/opinionsurvey" element={<OpinionSurvey />} />
+                <Route path="/generallyspeaking" element={<OneanswerSurv />} />
+                <Route path="/endsurvey" element={<EarnsPage />} />
+                <Route path="/very" element={<VerylikelyVierge />} />
+                <Route path="/livesurvey" element={<LiveSurvey />} />
+                <Route path="/livesurvey1" element={<LiveSurvey1 />} />
+                <Route path="/assistancevid" element={<AssistanceRegisterAccountmanagement />} />
+                <Route path="/policy" element={<Policy />} />
+                <Route path="/account" element={<Assistance />} />
+                <Route path="/account1" element={<Assistancechangepwd />} />
 
 
             </Routes>

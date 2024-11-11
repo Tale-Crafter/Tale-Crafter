@@ -2,186 +2,112 @@
 
 import React, { useState } from 'react';
 import {useNavigate, useParams} from "react-router-dom";
+import {CreateCompany, CreateProduct} from "./Api";
 
 const ConfirmationPopup = ({ onClose, onValidate }) => {
-    const [agreed, setAgreed] = useState(false);
     const { iduser } = useParams();
     const navigate = useNavigate();
     const [selectedFiles1, setSelectedFiles1] = useState([]);
+    const [formData, setFormData] = useState({
+        name: '',
+        description: '',
+        logo: '' // Assuming logo is a file (e.g., image)
+    });
 
-    const handleSubmit = () => {
-        // Handle submitting files (e.g., send them to a server)
-        if (selectedFiles1) {
-            console.log('Selected Files:', selectedFiles1);
-            // Here you can perform actions like uploading files to a server
-        } else {
-            console.log('No files selected.');
-        }
-    };
-
+    // Handle file change
     const handleFileChange1 = (event1) => {
         const files = event1.target.files;
         const selectedFilesArray = Array.from(files);
         setSelectedFiles1(selectedFilesArray);
-        // Automatically submit files here or trigger an upload function
-        // For demonstration, I'm logging the selected files to the console
-        console.log('Selected Files:', selectedFilesArray);
-    };
-    const handleCheckboxChange = () => {
-        setAgreed(!agreed);
+        setFormData((prevData) => ({
+            ...prevData,
+            logo: selectedFilesArray[0] // Assuming only one logo file is selected
+        }));
     };
 
-    const handleValidate = () => {
-        if (agreed) {
-            onValidate();
-        } else {
-            alert("Please agree to respond honestly and accurately.");
-        }
-    };
-    const handleBackClick = () => {
-        // Call onClose to hide the popup
-        onClose();
-        // Redirect to /Surveys/:iduser
-        navigate(`/createsurvey/${iduser}`);
-    };
-    const [formData, setFormData] = useState({
-        nom: '',
-        category: '-Select-',
-        SubBrand: '-Select-',
-        Product: '-Select-',
-        description: '',
-        price: ''
-    });
-    const predefinedMessages = {
-        nom: 'Enter your First Name',
-        prenom: 'Enter your Last Name',
-        email: 'Enter your email address',
-        numero: 'Enter your Number',
-        sujet: '', // No predefined message for the subject
-        description: 'Enter your description', // No predefined message for the description
-        price: 'Enter a price'
-    };
-
+    // Handle input change
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-
-        // Check if the input is a number for the 'numero' field
-        if (name === 'numero' && isNaN(value)) {
-            return; // Do not update state if the value is not a number
-        }
-
-        // Check if the input value matches any predefined message
-        if (predefinedMessages.hasOwnProperty(name) && value === predefinedMessages[name]) {
-            // If it matches, replace the predefined message with an empty string
-            setFormData((prevData) => ({ ...prevData, [name]: '' }));
-        } else {
-            // If the input value is not a predefined message, update the state
-            setFormData((prevData) => ({ ...prevData, [name]: value }));
-        }
-    };
-    const handlePriceChange = (e) => {
-        const { value } = e.target;
-
-        // Check if the input value is a valid number
-        if (!isNaN(parseFloat(value)) && isFinite(value)) {
-            setFormData({ ...formData, price: value });
-        } else {
-            // Clear the input if the value is not a valid number
-            setFormData({ ...formData, price: '' });
-        }
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    const validateNumberInput = (e) => {
-        const { key, target } = e;
-        const { value, selectionStart } = target;
-
-        // Allow only numbers, backspace, delete, and arrow keys
-        if (!/[\d\b\.\t]/.test(key) && key !== 'ArrowLeft' && key !== 'ArrowRight' && key !== 'Delete' && key !== 'Backspace') {
-            e.preventDefault();
+    // Handle submit form
+    const handleSubmit = async () => {
+        // Basic validation
+        if (!formData.name || !formData.description) {
+            alert('Please fill in all required fields.');
+            return;
         }
 
-        // Prevent deleting the first digit if there are other characters
-        if (key === 'Backspace' && selectionStart === 0 && value.length > 0) {
-            e.preventDefault();
+        const formDataToSend = new FormData();
+        formDataToSend.append('name', formData.name);
+        formDataToSend.append('description', formData.description);
+
+        // Append the logo file if it's selected
+        if (selectedFiles1.length > 0) {
+            formDataToSend.append('logo', selectedFiles1[0].name);
+        }
+
+        try {
+            await CreateProduct(formDataToSend);
+            onValidate();
+            onClose();
+        } catch (error) {
+            console.error('Error creating company:', error.message);
         }
     };
 
+    // Handle back click (cancel)
+    const handleBackClick = () => {
+        onClose();
+        navigate(`/createsurvey`);
+    };
 
     return (
-        <div style={{width:452,height:855, position: 'fixed', top: '60%', left: '86%', transform: 'translate(-50%, -50%)', background: 'rgba(255, 255, 255, 0.9)', padding: 20, borderRadius: 8, boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)', zIndex: 999 }}>
-            {/*<button onClick={handleBackClick} style={{ width: 30, height: 30, padding: 0, left: 20, top: 13, position: 'absolute', justifyContent: 'center', alignItems: 'center', display: 'inline-flex', background: 'transparent', border: 0 }}>*/}
-            {/*    <div style={{ width: 32, height: 32, position: 'relative' ,left:400}}>*/}
-            {/*        <img src={process.env.PUBLIC_URL + '/xit.png'} style={{ width: 32, height: 32, left: 0, top: 0, position: 'absolute' }} />*/}
-            {/*    </div>*/}
-            {/*</button>*/}
-
+        <div style={{ width: 452, height: 855, position: 'fixed', top: '60%', left: '86%', transform: 'translate(-50%, -50%)', background: 'rgba(255, 255, 255, 0.9)', padding: 20, borderRadius: 8, boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)', zIndex: 999 }}>
             <div style={{ width: 420, height: 288, left: 16, top: 77, position: 'absolute' }}>
-                <div style={{ width: 420, height: 261,left: 0, top: 27, position: 'absolute', background: 'rgba(17, 17, 17, 0.04)', borderRadius: 20 }} />
-                <div style={{width: 189, left: 0, top: 0, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Upload logo (Optional)</div>
-                <div style={{width: 120, left: 300, top: 0, position: 'absolute', textAlign: 'right', color: '#666666', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>JPG,PNG,JPEG</div>
-                <div style={{ width: 388, height: 229, borderRadius: 20, border: '2px #CCCCCC dotted', marginTop: 20, textAlign: 'center', position: 'relative',left:13,top:20 }}>
-                    <input type="file" style={{ display: 'none' }} onChange={handleFileChange1} multiple />
+                <div style={{ width: 420, height: 261, left: 0, top: 27, position: 'absolute', background: 'rgba(17, 17, 17, 0.04)', borderRadius: 20 }} />
+                <div style={{ width: 189, left: 0, top: 0, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word' }}>Upload logo (Optional)</div>
+                <div style={{ width: 120, left: 300, top: 0, position: 'absolute', textAlign: 'right', color: '#666666', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word' }}>JPG,PNG,JPEG</div>
+                <div style={{ width: 388, height: 229, borderRadius: 20, border: '2px #CCCCCC dotted', marginTop: 20, textAlign: 'center', position: 'relative', left: 13, top: 20 }}>
+                    <input type="file" style={{ display: 'none' }} onChange={handleFileChange1} />
                     <img src={process.env.PUBLIC_URL + '/upload.png'} alt="Upload Icon" style={{ width: 60, height: 60, marginTop: 5, cursor: 'pointer' }} onClick={() => document.querySelector('input[type="file"]').click()} />
-                    <div style={{ color: 'black', fontSize: 14, fontWeight: '600', marginTop: 10 }}>Select files to upload</div>
-                    <div style={{ color: '#666666', fontSize: 12, fontWeight: '400', marginTop: 5 }}>or Drag and Drop, Copy and Paste Files</div>
+                    <div style={{ color: 'black', fontSize: 14, fontWeight: '600', marginTop: 10 }}>Select a logo to upload</div>
+                    <div style={{ color: '#666666', fontSize: 12, fontWeight: '400', marginTop: 5 }}>or Drag and Drop</div>
                 </div>
-                <div style={{ display: 'flex',left: 0, top: -110, position: 'relative', flexWrap: 'wrap', justifyContent: 'center', marginTop: 20 }}>
-                    {selectedFiles1.map((file1, index) => (
+                <div style={{ display: 'flex', left: 0, top: -110, position: 'relative', flexWrap: 'wrap', justifyContent: 'center', marginTop: 20 }}>
+                    {selectedFiles1.map((file, index) => (
                         <div key={index} style={{ margin: 10 }}>
-                            <img src={URL.createObjectURL(file1)} alt={`File ${index}`} style={{ width: 100, height: 70, objectFit: 'cover', borderRadius: 10 }} />
-                            <p style={{ textAlign: 'center', marginTop: 5 }}>{file1.name}</p>
+                            <img src={URL.createObjectURL(file)} alt={`File ${index}`} style={{ width: 100, height: 70, objectFit: 'cover', borderRadius: 10 }} />
+                            <p style={{ textAlign: 'center', marginTop: 5 }}>{file.name}</p>
                         </div>
                     ))}
                 </div>
             </div>
-                <div style={{left: 16, top: -200, position: 'absolute', color: 'black', fontSize: 24, fontFamily: 'revert', fontWeight: '700', lineHeight: 20, wordWrap: 'break-word'}}>Add new brand</div>
 
+            <div style={{ left: 16, position: 'absolute', color: 'black', fontSize: 24, fontFamily: 'revert', fontWeight: '700', wordWrap: 'break-word' }}>Add a new product</div>
 
-            <div style={{width: 420, height: 96, left: 17, top: 380, position: 'absolute'}}>
+            <div style={{ width: 420, height: 96, left: 17, top: 380, position: 'absolute' }}>
                 <label>
-                    <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Brand Name</div>
-                    <input type="text" name="nom" value={formData.nom} onChange={handleInputChange} style={{ border: 0, width: 420, height: 31, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10, padding: '10px' }} />
-                    <div style={{left: 15, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>{formData.nom === '' && predefinedMessages.nom}</div>
+                    <div style={{ left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word' }}>Product name</div>
+                    <input type="text" name="name" value={formData.name} onChange={handleInputChange} style={{ border: 0, width: 420, height: 31, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10, padding: '10px' }} />
                 </label>
             </div>
-            <div style={{width: 420, height: 96, left: 17, top: 475, position: 'absolute'}}>
+
+            <div style={{ width: 420, height: 96, left: 17, top: 475, position: 'absolute' }}>
                 <label>
-                    <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Description (optional)</div>
+                    <div style={{ left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word' }}>Description (optional)</div>
                     <input type="text" name="description" value={formData.description} onChange={handleInputChange} style={{ border: 0, width: 420, height: 31, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10, padding: '10px' }} />
-                    <div style={{left: 15, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>{formData.description === '' && predefinedMessages.description}</div>
-                </label>
-            </div>
-            <div style={{width: 440, height: 96, left: 17, top: 570, position: 'absolute'}}>
-                <label>
-                    <div style={{left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Product / Offers</div>
-                    <select name="Product" value={formData.category} onChange={handleInputChange} style={{ border: 0, width: 440, height: 51, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10, padding: '10px'  }}>
-                        <option value="Select">-Select-</option>
-                        <option value="P1">P1</option>
-                        <option value="P2">P2</option>
-                        <option value="P3">P3</option>
-                    </select>
-                </label>
-            </div>
-            <div style={{ width: 420, height: 96, left: 17, top: 665, position: 'absolute' }}>
-                <label>
-                    <div style={{ left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word' }}>Price (TND)</div>
-                    <div style={{ position: 'relative' }}>
-                        <input type="text" name="price" value={formData.price} onChange={handlePriceChange} onKeyPress={validateNumberInput} style={{ border: 0, width: 420, height: 31, left: 0, top: 25, position: 'absolute', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10, padding: '10px' }} />
-                        <div style={{ position: 'absolute', right: 5, top: 38, color: 'black', fontSize: 16, fontFamily: 'revert', fontWeight: '500', wordWrap: 'break-word' }}>TND</div>
-                    </div>
-                    <div style={{ left: 15, top: 41, position: 'absolute', color: 'rgba(0, 0, 0, 0.40)', fontSize: 14, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word' }}>{formData.price === '' && predefinedMessages.price}</div>
                 </label>
             </div>
 
-
-                <button style={{width: 147, height: 50, padding: 16, left: 310, top: 750, position: 'absolute', background: '#DDDDDD', borderRadius: 10, justifyContent: 'center',border:"none", alignItems: 'center', display: 'inline-flex'}}>
-                    <div style={{color: '#666666', fontSize: 14, fontFamily: 'Open Sans', fontWeight: '600', wordWrap: 'break-word'}}>Submit</div>
-                </button>
-                <button  onClick={handleBackClick} style={{width: 147, height: 50, padding: 16, left: 16, top: 750, position: 'absolute', borderRadius: 10, border: '1px #111111 solid', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-                    <div style={{color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Cancel</div>
-                </button>
+            <button onClick={handleSubmit} style={{width: 147, height: 50, padding: 16, left: 310, top: 750, position: 'absolute', background: '#DDDDDD', borderRadius: 10, justifyContent: 'center',border:"none", alignItems: 'center', display: 'inline-flex'}}>
+                <div style={{color: '#666666', fontSize: 14, fontFamily: 'Open Sans', fontWeight: '600', wordWrap: 'break-word'}}>Submit</div>
+            </button>
+            <button  onClick={handleBackClick} style={{width: 147, height: 50, padding: 16, left: 16, top: 750, position: 'absolute', borderRadius: 10, border: '1px #111111 solid', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
+                <div style={{color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Cancel</div>
+            </button>
         </div>
     );
 };
-
 export default ConfirmationPopup;

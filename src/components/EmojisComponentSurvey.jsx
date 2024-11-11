@@ -91,8 +91,8 @@ const EmojiComponentSurvey = ({ onEmojiSelect, selectedEmoji }) => {
           onMouseDown={() => handleEmojiClick(emoji.src)}
         >
           <img src={emoji.src} alt={emoji.name} style={emoji.name === 'Emoji_angry' ? { ...imgStyle, ...imgAngryStyle } : imgStyle} />
-          {emoji.name === 'Emoji_angry' && <p style={{fontSize:10,width:100,position:"absolute",left:0}}>Labeled on the left</p>}
-          {emoji.name === 'Emoji_love' && <p style={{fontSize:10,width:100,position:"absolute",right:0}}>Labeled on the right</p>}
+          {emoji.name === 'Emoji_angry' && <p style={{fontSize:10,width:100,position:"absolute",left:-30}}>Love</p>}
+          {emoji.name === 'Emoji_love' && <p style={{fontSize:10,width:100,position:"absolute",right:-30}}>Angry</p>}
         </div>
       ))}
     </div>

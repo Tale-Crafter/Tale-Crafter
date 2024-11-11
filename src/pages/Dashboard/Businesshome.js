@@ -185,7 +185,7 @@ const Businesshome = () => {
                 </div>
                 <div style={{left: 450, top: 463,width:216, height:19, position: 'absolute', color: 'grey', fontSize: 18, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word', whiteSpace: 'nowrap'}}>There are no surveys at this time</div>
 
-                <Link to={`/surveys/${iduser}`}>
+                <Link to={`/surveys`}>
                     <div style={{ left: 710, top: 524, position: 'absolute', textAlign: 'center', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word', whiteSpace: 'nowrap' }}>View all</div>
                     <div style={{width: 16, height: 16, left: 760, top: 524, position: 'absolute'}}>
                         <img src={process.env.PUBLIC_URL + '/image11.png'} alt="" style={{ width: '100%', height: '100%' }} />
@@ -207,7 +207,7 @@ const Businesshome = () => {
                 </div>
                 <div style={{left: 855, top: 463,width:306, height:19, position: 'absolute', color: 'grey', fontSize: 18, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word', whiteSpace: 'nowrap'}}>There are no live shows for you at the moment</div>
 
-                <Link to={`/focusgroup/${iduser}`}>
+                <Link to={`/focusgroup`}>
                     <div style={{ left: 1185, top: 524, position: 'absolute', textAlign: 'center', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word', whiteSpace: 'nowrap' }}>View all</div>
                     <div style={{width: 16, height: 16, left: 1235, top: 524, position: 'absolute'}}>
                         <img src={process.env.PUBLIC_URL + '/image11.png'} alt="" style={{ width: '100%', height: '100%' }} />
@@ -228,7 +228,7 @@ const Businesshome = () => {
                 </div>
                 <div style={{left: 1330, top: 463,width:306, height:19, position: 'absolute', color: 'grey', fontSize: 18, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word', whiteSpace: 'nowrap'}}>There are no live shows for you at the moment</div>
 
-                <Link to={`/focusgroup/${iduser}`}>
+                <Link to={`/focusgroup`}>
                     <div style={{ left: 1660, top: 524, position: 'absolute', textAlign: 'center', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word', whiteSpace: 'nowrap' }}>View all</div>
                     <div style={{width: 16, height: 16, left: 1710, top: 524, position: 'absolute'}}>
                         <img src={process.env.PUBLIC_URL + '/image11.png'} alt="" style={{ width: '100%', height: '100%' }} />

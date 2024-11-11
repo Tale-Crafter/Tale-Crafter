@@ -45,8 +45,8 @@ const LiveSurvey = () => {
     const [showLanguageComponent, setShowLanguageComponent] = useState(false);
 
     const handleBackClick = () => {
-        // Redirect to /Surveys/:iduser
-        navigate(`/Surveys/${iduser}`);
+        // Redirect to /Surveys
+        navigate(`/Surveys`);
     };
 
     const handleStartClick = () => {
@@ -182,7 +182,7 @@ const LiveSurvey = () => {
 
                     {/* Start button */}
                     <div onClick={handleStartClick} style={{ width: 170, padding: 16, left: 1180, top: 735, position: 'absolute', background: gradientColor, borderRadius: 10, justifyContent: 'center', alignItems: 'center', display: 'inline-flex', cursor: 'pointer' }}>
-                    <Link to="/livesurvey1/:iduser">
+                    <Link to="/livesurvey1">
                         <div style={{ color: 'white', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word' }}>Submit</div>
                     </Link>
                     </div>

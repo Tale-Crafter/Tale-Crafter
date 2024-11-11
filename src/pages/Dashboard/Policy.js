@@ -18,8 +18,8 @@ const Awards = () => {
         setSidebarVisible(!sidebarVisible);
     };
     const handleBackClick = () => {
-        // Redirect to /Surveys/:iduser
-        navigate(`/home/${iduser}`);
+        // Redirect to /Surveys
+        navigate(`/home`);
     };
     return (
         <div className="App">

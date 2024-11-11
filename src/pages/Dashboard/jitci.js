@@ -63,7 +63,7 @@ const Jitci = () => {
         <div style={{ width: '100%', height: '100%', position: 'relative', background: '#EFEFEF', marginLeft: !sidebarVisible ? -100 : 0, transition: 'margin-left 0.3s ease' }}>
           <Header />
           <div style={{ width: 1400, height: 736, left: 340, top: 80, position: 'absolute', background: 'white', borderRadius: 16 }}>
-            <Link to={`/livesurvey/:iduser`}>
+            <Link to={`/livesurvey`}>
             <div style={{width: '100%', height: '100%',position:"absolute",left:1280}}>
               <div style={{position:"absolute",left:-10,top:-5,width: '5%', height: '8%', opacity: 0.08, background: 'linear-gradient(90deg, #F9BC33 0%, #FE346E 100%)', borderRadius: 9999}} />
               <div style={{width: '4%', height: '7%', opacity: 0.15, background: 'linear-gradient(90deg, #F9BC33 0%, #FE346E 100%)', borderRadius: 9999}} />

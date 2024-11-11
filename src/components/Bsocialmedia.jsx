@@ -12,7 +12,7 @@ function SocialMedia() {
         gap: "16px",
         width: "272px",
         height: "56p",
-        top: "180px",
+        top: "140px",
         left: "713px",
         position: "absolute",
         marginRight: '12px'

@@ -32,7 +32,7 @@ const DashboardSurvery908 = () => {
   
     const handleNextButtonClick = () => {
       if (nextButtonEnabled) {
-        navigate(`/endsurvey/${iduser}`); // Navigate to opinionsurvey with user id
+        navigate(`/endsurvey`); // Navigate to opinionsurvey with user id
       } else {
         alert('Please select your satisfaction level.'); // Show alert if no choice is made
       }

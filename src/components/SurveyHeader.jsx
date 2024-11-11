@@ -10,7 +10,7 @@ const Header = ({ to }) => {
       <div style={{ position: 'relative' , Right:10 }}>
 
     <div style={{background: 'linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 100%)'}}>
-    <Link to={to} style={{ textDecoration: 'none', position: 'absolute', top: 0 ,left:1400,background: 'linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 100%)'}}>
+    <Link to={`/createsurvey`} style={{ textDecoration: 'none', position: 'absolute', top: 0 ,left:1400,background: 'linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 100%)'}}>
     <button style={{ backgroundColor: '#0055ff',
   color: 'white',
   border: 'none',
@@ -23,7 +23,7 @@ const Header = ({ to }) => {
   </Link>
   </div>
   <div>
-  <Link to={to} style={{ textDecoration: 'none', position: 'relative', top: 0 ,left:1600,background: 'linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 100%)'}}>
+  <Link to={`/surveyia/:id`} style={{ textDecoration: 'none', position: 'relative', top: 0 ,left:1600,background: 'linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 100%)'}}>
   <button style={{ backgroundColor: '#0055ff',
   color: 'white',
   border: 'none',

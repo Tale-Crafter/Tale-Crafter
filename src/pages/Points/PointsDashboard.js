@@ -338,7 +338,7 @@ const PointsDashboard = () => {
 
                     </div>
                     <div style={buttonStyle}>
-                    <Link to={`/PhoneRecharge/${iduser}`}>
+                    <Link to={`/PhoneRecharge`}>
                         <span style={buttonTextStyle}>Recharge</span></Link>
                     </div>
                 </div>
@@ -352,7 +352,7 @@ const PointsDashboard = () => {
                     <div style={historyTextStyle}>History</div>
                 </div>
                 <div style={{ ...buttonStyle, top: "520px", left: "1460px" }}>
-                <Link to={`/CouponRecharge/${iduser}`}>
+                <Link to={`/CouponRecharge`}>
                     <span style={buttonTextStyle}>Convert</span>
                     </Link>
                 </div>

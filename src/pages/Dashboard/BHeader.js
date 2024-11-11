@@ -82,7 +82,7 @@ const UserMenu = ({ activeButton, setActiveButton }) => {
     const { iduser } = useParams();
 
     const goToAccount = () => {
-        navigate(`/account1/${iduser}`);
+        navigate(`/account1`);
       };
     
     return (
@@ -101,7 +101,7 @@ const UserMenu = ({ activeButton, setActiveButton }) => {
         
             <div style={{position:'absolute',top:135,left:'4px',width:'100%', height: '100', paddingLeft: '10px', paddingRight: '10px', paddingTop: '6px', paddingBottom: '6px', gap: '10px', display: 'inline-flex'}}>
              <div style={{color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: 400, lineHeight: '19px', wordWrap: 'break-word', justifyContent: 'center', alignItems: 'center'}}>
-                <Link to="/Assistance/:iduser">
+                <Link to="/Assistance">
                 
                 
                 Edit my information
@@ -112,7 +112,7 @@ const UserMenu = ({ activeButton, setActiveButton }) => {
             <div style={{position: 'absolute', top: '143px', left:'269px'}}>
              <img src={iconright} alt="iconright" style={{width: '100%',height: '100%',borderRadius: '16px'}} />
             </div>
-            <Link to="/accountpwd/:iduser">
+            <Link to="/accountpwd">
             <div style={{ textDecoration: "none",position:'absolute',top:172,left:'4px',width:'100%', height: '100', paddingLeft: '10px', paddingRight: '10px', paddingTop: '6px', paddingBottom: '6px', gap: '10px', display: 'inline-flex'}}>
            
           
@@ -140,7 +140,7 @@ const UserMenu = ({ activeButton, setActiveButton }) => {
 
             <div style={{position:'absolute',top:279,left:'4px',width:'100%', height: '100', paddingLeft: '10px', paddingRight: '10px', paddingTop: '6px', paddingBottom: '6px', gap: '10px', display: 'inline-flex'}}>
              <div style={{color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: 400, lineHeight: '19px', wordWrap: 'break-word', justifyContent: 'center', alignItems: 'center'}}>
-                <Link to="/policy/:iduser">
+                <Link to="/policy">
                 
                 Privacy Policy</Link>
                 </div>

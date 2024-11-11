@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 // Importez la bibliothèque country-currency-map
 import QuickSurveyEmpty from "./QuickSurveyEmpty";
 import BHeader from "./BHeader";
+import EndPopup from "./GeneratingSurveyPopup";
 const opencage = require('opencage-api-client');
 
 
@@ -22,6 +23,7 @@ const Surveyia = () => {
     const [userLocation, setUserLocation] = useState(null);
 // ...
     const [notifications, setNotifications] = useState([]);
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     // Fonction pour afficher une notification
     const showNotification = (message, icon) => {
@@ -97,15 +99,25 @@ const Surveyia = () => {
             return 'USD'; // Utilisez USD par défaut en cas d'erreur
         }
     };
-
+    const handleNext = () => {
+        setShowConfirmation(true);
+    };
 
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
+    const handleCloseConfirmation = () => {
+        setShowConfirmation(false);
+    };
 
+    const handleValidateConfirmation = () => {
+        // Your logic for validation goes here
+        console.log("Validated");
+        setShowConfirmation(false);
+    };
     return (
         <div className="App">
-            <div style={{width: '100%', height: '100%', position: 'relative', background: '#EFEFEF',marginLeft: !sidebarVisible ? -100 : 0, transition: 'margin-left 0.3s ease'}}>
+            <div style={{width: '100%', filter: showConfirmation ? 'blur(5px)' : 'none', height: '100%', position: 'relative', background: '#EFEFEF',marginLeft: !sidebarVisible ? -100 : 0, transition: 'margin-left 0.3s ease'}}>
 
                 {/*{sidebarVisible ? (*/}
                 {/*    // Regular SidebarButton when sidebar is visible*/}
@@ -192,9 +204,9 @@ const Surveyia = () => {
                         <div style={{width: '94%',height: '120px',borderRadius: '20px',border: '0.5px solid #ccc',display: 'flex',justifyContent: 'center',alignItems: 'center',Left: '50px', Right: '50px' }}>
                             <div style={{left: 85, top: 771, position: 'absolute', color: '#666666', fontSize: 20, fontFamily: 'revert', fontWeight: '400', wordWrap: 'break-word'}}>I work for a consulting company and I want to write a survey to collect feedback from our clients. We should ask questions related to the customer experience: for<br /> example, about the quality of our services, communication with our team and our responsiveness to problems. We also want to know if our customers would<br /> recommend us to their colleagues. There should also be questions about the industry and company size of survey participants.
                             </div>
-                            <div style={{width: 40, height: 30, right: 110, top: 800, position: 'absolute'}}>
+                            <button onClick={handleNext}  style={{width: 40, height: 30, right: 110, top: 800, position: 'absolute'}}>
                                 <img src={process.env.PUBLIC_URL + '/send.png'} alt="" style={{ width: '100%', height: '100%' }} />
-                            </div>
+                            </button>
                         </div>
 
                     </div>
@@ -216,6 +228,7 @@ const Surveyia = () => {
                 <BHeader/>
 
             </div>
+            {showConfirmation && <EndPopup onClose={handleCloseConfirmation} onValidate={handleValidateConfirmation} />}
         </div>
 
 
