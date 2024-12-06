@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const { auth } = require("express-oauth2-jwt-bearer");
 const authConfig = require("./src/auth_config.json");
 
+
 const app = express();
 
 const port = process.env.API_PORT || 3001;
