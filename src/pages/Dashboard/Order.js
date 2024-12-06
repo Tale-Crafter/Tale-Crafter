@@ -1,125 +1,22 @@
-// Home.js or your component for the home page
 import React, { useEffect, useState } from 'react';
 import {Link, useParams } from 'react-router-dom';
 import './App.css';  // Import the CSS file
-import { useNavigate } from 'react-router-dom';
 import BusinessLeftsidebar from "./BusinessLeftsidebar";
 import BHeader from "./BHeader";
-import { EditOutlined } from '@ant-design/icons'; // import EditOutlined icon
-import { Table, Button, Modal } from 'antd';
-import moment from 'moment';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"; // for date formatting
 import { FaEyeSlash, FaEye, FaCheck, FaArrowDown,FaAngleDown,FaAngleRight } from 'react-icons/fa';
-import SubBrandPopup from "./SubBrandPopup";
 import AddTargetCriteriaPopup from "./AddTargetCriteriaPopup";
+import Timeline from "./Timeline";
+import {fetchcompanyById, fetchSurveyById} from "./Api";
 
 
-const SurveyColl = () => {
-    const { iduser } = useParams();
+const Order = ({survey, onNext}) => {
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [showConfirmation1, setShowConfirmation1] = useState(false);
 
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
-    };
-
-// Sample data for the table
-    const data = [
-        {
-            key: '1',
-            icon: <EditOutlined />, // Icon for each row
-            name: 'Survey 1',
-            status: 'Open',
-            responses: 100,
-            dateCreated: '2023-01-01',
-            dateModified: '2023-01-10',
-        },
-        {
-            key: '2',
-            icon: <EditOutlined />, // Icon for each row
-            name: 'Survey 2',
-            status: 'Closed',
-            responses: 50,
-            dateCreated: '2023-02-01',
-            dateModified: '2023-02-15',
-        },{
-            key: '3',
-            icon: <EditOutlined />, // Icon for each row
-            name: 'Survey ',
-            status: 'Closed',
-            responses: 50,
-            dateCreated: '2023-02-01',
-            dateModified: '2023-02-15',
-        },
-    ];
-
-    // Columns configuration for the table
-    // Columns configuration for the table
-    const columns = [
-        {
-            title: '', // Empty title for the icon column
-            dataIndex: 'icon', // Use dataIndex 'icon' to render the icon
-            key: 'icon',
-            width: 70, // Set width for the column
-            fixed: 'left', // Fix the column to the left
-        },
-        {
-            title: 'NAME',
-            dataIndex: 'name',
-            key: 'name',
-            width: 600, // Set width for the column
-            fixed: 'left', // Fix the column to the left
-        },
-        {
-            title: 'Status',
-            dataIndex: 'status',
-            key: 'status',
-            render: (status) => (
-                <span style={{ background: status === 'Open' ? 'green' : 'black', color: 'white', padding: '5px 10px', borderRadius: 5 }}>
-                    {status}
-                </span>
-            ),
-        },
-        {
-            title: 'Responses',
-            dataIndex: 'responses',
-            key: 'responses',
-        },
-        {
-            title: 'Date Created',
-            dataIndex: 'dateCreated',
-            key: 'dateCreated',
-            render: (date) => moment(date).format('YYYY-MM-DD'), // format date
-        },
-        {
-            title: 'Date Modified',
-            dataIndex: 'dateModified',
-            key: 'dateModified',
-            width: 200, // Set width for the column
-            render: (date) => moment(date).format('YYYY-MM-DD'), // format date
-        },
-        {
-            title: '',
-            width: 40, // Set width for the column
-            key: 'icon',
-            render: (text, record) => (
-                <Button onClick={() => handleEdit(record)} type="link" >
-                    <img src={process.env.PUBLIC_URL + `/3pts.png`} style={{  height: '100%' }} />
-                </Button>
-            ),
-        },
-    ];
-
-    const handleEdit = (record) => {
-        // Handle edit functionality, e.g., show edit popup
-        console.log('Edit record:', record);
-    };
-    const components = {
-        header: {
-            // Custom header for the table with gray background
-            wrapper: (props) => <thead {...props} style={{ background: 'gray' }} />,
-        },
+        console.log(`Survey details: ${JSON.stringify(surveyData)}`);
     };
 
     const [isChecked, setIsChecked] = useState(false);
@@ -275,6 +172,44 @@ const [isChecked5, setIsChecked5] = useState(false);
         }));
     };
 
+    const [selectedOption, setSelectedOption] = useState(null);  // Track the selected option
+
+    const handleOptionSelect = (option) => {
+        setSelectedOption(option);
+        // onNext(survey, selectedOption);
+    };
+    // const [surveyData, setSurveyData] = useState([]); // Start with an empty array for questions
+    const [surveyData, setSurveyData] = useState({
+        questions: []
+    });
+
+    // Use a side effect to trigger the next step when selectedOption is updated
+    useEffect(() => {
+        if (selectedOption !== null) {
+            // Call the onNext handler when selectedOption changes
+            onNext(survey, selectedOption);
+        }
+        // console.log(`Survey details: ${JSON.stringify(survey)}`);
+        // console.log(`Number of questions: ${survey.questions.length}`);
+
+        if (!survey.id) {
+            console.error('Survey ID is undefined');
+            return;
+        }
+        const getSurveyData = async () => {
+            try {
+                const data = await fetchSurveyById(survey.id);
+                setSurveyData(data);
+
+            } catch (error) {
+                console.error('Error fetching survey:', error);
+            }
+        };
+        getSurveyData();
+        console.log(surveyData)
+
+    }, [selectedOption, survey, onNext, survey.id]);  // Dependencies on selectedOption and survey
+
     return (
         <div className="App">
             <div style={{filter: showConfirmation || showConfirmation1 ? 'blur(5px)' : 'none' }}>
@@ -283,39 +218,11 @@ const [isChecked5, setIsChecked5] = useState(false);
             <div style={{width: '100%', height: '100%', position: 'relative', background: '#EFEFEF', marginLeft: !sidebarVisible ? -100 : 0, transition: 'margin-left 0.3s ease', filter: showConfirmation || showConfirmation1 ? 'blur(5px)' : 'none' }}>
                 <BHeader/>
                 <div style={{width: 1400, height: !openStatus.education ? 1300 : 1700, buttom:20,left: 340, top: 80, position: 'absolute', background: 'white', borderRadius: 16}} >
-                    {/* Intégrez le formulaire de contact ici */}
-                    <div style={{position:"relative",top:-80}}>
-                        <div style={{left: 40, top: 105, position: 'absolute', color: '#111111', fontSize: 24, fontFamily: 'revert', fontWeight: '700',  wordWrap: 'break-word'}}>Creating a new survey</div>
-                        <div style={{left: 190, top: 193, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600',  wordWrap: 'break-word'}}>Survey Initiation</div>
-                        <div style={{width: 157, left: 340, top: 193, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600',  wordWrap: 'break-word'}}>Question<br/>Development</div>
-                        <div style={{width: 160, left: 540, top: 193, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600',  wordWrap: 'break-word'}}>Review and Preview</div>
-                        <div style={{width: 160, left: 715, top: 193, position: 'absolute', color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600',  wordWrap: 'break-word'}}>Targeting and<br/>Parameters</div>
-                        <div style={{width: 149, left: 890, top: 193, position: 'absolute', color: '#00BDA9', fontSize: 14, fontFamily: 'revert', fontWeight: '700',  wordWrap: 'break-word'}}>Payment and <br/>Finalization</div>
-                        <div style={{width: 24, height: 24, left: 190, top: 161, position: 'absolute'}}>
-                            <div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 9999}} />
-                            {/*<div style={{width: 12, height: 12, left: 6, top: 6, position: 'absolute', background: 'white', borderRadius: 9999}} />*/}
-                        </div>
-                        <div style={{width: 24, height: 24, left: 365, top: 161, position: 'absolute'}}>
-                            <div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 9999}} />
-                        </div>
-                        <div style={{width: 24, height: 24, left: 540, top: 161, position: 'absolute'}}>
-                            <div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 9999}} />
 
-                        </div>
-                        <div style={{width: 24, height: 24, left: 715, top: 161, position: 'absolute'}}>
-                            <div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 9999}} />
-
-                        </div>
-
-                        <div style={{width: 24, height: 24, left: 890, top: 161, position: 'absolute'}}>
-                            <div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 9999}} />
-                            <div style={{width: 12, height: 12, left: 6, top: 6, position: 'absolute', background: 'white', borderRadius: 9999}} />
-                        </div>
-                        <div style={{width: 143, height: 0, left: 535, top: 171, position: 'absolute', transform: 'rotate(-180deg)', transformOrigin: '0 0', border: '1px #00BDA9 solid'}}></div>
-                        <div style={{width: 143, height: 0, left: 711, top: 171, position: 'absolute', transform: 'rotate(-180deg)', transformOrigin: '0 0', border: '1px #00BDA9 solid'}}></div>
-                        <div style={{width: 143, height: 0, left: 886, top: 171, position: 'absolute', transform: 'rotate(-180deg)', transformOrigin: '0 0', border: '1px #00BDA9 solid'}}></div>
-                        <div style={{width: 143, height: 0, left: 361, top: 171, position: 'absolute', transform: 'rotate(180deg)', transformOrigin: '0 0', border: '1px #00BDA9 solid'}}></div>
+                    <div style={{width:'100%', position:"absolute", top:-70, left:0}}>
+                        <Timeline level={4} />
                     </div>
+
                     <div style={{width: 820, height: 201, left: 29, top: 256, position: 'absolute', background: 'linear-gradient(360deg, #F4F4F4 0%, #EBEBEB 100%)', borderRadius: 10}}>
                         <div style={{left: 35, top: 25, position: 'absolute', color: 'black', fontSize: 16, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>How many responses do you need?</div>
                         <div style={{paddingLeft: 10, paddingRight: 10, paddingTop: 3, paddingBottom: 3, left: 619, top: 25, position: 'absolute', background: 'white', borderRadius: 10, justifyContent: 'center', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
@@ -958,11 +865,13 @@ const [isChecked5, setIsChecked5] = useState(false);
                                 </div>
                             </div>
                         </div>
-                    <button style={{width: 160, height: 60, padding: 16, left: 30, top: !openStatus.education ? 1200 : 1600, position: 'absolute', borderRadius: 10, border: '2px #111111 solid', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
+                    <button
+                        onClick={() => handleOptionSelect('OrderBack')}
+                        style={{width: 160, height: 60, padding: 16, left: 30, top: !openStatus.education ? 1200 : 1600, position: 'absolute', borderRadius: 10, border: '2px #111111 solid', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
                         <div style={{color: '#111111', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Previous</div>
                     </button>
                     </div>
-                    <div style={{position:'absolute',top: 330,left: 1280, width: 400,height: 757,position: 'absolute',border: '2px solid ',border: '2px solid transparent',borderImage: 'linear-gradient(90deg, #F9BC33 0%, #FE346E 100%) 1',borderRadius: '20px',backgroundColor: 'white' }}>
+                    <div style={{top: 330,left: 1280, width: 400,height: 757,position: 'absolute',border: '2px solid transparent',borderImage: 'linear-gradient(90deg, #F9BC33 0%, #FE346E 100%) 1',borderRadius: '20px',backgroundColor: 'white' }}>
                     </div>
                     <div style={{
                         width: '276px',
@@ -1078,7 +987,7 @@ const [isChecked5, setIsChecked5] = useState(false);
                         textAlign: 'left',
                         display: 'flex' // Display in the same line
                     }}>
-                        10 survey questions
+                        {surveyData.questions.length} survey questions
                     </div>
                     <div style={{
                         width: 193,
@@ -1534,14 +1443,9 @@ const [isChecked5, setIsChecked5] = useState(false);
                             285.6DT
                         </div>
                         <img src={process.env.PUBLIC_URL + '/pay.png'} style={{width: 60, height: 60, left: 16, top: 8, position: 'absolute'}}></img>
-
                     </div>
 
-
-
-
-
-                    <button style={{border:"none",position:"absolute", borderRadius: 16, width: 385,height: 60,left: 1290,top: 962, padding: 16, background: 'linear-gradient(90deg, #F9BC33 0%, #FE346E 100%)', borderRadius: 10, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
+                    <button style={{border:"none",position:"absolute", width: 385,height: 60,left: 1290,top: 962, padding: 16, background: 'linear-gradient(90deg, #F9BC33 0%, #FE346E 100%)', borderRadius: 10, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
                         <div style={{color: 'WHITE', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Confirm your order</div>
                     </button>
 
@@ -1609,4 +1513,4 @@ const [isChecked5, setIsChecked5] = useState(false);
         </div>
     );
 };
-export default SurveyColl;
+export default Order;

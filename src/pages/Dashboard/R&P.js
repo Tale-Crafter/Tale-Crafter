@@ -170,7 +170,7 @@ const ReviewAndPreview = ({ survey, questions, deleteQuestion, onConfirm }) => {
             ) : (
                 <p>No questions to display.</p>
             )}
-            <button onClick={handleNextStep} style={{ marginTop: '20px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>Next</button>
+            {/*<button onClick={handleNextStep} style={{ marginTop: '20px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>Next</button>*/}
         </div>
     );
 };

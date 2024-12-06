@@ -194,7 +194,7 @@ function CreateSurveySTEP1({ onNext }) {
                                 <div style={{ position: 'absolute', color: 'black', fontSize: 14, fontWeight: '600'}}>Brand</div>
                                 <select
                                     name="company"
-                                    value={survey.company}
+                                    value={survey.company ? survey.company.companyName : ''}
                                     onChange={handleChange}
                                     style={{ border: '1px solid #CCCCCC', borderRadius: 10, background: 'rgba(17, 17, 17, 0.10)', width: '100%', height: 51, padding: '5px', marginTop: '25px' }}
                                 >
@@ -214,7 +214,7 @@ function CreateSurveySTEP1({ onNext }) {
                                 <div style={{ left: 0, top: -2, position: 'absolute', color: 'black', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word' }}>Product</div>
                                 <select
                                     name="product"
-                                    value={survey.product}
+                                    value={survey.product ? survey.product.name : ''}
                                     onChange={handleChange}
                                     style={{ border: '1px solid #CCCCCC', borderRadius: 10, background: 'rgba(17, 17, 17, 0.10)', width: '100%', height: 51, padding: '5px', marginTop: '25px' }}
                                 >

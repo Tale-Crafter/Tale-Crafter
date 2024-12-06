@@ -1,167 +1,86 @@
-import React, { useState } from 'react'
-import SocialMedia from '../../components/Bsocialmedia';
-import LeftBackground from '../../components/LeftBackground';
-import { useParams } from 'react-router-dom';
-
-import '../../styles/login.css'
-import { Link, useNavigate } from 'react-router-dom';
-import BLeftBackground from "../../components/BLeftBackground";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../../styles/login.css';
+import BLeftBackground from '../../components/BLeftBackground';
 
 function LoginOne() {
-    const { iduser } = useParams();
-
-
-    const [email, setEmail] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-
-    const handleEmailChange = (e) => {
-        const inputValue = e.target.value;
-        setEmail(inputValue);
-        if (!inputValue.includes('@')) {
-            setEmailError('An email address must contain a single @');
-        } else {
-            setEmailError('');
-        }
-    };
-
-    const handlePasswordChange = (e) => {
-        const inputValue = e.target.value;
-        setPassword(inputValue);
-        if (inputValue.length < 6) {
-            setPasswordError('The password requires a minimum of 6 characters');
-        } else {
-            setPasswordError('');
-        }
-    };
-
-    const isFormValid = emailError === '' && passwordError === '' && email !== '' && password !== '';
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
-        if (isFormValid) {
-            console.log('Form submitted successfully!');
-            navigate(`/businesshomedata`);
-        } else {
-            console.log('Form is not valid. Errors:');
-            if (emailError) {
-                console.log('Email error:', emailError);
-            }
-            if (passwordError) {
-                console.log('Password error:', passwordError);
+    const handleSocialLogin = (provider) => {
+        const domain = "dev-8ja5z27gacw183vf.eu.auth0.com";
+        const clientId = "P5ePbyjmq6xLc09ZxshMaqkwcNmVbKNX";
+        const redirectUri = `${window.location.origin}/home`;
+
+        const authUrl = `https://${domain}/authorize?response_type=token&client_id=${clientId}&connection=${provider}&redirect_uri=${encodeURIComponent(redirectUri)}`;
+        window.location.href = authUrl;
+    };
+
+    useEffect(() => {
+        const hash = window.location.hash;
+
+        if (hash.includes("access_token")) {
+            const params = new URLSearchParams(hash.replace("#", "?"));
+            const accessToken = params.get("access_token");
+
+            if (accessToken) {
+                localStorage.setItem("accessToken", accessToken);
+                window.history.replaceState(null, null, " ");
+                navigate("/home");
             }
         }
-    };
-
-
-
-
-    const titleStyle = {
-        color: "#000",
-        //fontFamily: "Open Sans",
-        fontSize: "14px",
-        fontStyle: "normal",
-        fontWeight: "600",
-        lineHeight: "normal",
-        width: "96px",
-        height: "19px",
-        top: "-2px",
-        position: "absolute",
-
-    };
-    const placeholderStyle = {
-        width: "400px",
-        height: "35px",
-        flexShrink: "0",
-        borderRadius: "10px",
-        top: "25px",
-        position: "absolute",
-
-    };
-    const errorStyle = {
-        color: "#ED1C24",
-        // fontFamily: "Open Sans",
-        fontSize: "14px",
-        width: "400px",
-        height: "51px",
-        flexShrink: "0",
-        borderRadius: "10px",
-        bottom: "-42px",
-        position: "absolute",
-
-    };
-    const buttonStyle = {
-        // Add hover style for visual feedback
-        background: ' linear-gradient(90deg, #FE346E 0%, #F9BC33 100%)',
-
-        width: '400px',
-        height: '51px',
-        padding: '16px',
-        borderRadius: '10px',
-        color: 'white',
-        textAlign: 'center',
-        lineHeight: '19px',
-        fontFamily: 'TaleBlue, sans-serif',
-        fontSize: '14px',
-        cursor: 'pointer',
-        border: 'none',
-        outline: 'none',
-    }
+    }, [navigate]);
 
     return (
-        <div className='login'  >
-            <text className="loginTitle">Sign in to TALE</text>
-            <SocialMedia />
-            <span className="emailAccount">Or use your email account</span>
-            <span className="reCAPTCHA">This site is protected by reCAPTCHA and the <u>Google Privacy Policy</u> and  <u>Terms of Service </u> apply.</span>
-            <div className="loginForm">
-                <label style={titleStyle}>Email Address</label>
-                <input style={placeholderStyle}
-                       type="email"
-                       placeholder="Enter your email"
-                       value={email}
-                       onChange={handleEmailChange}
+        <div className="login">
+            <h2 className="loginTitle">Sign in to TALE</h2>
+
+            <div className="social-icons">
+                <button onClick={() => handleSocialLogin('google-oauth2')} className="socialButton">
+                    <img src={`${process.env.PUBLIC_URL}/bmail.png`} alt="Google" />
+                </button>
+                <button onClick={() => handleSocialLogin('linkedin')} className="socialButton">
+                    <img src={`${process.env.PUBLIC_URL}/linkedin.png`} alt="LinkedIn" />
+                </button>
+                <button onClick={() => handleSocialLogin('facebook')} className="socialButton">
+                    <img src={`${process.env.PUBLIC_URL}/fbf.png`} alt="Facebook" />
+                </button>
+                <button onClick={() => handleSocialLogin('twitter')} className="socialButton">
+                    <img src={`${process.env.PUBLIC_URL}/bx.png`} alt="Twitter" />
+                </button>
+            </div>
+
+            <p className="emailAccount">Or use your email account</p>
+            <div className="emailLogin">
+                <input
+                    type="email"
+                    placeholder="Email"
+                    className="emailInput"
                 />
-                {emailError && <p style={errorStyle}>{emailError}</p>}
-
-            </div>
-            <div className="passwordForm">
-
-                <label style={titleStyle}>Password</label>
-                <input style={placeholderStyle}
-                       type="password"
-                       placeholder="Enter your password"
-                       value={password}
-                       onChange={handlePasswordChange}
+                <input
+                    type="password"
+                    placeholder="Password"
+                    className="passwordInput"
                 />
-                {passwordError && <p style={errorStyle}>{passwordError}</p>}
-                <span>
-                    <Link to="/ForgotPasswordOne" className='forgotPasswordLabel'>
-                        Forgot?
-                    </Link>
-                </span>
+                <button
+                    onClick={() => handleSocialLogin('email')}
+                    className="emailButton"
+                >
+                    Login with Email
+                </button>
             </div>
 
-            <div>
-                <div className='signupLink'>
-                    <span style={{ color: "#666", fontWeight: "400", }}>Don't have an account? </span>
-                    <span style={{ color: "#000", fontWeight: "600", }}>
-                        <Link to="/BusinessRegister">
-                            <span>Sign up</span>
-                        </Link>
-                    </span>
-                </div>
-                <div className='nextButton'>
-                    <button style={buttonStyle} disabled={!isFormValid} onClick={handleSubmit}>
-                        Sign in
-                    </button>
+            <p className="reCAPTCHA">
+                This site is protected by reCAPTCHA and the <u>Google Privacy Policy</u> and <u>Terms of Service</u> apply.
+            </p>
 
-                </div>
+            <div className="signupLink">
+                <span style={{ color: "#666", fontWeight: "400" }}>Don't have an account?</span>
+                <span style={{ color: "#000", fontWeight: "600" }}>Sign up here</span>
             </div>
+
             <BLeftBackground />
         </div>
-    )
+    );
 }
 
-export default LoginOne
+export default LoginOne;

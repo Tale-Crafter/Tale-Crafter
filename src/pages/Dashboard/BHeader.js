@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import {useNavigate, useParams, Outlet, Navigate} from 'react-router-dom';
 import { FaCircle } from 'react-icons/fa';
 import iconright from "../../images/Image11.png";
 import {Link} from 'react-router-dom';
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 const buttonStyle = {
     width: 120,
@@ -78,81 +79,55 @@ const NotificationBar = () => {
 
 // Composant de la barre utilisateur
 const UserMenu = ({ activeButton, setActiveButton }) => {
-    const navigate = useNavigate(""); 
     const { iduser } = useParams();
+    const { logout, user } = useAuth0();
+    const navigate = useNavigate();
 
     const goToAccount = () => {
         navigate(`/account1`);
       };
-    
+
     return (
-
-<div style={{ width: 293,height:320, position: 'absolute', top: '70px', left: 1480, boxShadow: '0px 4px 14px rgba(0, 0, 0, 0.25)', background: 'white', padding: '4px', borderRadius: '16px', zIndex:1}}>
-            <div style={{width: '100%', height: 98, background: 'linear-gradient(94deg, #B0EEFF 0%, #FFD0EC 100%)', borderTopLeftRadius: '16px', borderTopRightRadius: '16px'}}>
-             
-             <img src={process.env.PUBLIC_URL + '/image9.png'} alt="user" style={{ position: 'absolute', width: '110px', height: '110px', left: '14px', top: 1 }} />
-             <div style={{width: '175px',height:'19px', color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: 700, lineHeight: '19px', wordWrap: 'break-word',position:'absolute', left: '110px', top: '18px'}}>Albert Chikarova</div>
-             <div style={{width: '72px', height: '19px', paddingLeft: '8px', paddingRight: '8px', paddingTop: '4px', paddingBottom: '4px', background: 'linear-gradient(90deg, #532DEA 0%, #B672FF 100%)', borderRadius: '10px', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: '2px', display: 'inline-flex',position:'absolute',left:120,top:45}}>
-                <div style={{color: 'white', fontSize: '14px', fontFamily: 'Revert', fontWeight: 700, lineHeight: '19px', wordWrap: 'break-word'}}>600 Points</div>
-            </div>
-            </div>  
-            <div style={{position: 'absolute',top:108,left:14,color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: '700', lineHeight: '19px', wordWrap: 'break-word'}}>My account</div>
-
-        
-            <div style={{position:'absolute',top:135,left:'4px',width:'100%', height: '100', paddingLeft: '10px', paddingRight: '10px', paddingTop: '6px', paddingBottom: '6px', gap: '10px', display: 'inline-flex'}}>
-             <div style={{color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: 400, lineHeight: '19px', wordWrap: 'break-word', justifyContent: 'center', alignItems: 'center'}}>
-                <Link to="/Assistance">
-                
-                
-                Edit my information
-                
-                </Link>
+        <div style={{ width: 293, height: 320, position: 'absolute', top: '70px', left: 1480, boxShadow: '0px 4px 14px rgba(0, 0, 0, 0.25)', background: 'white', padding: '4px', borderRadius: '16px', zIndex: 1 }}>
+            <div style={{ width: '100%', height: 98, background: 'linear-gradient(94deg, #B0EEFF 0%, #FFD0EC 100%)', borderTopLeftRadius: '16px', borderTopRightRadius: '16px' }}>
+                <img src={user?.picture || process.env.PUBLIC_URL + '/image9.png'} alt="user" style={{ position: 'absolute', width: '100px', height: '100px', left: '14px', top: 1 }} />
+                <div style={{ width: '175px', height: '19px', color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: 700, lineHeight: '19px', wordWrap: 'break-word', position: 'absolute', left: '110px', top: '18px' }}>
+                    {user?.name || 'Albert Chikarova'}
+                </div>
+                <div style={{ width: '72px', height: '19px', paddingLeft: '8px', paddingRight: '8px', paddingTop: '4px', paddingBottom: '4px', background: 'linear-gradient(90deg, #532DEA 0%, #B672FF 100%)', borderRadius: '10px', position: 'absolute', left: 120, top: 45 }}>
+                    <div style={{ color: 'white', fontSize: '14px', fontFamily: 'Revert', fontWeight: 700, lineHeight: '19px', wordWrap: 'break-word' }}>600 Points</div>
                 </div>
             </div>
-            <div style={{position: 'absolute', top: '143px', left:'269px'}}>
-             <img src={iconright} alt="iconright" style={{width: '100%',height: '100%',borderRadius: '16px'}} />
+
+            <div style={{ position: 'absolute', top: 108, left: 14, color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: 700, lineHeight: '19px', wordWrap: 'break-word' }}>My account</div>
+
+            <div style={{ position: 'absolute', top: 135, left: '4px', width: '100%', height: '100', paddingLeft: '10px', paddingRight: '10px', paddingTop: '6px', paddingBottom: '6px', gap: '10px', display: 'inline-flex' }}>
+                <div style={{ color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: 400, lineHeight: '19px', wordWrap: 'break-word', justifyContent: 'center', alignItems: 'center' }}>
+                    <Link to="/Assistance">Edit my information</Link>
+                </div>
+            </div>
+            <div style={{ position: 'absolute', top: '143px', left: '269px' }}>
+                <img src={iconright} alt="iconright" style={{ width: '100%', height: '100%', borderRadius: '16px' }} />
             </div>
             <Link to="/accountpwd">
-            <div style={{ textDecoration: "none",position:'absolute',top:172,left:'4px',width:'100%', height: '100', paddingLeft: '10px', paddingRight: '10px', paddingTop: '6px', paddingBottom: '6px', gap: '10px', display: 'inline-flex'}}>
-           
-          
-         <div onClick={goToAccount()}style={{ textDecoration: "none",color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: 400, lineHeight: '19px', wordWrap: 'break-word', justifyContent: 'center', alignItems: 'center'}}>
-            
-            Change password
-            </div> 
-            </div>
+                <div style={{ textDecoration: "none", position: 'absolute', top: 172, left: '4px', width: '100%', height: '100', paddingLeft: '10px', paddingRight: '10px', paddingTop: '6px', paddingBottom: '6px', gap: '10px', display: 'inline-flex' }}>
+                    <div onClick={goToAccount} style={{ textDecoration: "none", color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: 400, lineHeight: '19px', wordWrap: 'break-word', justifyContent: 'center', alignItems: 'center' }}>
+                        Change password
+                    </div>
+                </div>
             </Link>
-            
-            <div style={{position: 'absolute', top: '174px', left:'269px'}}>
-            
-             <img src={iconright} alt="iconright" style={{width: '100%',height: '100%',borderRadius: '16px'}} />
-             
-            </div>
-            <div style={{position: 'absolute',top:213,left:14,color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: '700', lineHeight: '19px', wordWrap: 'break-word'}}>Settings</div>
-
-            <div style={{position:'absolute',top:248,left:'4px',width:'100%', height: '100', paddingLeft: '10px', paddingRight: '10px', paddingTop: '6px', paddingBottom: '6px', gap: '10px', display: 'inline-flex'}}>
-             <div style={{color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: 400, lineHeight: '19px', wordWrap: 'break-word', justifyContent: 'center', alignItems: 'center'}}>Language</div>
-            </div>
-            <div style={{position: 'absolute', top: '247px', left:'269px'}}>
-             <img src={iconright} alt="iconright" style={{width: '100%',height: '100%',borderRadius: '16px'}} />
-            </div>
-
-
-            <div style={{position:'absolute',top:279,left:'4px',width:'100%', height: '100', paddingLeft: '10px', paddingRight: '10px', paddingTop: '6px', paddingBottom: '6px', gap: '10px', display: 'inline-flex'}}>
-             <div style={{color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: 400, lineHeight: '19px', wordWrap: 'break-word', justifyContent: 'center', alignItems: 'center'}}>
-                <Link to="/policy">
-                
-                Privacy Policy</Link>
+            <div style={{ position: 'absolute', top: 210, left: '4px', width: '100%', height: '100', paddingLeft: '10px', paddingRight: '10px', paddingTop: '6px', paddingBottom: '6px', gap: '10px', display: 'inline-flex' }}>
+                <div
+                    style={{ textDecoration: "none", color: 'black', fontSize: '14px', fontFamily: 'Revert', fontWeight: 400, lineHeight: '19px', wordWrap: 'break-word', justifyContent: 'center', alignItems: 'center', cursor: 'pointer' }}
+                    onClick={() => logout({ returnTo: window.location.origin })}
+                >
+                    Logout
                 </div>
             </div>
-            <div style={{position: 'absolute', top: '281px', left:'269px'}}>
-             <img src={iconright} alt="iconright" style={{width: '100%',height: '100%',borderRadius: '16px'}} />
+            <div style={{ position: 'absolute', top: '174px', left: '269px' }}>
+                <img src={iconright} alt="iconright" style={{ width: '100%', height: '100%', borderRadius: '16px' }} />
             </div>
-
-
         </div>
-
-
     );
 };
 
@@ -162,6 +137,7 @@ const Header = () => {
     const [showNotifications, setShowNotifications] = useState(false);
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [activeButton, setActiveButton] = useState(null); // Ajout de l'état activeButton
+    const { user } = useAuth0();
 
     // Fonction pour gérer l'affichage de la barre de notifications
     const handleNotificationClick = () => {
@@ -195,7 +171,7 @@ const Header = () => {
 
             {/* Menu utilisateur */}
             <div style={{ width: 48, height: 48, left: 1720, top: 16, position: 'absolute', boxShadow: '0px 4px 14px rgba(0, 0, 0, 0.25)', borderRadius: 9999 }} onClick={handleUserButtonClick}>
-                <img src={process.env.PUBLIC_URL + '/image9.png'} alt="user" style={{ position: 'absolute', width: '157%', height: '157%', left: '-14px', top: '-10px' }} />
+                <img src={user?.picture || process.env.PUBLIC_URL + '/image9.png'} alt="user" style={{ position: 'absolute', width: '157%', height: '157%', left: '-14px', top: '-10px', borderRadius:9999 }} />
             </div>
             {showUserMenu && <UserMenu activeButton={activeButton} setActiveButton={setActiveButton} />}
 
@@ -211,3 +187,14 @@ const Header = () => {
 };
 
 export default Header;
+// Protected Routes Component
+const ProtectedRoutes = () => {
+    const { isAuthenticated } = useAuth0();
+
+    if (!isAuthenticated) {
+        return <Navigate to="/login" />;
+    }
+
+    return <Outlet />;
+};
+export { ProtectedRoutes };

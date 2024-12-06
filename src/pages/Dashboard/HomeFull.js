@@ -1,29 +1,19 @@
 // Home.js or your component for the home page
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchBalanceInLocaleCurrency } from './Api';
 import './App.css';  // Import the CSS file
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
-// Importez la bibliothèque country-currency-map
 import QuickSurveyEmpty from "./QuickSurveyEmpty";
 import Leftsidebar from "./Leftsidebar";
 import BHeader from "./BHeader";
-import BusinessLeftsidebar from "./BusinessLeftsidebar";
-const opencage = require('opencage-api-client');
+import {useAuth0} from "@auth0/auth0-react";
 
 
 const Home = () => {
     const navigate = useNavigate();
-    const { iduser } = useParams();
-    const [balanceInLocaleCurrency, setBalanceInLocaleCurrency] = useState(0);
-    const [curr, setCurrency] = useState(0);
     const [sidebarVisible, setSidebarVisible] = useState(true);
-    const [activeButton, setActiveButton] = useState('Dashboard');
-    const [userLocation, setUserLocation] = useState(null);
-// ...
     const [notifications, setNotifications] = useState([]);
+    const { user } = useAuth0();
 
     // Fonction pour afficher une notification
     const showNotification = (message, icon) => {
@@ -37,70 +27,6 @@ const Home = () => {
     };
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                if ("geolocation" in navigator) {
-                    const position = await new Promise((resolve, reject) => {
-                        navigator.geolocation.getCurrentPosition(resolve, reject);
-                    });
-
-                    const { latitude, longitude } = position.coords;
-
-                    const locationResponse = await opencage.geocode({ q: `${latitude},${longitude}`, key: 'dbc5e26b183544fcba8f87ef4268b049' });
-
-                    if (locationResponse && locationResponse.results && locationResponse.results.length > 0) {
-                        const country = locationResponse.results[0].components.country;
-
-                        // Utilisez la fonction API
-                        try {
-                            const balanceResponse = await fetchBalanceInLocaleCurrency(iduser, await getTargetCurrency(country));
-                            const balance = balanceResponse.data;
-                            setBalanceInLocaleCurrency(balance);
-                        } catch (balanceError) {
-                            console.error('Erreur lors de la récupération du solde :', balanceError);
-                            // Ajoutez cette ligne pour loguer les détails de l'erreur
-                            console.error('Détails de l\'erreur :', balanceError.response);
-
-                        }
-                    } else {
-                        console.error('Aucun résultat trouvé pour les coordonnées.');
-                    }
-                } else {
-                    console.warn("La géolocalisation n'est pas prise en charge par ce navigateur.");
-                }
-            } catch (error) {
-                console.error('Erreur lors de la récupération de la localisation :', error);
-            }
-        };
-
-        fetchData();
-    }, [iduser]);
-
-    const getTargetCurrency = async location => {
-        try {
-            const response = await opencage.geocode({ q: location, key: 'dbc5e26b183544fcba8f87ef4268b049' });
-            const firstResult = response.results[0];
-
-            console.log('firstResult:', firstResult); // Examinez la structure de l'objet
-
-            if (firstResult) {
-                const currencyCode = firstResult.annotations.currency.iso_code;
-                setCurrency(currencyCode);
-                console.log('currencyCode:', currencyCode); // Examinez la structure de l'objet
-
-                return currencyCode || 'USD';
-            } else {
-                console.error('Aucun résultat trouvé pour la localisation :', location);
-                return 'USD'; // Utilisez USD par défaut en cas de problème
-            }
-        } catch (error) {
-            console.error('Erreur lors de la récupération des informations de localisation :', error);
-            return 'USD'; // Utilisez USD par défaut en cas d'erreur
-        }
-    };
-
-
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
@@ -110,19 +36,13 @@ const Home = () => {
             <Leftsidebar sidebarVisible={sidebarVisible} toggleSidebar={toggleSidebar} />
             <div style={{width: '100%', height: '100%', position: 'relative', background: '#EFEFEF',marginLeft: !sidebarVisible ? -100 : 0, transition: 'margin-left 0.3s ease'}}>
 
-                {/*{sidebarVisible ? (*/}
-                {/*    // Regular SidebarButton when sidebar is visible*/}
-                {/*    <div style={{width: 220, height: 77, left: 16, top: 830, position: 'absolute', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 16}} >*/}
-                {/*        <div style={{background: 'white',fontFamily: "math",fontWeight: 900,fontSize: "large"}}><p style={{color: 'gold'}}>Balance in Local Currency {balanceInLocaleCurrency} {curr}</p> </div>*/}
-                {/*    </div>*/}
-                {/*) : (*/}
-                {/*    // SidebarButtonHide when sidebar is hidden*/}
-                {/*    <div style={{width: 55, height: 77, left: 115, top: 830, position: 'absolute', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', borderRadius: 16}} >*/}
-                {/*        <div style={{background: 'white',fontFamily: "math",fontWeight: 900,fontSize: "small"}}><p style={{color: 'gold'}}>BLC <br/>{balanceInLocaleCurrency}  <br/> {curr}</p> </div>*/}
-                {/*    </div>*/}
-                {/*)}*/}
                 <div style={{textAlign: "left",width: 1400, height: 100, left: 340, top: 80, position: 'absolute', background: 'white', borderRadius: 16}} >
-                    <div><span style={{ left: 20,top:15, position: 'relative',color: '#111111', fontSize: 24, fontFamily: 'revert', fontWeight: '700', lineHeight: 1, wordWrap: 'break-word'}}>Welcome, [Name]!</span><span style={{left: 20, position: 'relative',color: '#111111', fontSize: 24, fontFamily: 'revert', fontWeight: '600', lineHeight: 1.5, wordWrap: 'break-word'}}> <br/></span><span style={{left: 20,top:10, position: 'relative',color: '#333333', fontSize: 14, fontFamily: 'revert', fontWeight: '400', lineHeight: 3, wordWrap: 'break-word'}}>Explore influential opportunities by participating in exciting surveys. Your opinion matters!</span></div>
+                    <div>
+                        <span
+                        style={{ left: 20,top:15, position: 'relative',color: '#111111', fontSize: 24, fontFamily: 'revert', fontWeight: '700', lineHeight: 1, wordWrap: 'break-word'}}>
+                            {user ? `Welcome, ${user.name}!` : "Welcome, Guest!"}
+                        </span>
+                        <span style={{left: 20, position: 'relative',color: '#111111', fontSize: 24, fontFamily: 'revert', fontWeight: '600', lineHeight: 1.5, wordWrap: 'break-word'}}> <br/></span><span style={{left: 20,top:10, position: 'relative',color: '#333333', fontSize: 14, fontFamily: 'revert', fontWeight: '400', lineHeight: 3, wordWrap: 'break-word'}}>Explore influential opportunities by participating in exciting surveys. Your opinion matters!</span></div>
                 </div>
                 <div style={{width: 670, height: 280, left: 340, top: 312, position: 'absolute', background: 'white', borderRadius: 16}} />
                 <div style={{width: 1400, height: 660, left: 340, top: 608, position: 'absolute', background: 'white', borderRadius: 16}} />
@@ -141,11 +61,6 @@ const Home = () => {
                     </div>
 
                 </div>
-                {/*---*/}
-
-
-
-                {/*---*/}
                 <BHeader/>
 
                 <div style={{width: 440, height: 100, left: 340, top: 196, position: 'absolute', background: '#FFAA1A', borderRadius: 16}} />
@@ -188,7 +103,6 @@ const Home = () => {
                 <div style={{paddingLeft: 8, paddingRight: 8, paddingTop: 4, paddingBottom: 4, left: 363, top: 499, position: 'absolute', background: '#00BDA9', borderRadius: 20, justifyContent: 'center', alignItems: 'center', gap: 4, display: 'inline-flex'}}>
                     <div style={{textAlign: 'right', color: 'white', fontSize: 10, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>30 points</div>
                 </div>
-                {/*///houni eli f note*/}
                 <div style={{paddingLeft: 8, paddingRight: 8, paddingTop: 4, paddingBottom: 4, left: 440, top: 333, position: 'absolute', background: '#666666', borderRadius: 30, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
                     <div style={{textAlign: 'center', color: 'white', fontSize: 10, fontFamily: 'revert', fontWeight: '700', wordWrap: 'break-word'}}>10</div>
                 </div>

@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import BusinessLeftsidebar from "./Dashboard/BusinessLeftsidebar";
 import BHeader from "./Dashboard/BHeader";
 import ChooseSurvey1 from "../components/ChooseSurvey1";
-function Register() {
+function Register({onNext}) {
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const [selectedSurvey, setSelectedSurvey] = useState(null);
 

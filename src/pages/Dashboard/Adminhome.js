@@ -43,45 +43,45 @@ const Adminhome = () => {
     };
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                if ("geolocation" in navigator) {
-                    const position = await new Promise((resolve, reject) => {
-                        navigator.geolocation.getCurrentPosition(resolve, reject);
-                    });
-
-                    const { latitude, longitude } = position.coords;
-
-                    const locationResponse = await opencage.geocode({ q: `${latitude},${longitude}`, key: 'dbc5e26b183544fcba8f87ef4268b049' });
-
-                    if (locationResponse && locationResponse.results && locationResponse.results.length > 0) {
-                        const country = locationResponse.results[0].components.country;
-
-                        // Utilisez la fonction API
-                        try {
-                            const balanceResponse = await fetchBalanceInLocaleCurrency(iduser, await getTargetCurrency(country));
-                            const balance = balanceResponse.data;
-                            setBalanceInLocaleCurrency(balance);
-                        } catch (balanceError) {
-                            console.error('Erreur lors de la récupération du solde :', balanceError);
-                            // Ajoutez cette ligne pour loguer les détails de l'erreur
-                            console.error('Détails de l\'erreur :', balanceError.response);
-
-                        }
-                    } else {
-                        console.error('Aucun résultat trouvé pour les coordonnées.');
-                    }
-                } else {
-                    console.warn("La géolocalisation n'est pas prise en charge par ce navigateur.");
-                }
-            } catch (error) {
-                console.error('Erreur lors de la récupération de la localisation :', error);
-            }
-        };
-
-        fetchData();
-    }, [iduser]);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             if ("geolocation" in navigator) {
+    //                 const position = await new Promise((resolve, reject) => {
+    //                     navigator.geolocation.getCurrentPosition(resolve, reject);
+    //                 });
+    //
+    //                 const { latitude, longitude } = position.coords;
+    //
+    //                 const locationResponse = await opencage.geocode({ q: `${latitude},${longitude}`, key: 'dbc5e26b183544fcba8f87ef4268b049' });
+    //
+    //                 if (locationResponse && locationResponse.results && locationResponse.results.length > 0) {
+    //                     const country = locationResponse.results[0].components.country;
+    //
+    //                     // Utilisez la fonction API
+    //                     try {
+    //                         const balanceResponse = await fetchBalanceInLocaleCurrency(iduser, await getTargetCurrency(country));
+    //                         const balance = balanceResponse.data;
+    //                         setBalanceInLocaleCurrency(balance);
+    //                     } catch (balanceError) {
+    //                         console.error('Erreur lors de la récupération du solde :', balanceError);
+    //                         // Ajoutez cette ligne pour loguer les détails de l'erreur
+    //                         console.error('Détails de l\'erreur :', balanceError.response);
+    //
+    //                     }
+    //                 } else {
+    //                     console.error('Aucun résultat trouvé pour les coordonnées.');
+    //                 }
+    //             } else {
+    //                 console.warn("La géolocalisation n'est pas prise en charge par ce navigateur.");
+    //             }
+    //         } catch (error) {
+    //             console.error('Erreur lors de la récupération de la localisation :', error);
+    //         }
+    //     };
+    //
+    //     fetchData();
+    // }, [iduser]);
 
     const getTargetCurrency = async location => {
         try {

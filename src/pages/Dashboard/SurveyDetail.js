@@ -315,7 +315,7 @@ const SurveyDetail = () => {
                     </div>
                 </div>
             )}
-            {showLanguageComponent && <Datasecurity />}
+            {showLanguageComponent && <Datasecurity sidebarVisible={sidebarVisible}/>}
         </Container>
     );
 };

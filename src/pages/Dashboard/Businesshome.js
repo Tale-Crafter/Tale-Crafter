@@ -1,15 +1,10 @@
-
 // Home.js or your component for the home page
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchBalanceInLocaleCurrency } from './Api';
 import './App.css';  // Import the CSS file
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
-// Importez la bibliothèque country-currency-map
-import QuickSurveyEmpty from "./QuickSurveyEmpty";
-import Leftsidebar from "./Leftsidebar";
+import {fetchBalanceInLocaleCurrency} from './Api';
 import BHeader from "./BHeader";
 import BusinessLeftsidebar from "./BusinessLeftsidebar";
 const opencage = require('opencage-api-client');

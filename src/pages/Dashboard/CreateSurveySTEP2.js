@@ -13,7 +13,7 @@ import ReviewAndPreview from './R&P';
 import {CreateQuestions, CreateSurvey} from "./Api";
 import Timeline from "./Timeline"; // Import the review and preview component
 
-function CreateSurveySTEP2({ survey, questions: initialQuestions, languages, useAudiencePanel }) {
+function CreateSurveySTEP2({ survey, questions: initialQuestions, languages, useAudiencePanel, onNext }) {
     const navigate = useNavigate();
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const [questions, setQuestions] = useState([]);
@@ -46,7 +46,10 @@ function CreateSurveySTEP2({ survey, questions: initialQuestions, languages, use
         };
         setQuestions([...questions, newQuestion]);
     };
-
+    // const handleNext1 = () => {
+    //     // Optionally save to backend here if needed
+    //     onNext(survey); // Pass the copyQuestions value along with survey data
+    // };
     const handleInputChange = (id, field, value) => {
         setQuestions(prevQuestions =>
             prevQuestions.map(q => (q.id === id ? { ...q, [field]: value } : q))
@@ -485,7 +488,7 @@ function CreateSurveySTEP2({ survey, questions: initialQuestions, languages, use
                 questionType: question.questionType || "Text",  // Default to "Text" if not provided
                 answerType: question.answerType || "Single textbox",  // Default to "Single textbox"
                 generateResponses: question.generateResponses || false,  // Default to false if not provided
-                files: formattedFiles.join(','),  // Join files array into a single string
+                file: formattedFiles.join(','),  // Join files array into a single string
                 survey: { id: survey.id },  // Associate with the correct surveyId
             };
         });
@@ -496,7 +499,7 @@ function CreateSurveySTEP2({ survey, questions: initialQuestions, languages, use
     const handleConfirm = async () => {
         // Format the questions before saving
         const formattedQuestions = formatQuestionsForSave(questions);
-
+        console.log(formattedQuestions);
         try {
             // Call the API to save the survey with questions
             const savedSurvey = await CreateSurvey(survey);
@@ -520,8 +523,9 @@ function CreateSurveySTEP2({ survey, questions: initialQuestions, languages, use
 
             console.log("Questions saved successfully.");
 
+            onNext(savedSurvey); // Pass the copyQuestions value along with survey data
             closeModal();
-            navigate('/chsurvey1');
+            // navigate('/chsurvey1');
         } catch (error) {
             console.error("Error saving survey or questions:", error);
         }

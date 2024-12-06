@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import Leftsidebar from "./Leftsidebar";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import Header from "./Header";
-import {fetchFocusGroupById, fetchSurveyById} from "./Api";
+import {fetchFocusGroupById} from "./Api";
 
 const Container = ({ children }) => (
     <div className="Appsd">

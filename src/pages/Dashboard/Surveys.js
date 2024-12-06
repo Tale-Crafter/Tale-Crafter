@@ -71,13 +71,34 @@ const Surveys = ({ accessToken }) => {
         getSurveys();
     }, [accessToken]);
 
-    // Pagination Logic
+    // // Pagination Logic
+    // const indexOfLastItem = currentPage * itemsPerPage;
+    // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    // const currentSurveys = surveyData.slice(indexOfFirstItem, indexOfLastItem);
+    //
+    // const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentSurveys = surveyData.slice(indexOfFirstItem, indexOfLastItem);
+    const currentSurveys = surveyData.slice(indexOfFirstItem, indexOfLastItem); // Current page surveys
+
+    const totalPages = Math.ceil(surveyData.length / itemsPerPage);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    // Pagination button logic
+    const getPaginationPages = () => {
+        if (totalPages <= 3) {
+            return Array.from({ length: totalPages }, (_, i) => i + 1);
+        }
+
+        const pages = [1, currentPage - 1, currentPage, currentPage + 1, totalPages];
+        const uniquePages = Array.from(new Set(pages.filter(page => page >= 1 && page <= totalPages)));
+
+        if (!uniquePages.includes(1)) uniquePages.unshift('...');
+        if (!uniquePages.includes(totalPages)) uniquePages.push('...');
+
+        return uniquePages;
+    };
     return (
         <div className="App">
             <Leftsidebar sidebarVisible={sidebarVisible} toggleSidebar={toggleSidebar} />
@@ -106,24 +127,29 @@ const Surveys = ({ accessToken }) => {
                         />
                     ))}
                     {/* Pagination Controls */}
-                    <div style={{ display: 'flex', justifyContent: 'end', marginTop: 20,background: 'transparent',position:"relative", top: '41.5rem',left:80 }}>
-                        {Array.from({ length: Math.ceil(surveyData.length / itemsPerPage) }, (_, i) => (
+                    <div style={{ display: 'flex', justifyContent: 'end', marginTop: 20, background: 'transparent', position: 'relative', top: '42rem',left:120 }}>
+                        {getPaginationPages().map((page, index) => (
                             <button
-                                key={i}
-                                onClick={() => paginate(i + 1)}
+                                key={index}
+                                onClick={() => {
+                                    if (page !== '...') paginate(page);
+                                }}
                                 style={{
                                     margin: 5,
                                     padding: 10,
-                                    backgroundColor: currentPage === i + 1 ? '#00BDA9' : '#F9BC33',
+                                    backgroundColor: currentPage === page ? '#00BDA9' : '#F9BC33',
                                     color: 'white',
                                     border: 'none',
-                                    borderRadius: 5
+                                    borderRadius: 5,
+                                    cursor: page === '...' ? 'default' : 'pointer'
                                 }}
+                                disabled={page === '...'}
                             >
-                                {i + 1}
+                                {page}
                             </button>
                         ))}
                     </div>
+
                 </div>
                 </div>
             </div>

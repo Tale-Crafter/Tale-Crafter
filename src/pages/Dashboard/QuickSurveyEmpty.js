@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { fetchSurveys } from './Api'; // Import the fetchSurveys function
 
-const QuickSurveyEmpty = ({ accessToken }) => {
-    const { iduser } = useParams();
+const QuickSurveyEmpty = () => {
     const [surveyData, setSurveyData] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getSurveys = async () => {
             try {
-                const data = await fetchSurveys(accessToken);
+                const data = await fetchSurveys();
                 setSurveyData(data); // Update state with fetched data
             } catch (error) {
                 console.error('Error fetching surveys:', error.message);
@@ -18,7 +17,7 @@ const QuickSurveyEmpty = ({ accessToken }) => {
         };
 
         getSurveys();
-    }, [accessToken]);
+    }, []);
 
     const surveyItems = surveyData.length > 0 ? (
         surveyData.map((survey, index) => (
@@ -50,31 +49,6 @@ const QuickSurveyEmpty = ({ accessToken }) => {
     return (
         <div className="App1" style={{ position: 'relative' }}>
             {surveyItems}
-            {/* Static links */}
-            {/*<Link to={`/tobacco`}>*/}
-            {/*    <div style={{ width: 216, height: 54, left: 440, top: 790, position: 'absolute', textAlign: 'right' }}>*/}
-            {/*        <span style={{ color: 'white', fontSize: 14, fontWeight: '700', wordWrap: 'break-word' }}>Tobacco consumption<br /></span>*/}
-            {/*        <span style={{ color: 'white', fontSize: 14, fontWeight: '400', wordWrap: 'break-word' }}>(19 questions)</span>*/}
-            {/*    </div>*/}
-            {/*</Link>*/}
-            {/*<Link to={`/surveydetails`}>*/}
-            {/*    <div style={{ width: 216, height: 54, left: 440, top: 970, position: 'absolute', textAlign: 'right' }}>*/}
-            {/*        <span style={{ color: 'white', fontSize: 14, fontWeight: '700', wordWrap: 'break-word' }}>Job/job seeker<br /></span>*/}
-            {/*        <span style={{ color: 'white', fontSize: 14, fontWeight: '400', wordWrap: 'break-word' }}>(19 questions)</span>*/}
-            {/*    </div>*/}
-            {/*</Link>*/}
-            {/*<Link to={`/education`}>*/}
-            {/*    <div style={{ width: 216, height: 54, left: 440, top: 1150, position: 'absolute', textAlign: 'right' }}>*/}
-            {/*        <span style={{ color: 'white', fontSize: 14, fontWeight: '700', wordWrap: 'break-word' }}>Education and formation<br /></span>*/}
-            {/*        <span style={{ color: 'white', fontSize: 14, fontWeight: '400', wordWrap: 'break-word' }}>(19 questions)</span>*/}
-            {/*    </div>*/}
-            {/*</Link>*/}
-            {/*<Link to={`/habits`}>*/}
-            {/*    <div style={{ width: 216, height: 54, left: 440, top: 1330, position: 'absolute', textAlign: 'right' }}>*/}
-            {/*        <span style={{ color: 'white', fontSize: 14, fontWeight: '700', wordWrap: 'break-word' }}>Consumption habits<br /></span>*/}
-            {/*        <span style={{ color: 'white', fontSize: 14, fontWeight: '400', wordWrap: 'break-word' }}>(19 questions)</span>*/}
-            {/*    </div>*/}
-            {/*</Link>*/}
         </div>
     );
 }

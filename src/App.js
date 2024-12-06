@@ -49,11 +49,33 @@ function App() {
                 <Route path="/policy" element={<Policy />} />
                 <Route path="/account" element={<Assistance />} />
                 <Route path="/account1" element={<Assistancechangepwd />} />
-
-
             </Routes>
         </Router>
+
     );
 }
 
 export default App;
+
+
+const domain = "YOUR_AUTH0_DOMAIN";
+const clientId = "YOUR_AUTH0_CLIENT_ID";
+
+function Main() {
+
+    return (
+        <Auth0Provider
+            domain={domain}
+            clientId={clientId}
+            authorizationParams={{
+                redirect_uri: window.location.origin,
+            }}
+        >
+            <Router>
+                <App />
+            </Router>
+        </Auth0Provider>
+    );
+}
+
+export default Main;
