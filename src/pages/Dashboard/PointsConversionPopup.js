@@ -22,8 +22,8 @@ const ConfirmationPopup = ({ onClose, onValidate }) => {
     const handleBackClick = () => {
         // Call onClose to hide the popup
         onClose();
-        // Redirect to /Surveys/:iduser
-        navigate(`/CouponRecharge/${iduser}`);
+        // Redirect to /Surveys
+        navigate(`/CouponRecharge`);
     };
 
     return (

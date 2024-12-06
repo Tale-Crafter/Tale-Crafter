@@ -19,12 +19,14 @@ const Star = ({ selected, onClick, value }) => {
     );
 };
 
-const StarRankingSurvey = ({ onStarClick }) => {
-    const [rating, setRating] = React.useState(0);
+const StarRankingSurvey = ({ onStarClick, value }) => {
+    const [rating, setRating] = React.useState(value || 0); // Default rating from parent
 
     const handleStarClick = (newRating) => {
         setRating(newRating);
-        onStarClick(newRating);
+        if (onStarClick) {
+            onStarClick(newRating); // Call the parent's callback
+        }
     };
 
     return (

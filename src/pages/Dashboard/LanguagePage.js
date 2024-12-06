@@ -67,7 +67,7 @@ const LanguagePage = () => {
                             </label>
                         </div>
                     </div>
-                    <Button style={{border: '2px solid #00BDA9',position:"relative",left:-520,top:220,width: '11.5%', height: '6.5%', padding: 16, background: 'white', borderRadius: 10, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}   onClick={() => { window.location.href = `/dataverification/${iduser}`; }}
+                    <Button style={{border: '2px solid #00BDA9',position:"relative",left:-520,top:220,width: '11.5%', height: '6.5%', padding: 16, background: 'white', borderRadius: 10, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}   onClick={() => { window.location.href = `/dataverification`; }}
                     >
                         <div style={{color: '#00BDA9', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word'}}>Previous</div>
                     </Button>

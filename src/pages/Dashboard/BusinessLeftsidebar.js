@@ -42,7 +42,7 @@ const Leftsidebar = ({ sidebarVisible, toggleSidebar }) => {
     return (
         <div>
             {/* Logo redirigeant vers la page home */}
-            <Link to={`/home/${iduser}`}>
+            <Link to={`/home`}>
                 <div style={{ width: 160, height: 48, left: 24, top: 22, position: 'absolute', justifyContent: 'center', alignItems: 'center', display: 'inline-flex' }}>
                     <img src={process.env.PUBLIC_URL + '/logobus.png'} alt="LogoTale" style={{ width: '100%', height: '100%' }} />
                 </div>
@@ -64,38 +64,38 @@ const Leftsidebar = ({ sidebarVisible, toggleSidebar }) => {
             {sidebarVisible ? (
                 // Regular BSidebarButton when sidebar is visible
                 <div style={{ left: 24, top: 88, position: 'absolute', borderRadius: 10, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 1, display: 'inline-flex' }}>
-                    <Link to={`/home/${iduser}`}>
+                    <Link to={`/businesshome`}>
                         <BSidebarButton label="Dashboard" icon1="ic.png" icon="image3.png" active={activeButton === 'Dashboard'} onClick={() => handleButtonClick('Dashboard')} />
                     </Link>
-                    <Link to={`/bsurveys/${iduser}`}>
+                    <Link to={`/bsurveys`}>
                         <BSidebarButton label="Surveys" icon="image12.png" active={activeButton === 'Surveys'} onClick={() => handleButtonClick('Surveys')} />
                     </Link>
-                    <Link to={`/Focusgroup/${iduser}`}>
+                    <Link to={`/Focusgroup`}>
                     <BSidebarButton label="Focus group" icon="image13.png" active={activeButton === 'Focus group'} onClick={() => handleButtonClick('Focus group')} />
                     </Link>
-                    <Link to={`/Interviews/${iduser}`}>
+                    <Link to={`/Interviews`}>
                         <BSidebarButton label="Interviews" icon="InterviewsIC.png" active={activeButton === 'Interviews'} onClick={() => handleButtonClick('Interviews')} />
                     </Link>
-                    <Link to={`/Reports/${iduser}`}>
+                    <Link to={`/Reports`}>
                         <BSidebarButton label="Reports" icon="ReportIC.png" active={activeButton === 'Reports'} onClick={() => handleButtonClick('Reports')} />
                     </Link>
                 </div>
             ) : (
                 // BSidebarButtonHide when sidebar is hidden
                 <div style={{left: 35, top: 88, position: 'absolute', borderRadius: 10, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 1, display: 'inline-flex' }}>
-                    <Link to={`/home/${iduser}`}>
+                    <Link to={`/home`}>
                     <BSidebarButtonHide label="Dashboard" icon="image3.png" active={activeButton === 'Dashboard'} onClick={() => handleButtonClick('Dashboard')} />
                     </Link>
-                    <Link to={`/bsurveys/${iduser}`}>
+                    <Link to={`/bsurveys`}>
                     <BSidebarButtonHide label="Surveys" icon="image12.png" active={activeButton === 'Surveys'} onClick={() => handleButtonClick('Surveys')} />
                     </Link>
-                    <Link to={`/Focusgroup/${iduser}`}>
+                    <Link to={`/Focusgroup`}>
                     <BSidebarButtonHide label="Focus group" icon="image13.png" active={activeButton === 'Focus group'} onClick={() => handleButtonClick('Focus group')} />
                     </Link>
-                    <Link to={`/Interviews/${iduser}`}>
+                    <Link to={`/Interviews`}>
                     <BSidebarButtonHide label="Interviews" icon="InterviewsIC.png" active={activeButton === 'Interviews'} onClick={() => handleButtonClick('Interviews')} />
                     </Link>
-                    <Link to={`/Reports/${iduser}`}>
+                    <Link to={`/Reports`}>
                         <BSidebarButtonHide label="Reports" icon="ReportIC.png" active={activeButton === 'Reports'} onClick={() => handleButtonClick('Reports')} />
                     </Link>
                 </div>            )}
@@ -103,14 +103,14 @@ const Leftsidebar = ({ sidebarVisible, toggleSidebar }) => {
             {sidebarVisible ? (
                 // Regular BSidebarButton when sidebar is visible
                 <div style={{ width: 250, paddingTop: 8, paddingBottom: 8, paddingLeft: 0, left: 24, top: 637, position: 'absolute', borderRadius: 10, justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex' }}>
-                    <Link to={`/Taleexclusivity/${iduser}`}>
+                    <Link to={`/Taleexclusivity`}>
                         <BSidebarButton label="Tale exclusivity" icon="TaleexclusivityIC.png" active={activeButton === 'Tale exclusivity'} onClick={() => handleButtonClick('Tale exclusivity')} />
                     </Link>
                 </div>
             ) : (
                 // BSidebarButtonHide when sidebar is hidden
                 <div style={{ width: 250, paddingTop: 8, paddingBottom: 8, paddingLeft: 0, left: 35, top: 637, position: 'absolute', borderRadius: 10, justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex' }}>
-                    <Link to={`/Taleexclusivity/${iduser}`}>
+                    <Link to={`/Taleexclusivity`}>
                         <BSidebarButtonHide label="Tale exclusivity" icon="TaleexclusivityIC.png" active={activeButton === 'Tale exclusivity'} onClick={() => handleButtonClick('Tale exclusivity')} />
                     </Link>
                 </div>
@@ -118,14 +118,14 @@ const Leftsidebar = ({ sidebarVisible, toggleSidebar }) => {
             {sidebarVisible ? (
                 // Regular BSidebarButton when sidebar is visible
                 <div style={{ width: 250, paddingTop: 8, paddingBottom: 8, paddingLeft: 0, left: 24, top: 677, position: 'absolute', borderRadius: 10, justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex' }}>
-                    <Link to={`/AssistanceO/${iduser}`}>
+                    <Link to={`/AssistanceO`}>
                     <BSidebarButton label="Assistance" icon="assistance.png" active={activeButton === 'Assistance'} onClick={() => handleButtonClick('Assistance')} />
                     </Link>
                 </div>
             ) : (
                 // BSidebarButtonHide when sidebar is hidden
                 <div style={{ width: 250, paddingTop: 8, paddingBottom: 8, paddingLeft: 0, left: 35, top: 677, position: 'absolute', borderRadius: 10, justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex' }}>
-                    <Link to={`/AssistanceO/${iduser}`}>
+                    <Link to={`/AssistanceO`}>
                     <BSidebarButtonHide label="Assistance" icon="assistance.png" active={activeButton === 'Assistance'} onClick={() => handleButtonClick('Assistance')} />
                     </Link>
                 </div>
@@ -133,14 +133,14 @@ const Leftsidebar = ({ sidebarVisible, toggleSidebar }) => {
             {sidebarVisible ? (
                 // Regular BSidebarButton when sidebar is visible
                 <div style={{ width: 250, paddingTop: 8, paddingBottom: 8, paddingLeft: 0, left: 24, top: 717, position: 'absolute', borderRadius: 10, justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex' }}>
-                    <Link to={`/Logout/${iduser}`}>
+                    <Link to={`/Logout`}>
                     <BSidebarButton label="Logout" icon="logout.png" active={activeButton === 'Logout'} onClick={() => handleButtonClick('Logout')} />
                     </Link>
                 </div>
             ) : (
                 // BSidebarButtonHide when sidebar is hidden
                 <div style={{ width: 250, paddingTop: 8, paddingBottom: 8, paddingLeft: 0, left: 35, top: 717, position: 'absolute', borderRadius: 10, justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex' }}>
-                    <Link to={`/Logout/${iduser}`}>
+                    <Link to={`/Logout`}>
                         <BSidebarButtonHide label="Logout" icon="logout.png" active={activeButton === 'Logout'} onClick={() => handleButtonClick('Logout')} />
                     </Link>
                 </div>

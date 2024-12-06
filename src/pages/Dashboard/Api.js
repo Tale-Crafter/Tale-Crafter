@@ -1,43 +1,242 @@
-// api.js
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 
-const API_BASE_URL = 'http://localhost:8080\n';
+const API_BASE_URL = 'http://localhost:8080';
 
-export const fetchBalanceInLocaleCurrency = (userId, targetCurrency) => {
-    return axios.get(`${API_BASE_URL}/CreditBalance/balance/${userId}?targetCurrency=${targetCurrency}`);
-};
-
-// Create an Axios instance with default configuration
+// Create an Axios instance for API requests
 const api = axios.create({
     baseURL: API_BASE_URL,
-    headers: {
-        'Content-Type': 'application/json', // Specify content type if needed
-    },
-    withCredentials: true // Include credentials such as cookies in the request
+    withCredentials: true, // Ensure cookies are sent if needed
+    timeout: 10000, // Optional: prevent long waits
 });
 
-// Function to fetch surveys using the access token
-export const fetchSurveys = async (accessToken) => {
-    try {
-        const response = await api.get('/api/surveys', {
-            headers: {
-                Authorization: `Bearer ${accessToken}`, // Include access token in Authorization header
-            },
-        });
-        return response.data; // Return the data received from the API
-    } catch (error) {
-        throw new Error('Error fetching surveys: ' + error.message);
+// Variable to hold the token
+let authToken = null;
+
+// Function to set or clear the authorization token
+export const setAuthToken = (token) => {
+    if (token) {
+        authToken = token;
+        console.log('Setting Authorization Header:', token); // Debugging
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+        authToken = null;
+        console.log('Clearing Authorization Header'); // Debugging
+        delete api.defaults.headers.common['Authorization'];
     }
 };
 
-// Example of how to use the fetchSurveys function
-const accessToken = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyTjRpWktweGZjVndQczZtOHdOSmhkSTBkcXRCczFKQVdjcFdESVVHUlIwIn0.eyJleHAiOjE3MTExMTg0MzgsImlhdCI6MTcxMTExODEzOCwianRpIjoiZmUyNzkyMWItYzY1Zi00MTYwLWE1MTItYjA0Y2Q3MmJmNDlkIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDgwL3JlYWxtcy9qaGlwc3RlciIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJkOWVlYzE0Yy1kOTIwLTRjNjctYWExMC1jZTk2ZjFkNjU1MmQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJ0YWxlIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwOi8vbG9jYWxob3N0OjgwODAvKiIsImh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hcGkvKiIsIioiLCJodHRwOi8vbG9jYWxob3N0OjMwMDAiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1qaGlwc3RlciIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsidGFsZSI6eyJyb2xlcyI6WyJ1bWFfcHJvdGVjdGlvbiJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImNsaWVudEhvc3QiOiIxNzIuMTkuMC4xIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtdGFsZSIsImNsaWVudEFkZHJlc3MiOiIxNzIuMTkuMC4xIiwiY2xpZW50X2lkIjoidGFsZSJ9.JkOamtOwwz0AgOMVduBQlWdt4FQDVxxR3GB5UY2c-AjTOPY9WROAK0WHHhG7xyyjTRd7Rfiqyr4Vxc0zyl5o2Ni1bmV0AhpxEg0-mbre_wF1AuRrcJNgoM_7IjGXB4BXq5kqjFFNhqpqvZ8RlMHYcSpjPlQyQGx7WLl8Y0iX-0w3j_wYwpwv2gDHwLrpaNn3X2VeQWpTQJShrGZa16Njfpg1fncRDrCrH5lmlbH3aqyF4DpC0IvCcH5fikqm0_VjSioh0OQPDFi5LN9ee5YWx5CZw0UF7rbfqF9q4QrbIDkNdi3TNpfiOIRM1yuoNmv1t-xHqYaybizgcNJna7uozw';
-fetchSurveys(accessToken)
-    .then(data => {
-        console.log('Surveys data:', data);
-    })
-    .catch(error => {
+// Middleware to dynamically add the token to each request
+api.interceptors.request.use(
+    async (config) => {
+        if (!config.headers['Authorization'] && authToken) {
+            config.headers['Authorization'] = `Bearer ${authToken}`;
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
+
+
+// Fetch surveys
+export const fetchSurveys = async () => {
+    try {
+        const response = await api.get('/api/surveys?page=0&size=200');
+        return response.data;
+    } catch (error) {
         console.error('Error fetching surveys:', error.message);
-    });
+        throw error;
+    }
+};
+
+// Fetch companies using the Auth0 token
+export const fetchCompanies = async () => {
+    try {
+        const response = await api.get('/api/companies?page=0&size=200');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching companies:', error.message);
+        throw error;
+    }
+};
+
+// Fetch products using the Auth0 token
+export const fetchProducts = async () => {
+    try {
+        const response = await api.get('/api/products');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching products:', error.message);
+        throw error;
+    }
+};
+
+// Fetch SurveyColl using the Auth0 token
+export const fetchSurveyColl = async () => {
+    try {
+        const response = await api.get('/api/surveycolls');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching surveycolls:', error.message);
+        throw error;
+    }
+};
+
+// Create SurveyColl function
+export const CreateSurveyColl = async (surveycoll) => {
+    try {
+        const response = await api.post('/api/surveycolls', surveycoll);
+        return response.data;
+    } catch (error) {
+        console.error('Error creating SurveyColl:', error.message);
+        throw error;
+    }
+};
+
+// Create Company function
+export const CreateCompany = async (company) => {
+    try {
+        const response = await api.post('/api/companies', company);
+        return response.data;
+    } catch (error) {
+        console.error('Error creating company:', error.message);
+        throw error;
+    }
+};
+
+// Create Product function
+export const CreateProduct = async (product) => {
+    try {
+        const response = await api.post('/api/products', product);
+        return response.data;
+    } catch (error) {
+        console.error('Error creating product:', error.message);
+        throw error;
+    }
+};
+
+// Save answers
+export const SaveAnswers = async (company) => {
+    try {
+        const response = await api.post('/api/responses', company);
+        console.log('Server response:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error inserting answers:', error.message);
+        throw error;
+    }
+};
+
+// Create Survey
+export const CreateSurvey = async (survey) => {
+    try {
+        const response = await api.post('/api/surveys', survey);
+        console.log('Server response:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error inserting survey:', error.message);
+        throw error;
+    }
+};
+
+// Create Questions
+export const CreateQuestions = async (questions) => {
+    try {
+        const response = await api.post('/api/questions', questions);
+        console.log('Server response:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error inserting questions:', error.message);
+        throw error;
+    }
+};
+
+// Fetch survey by ID
+export const fetchSurveyById = async (surveyId) => {
+    try {
+        const response = await api.get(`/api/surveys/${surveyId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching survey by ID:', error.message);
+        throw error;
+    }
+};
+
+// Fetch company by ID
+export const fetchcompanyById = async (companyId) => {
+    try {
+        const response = await api.get(`/api/companies/${companyId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching company by ID:', error.message);
+        throw error;
+    }
+};
+
+// Fetch focus group by ID
+export const fetchFocusGroupById = async (focusGroupId) => {
+    try {
+        const response = await api.get(`/api/focus-groups/${focusGroupId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching focus group by ID:', error.message);
+        throw error;
+    }
+};
+
+// Fetch survey insights
+export const fetchSurveysInsights = async () => {
+    try {
+        const response = await api.get('/api/survey-insights');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching survey insights:', error.message);
+        throw error;
+    }
+};
+
+// Fetch focus groups
+export const fetchFocusGroup = async () => {
+    try {
+        const response = await api.get('/api/focus-groups');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching focus groups:', error.message);
+        throw error;
+    }
+};
+
+// Fetch normal users
+export const fetchNormalUsers = async () => {
+    try {
+        const response = await api.get('/api/normal-users');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching normal users:', error.message);
+        throw error;
+    }
+};
+
+// Add a survey
+export const addSurvey = async (surveyData) => {
+    try {
+        const response = await api.post('/api/surveys', surveyData);
+        return response.data;
+    } catch (error) {
+        console.error('Error adding survey:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+};
+
+// Fetch balance using Keycloak token
+export const fetchBalanceInLocaleCurrency = async (userId, targetCurrency) => {
+    try {
+        const response = await api.get(`/CreditBalance/balance/${userId}?targetCurrency=${targetCurrency}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching balance:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+};
 
 export default api; // Export the Axios instance for global usage if needed

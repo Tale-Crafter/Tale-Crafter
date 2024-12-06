@@ -75,8 +75,8 @@ const CreateSurveySTEP9 = () => {
     };
 
     const handleBackClick = () => {
-        // Redirect to /Surveys/:iduser
-        navigate(`/Surveys/${iduser}`);
+        // Redirect to /Surveys
+        navigate(`/Surveys`);
     };
 
     const handleDragOver = (event) => {

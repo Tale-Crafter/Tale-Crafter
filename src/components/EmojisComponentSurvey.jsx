@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-
 import emojilove from '../images/emoji.png';
 import emojilaugh from '../images/emoji@2x-1.png';
 import emojipocker from '../images/emoji-2.png';
@@ -16,27 +15,33 @@ const EmojiComponentSurvey = ({ onEmojiSelect, selectedEmoji }) => {
     { name: 'Emoji_sad', src: emojisad },
     { name: 'Emoji_angry', src: emojiangry }
   ];
-  const emojiSize = '30px'; // Adjust this value to your desired size
-  const angryEmojiSize = '30px'; // Adjust this value for the angry emoji
-  const [isPressed, setIsPressed] = useState(false);
 
-  const handleEmojiClick = (emojiSrc) => {
-    onEmojiSelect(emojiSrc);
+  const emojiSize = '30px'; // Default emoji size
+  const angryEmojiSize = '30px'; // Size for the angry emoji specifically
+
+  const [isPressed, setIsPressed] = useState(null); // Track which emoji is pressed
+  const [hoveredEmoji, setHoveredEmoji] = useState(null); // Track which emoji is hovered
+
+  const handleEmojiClick = (emojiName, emojiSrc) => {
+    console.log("Selected Emoji:", emojiName);  // Log the selected emoji's name
+    onEmojiSelect(emojiName, emojiSrc); // Pass emoji name and src to the parent
+  };
+
+  const handlePressStart = (emojiName) => {
+    setIsPressed(emojiName);
   };
 
   const handlePressEnd = () => {
-    setTimeout(() => setIsPressed(false), 200);
+    setTimeout(() => setIsPressed(null), 200); // Reset the pressed state after a short delay
   };
 
-  const divRef = useRef(null);
+  const handleMouseEnter = (emojiName) => {
+    setHoveredEmoji(emojiName);
+  };
 
-  useEffect(() => {
-    const element = divRef.current;
-    if (element) {
-      element.addEventListener('mousedown', handlePressEnd);
-      return () => element.removeEventListener('mousedown', handlePressEnd); // Cleanup
-    }
-  }, [divRef]);
+  const handleMouseLeave = () => {
+    setHoveredEmoji(null);
+  };
 
   const styles = {
     display: 'flex',
@@ -49,53 +54,58 @@ const EmojiComponentSurvey = ({ onEmojiSelect, selectedEmoji }) => {
     padding: '5px',
     borderRadius: '7px',
     cursor: 'pointer',
-    transition: 'background-color 0.2s ease-in-out', // Transition for hover effect
+    transition: 'background-color 0.2s ease-in-out',
+    position: 'relative', // Position text/labels inside emojis
   };
 
   const pressedStyle = {
     backgroundColor: 'white',
-    transition: 'background-color 0.2s ease-out', // Animate color change on press end
   };
 
   const hoverStyle = {
-    backgroundColor: 'lightgray', // Apply light blue background on hover
+    backgroundColor: 'lightgray', // Light gray background on hover
   };
 
   const imgStyle = {
     width: emojiSize,
     height: emojiSize,
-    border: '1px solid transparent', // Add default border for cleaner visual cues
+    border: '1px solid transparent',
   };
 
   const imgSelectedStyle = {
-    backgroundColor: 'transparent', // Apply yellow background on selection
+    backgroundColor: 'transparent', // Selected emoji style
   };
 
   const imgAngryStyle = {
     width: angryEmojiSize,
-    height: angryEmojiSize, // Apply styles for the angry emoji
+    height: angryEmojiSize, // Apply special style for angry emoji
   };
 
   return (
-    <div style={styles}>
-      {emojis.map((emoji, index) => (
-        <div
-          key={index}
-          ref={divRef}
-          style={{
-            ...divStyle,
-            ...(isPressed && pressedStyle),
-            ...(selectedEmoji === emoji.src && imgSelectedStyle),
-            ...(selectedEmoji === emoji.src && hoverStyle), // Hover effect for selected emoji
-          }}
-          onMouseDown={() => handleEmojiClick(emoji.src)}
-        >
-          <img src={emoji.src} alt={emoji.name} style={emoji.name === 'Emoji_angry' ? { ...imgStyle, ...imgAngryStyle } : imgStyle} />
-          {emoji.name === 'Emoji_angry' && <p style={{fontSize:10,width:100,position:"absolute",left:0}}>Labeled on the left</p>}
-          {emoji.name === 'Emoji_love' && <p style={{fontSize:10,width:100,position:"absolute",right:0}}>Labeled on the right</p>}
-        </div>
-      ))}
-    </div>
+      <div style={styles}>
+        {emojis.map((emoji, index) => (
+            <div
+                key={index}
+                style={{
+                  ...divStyle,
+                  ...(isPressed === emoji.name && pressedStyle), // Apply pressed style if this emoji is being pressed
+                  ...(selectedEmoji === emoji.name && imgSelectedStyle), // Highlight selected emoji
+                  ...(hoveredEmoji === emoji.name && hoverStyle), // Hover effect
+                }}
+                onMouseDown={() => handlePressStart(emoji.name)} // Set pressed state
+                onMouseUp={handlePressEnd} // Reset pressed state when mouse button is released
+                onMouseEnter={() => handleMouseEnter(emoji.name)} // Track hover state
+                onMouseLeave={handleMouseLeave} // Reset hover state when mouse leaves
+                onClick={() => handleEmojiClick(emoji.name, emoji.src)} // Handle click
+            >
+              <img
+                  src={emoji.src}
+                  alt={emoji.name}
+                  style={emoji.name === 'Emoji_angry' ? { ...imgStyle, ...imgAngryStyle } : imgStyle} // Angry emoji specific style
+              />
+            </div>
+        ))}
+      </div>
   );
 };
 
