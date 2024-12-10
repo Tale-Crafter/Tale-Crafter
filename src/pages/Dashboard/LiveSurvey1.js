@@ -27,8 +27,8 @@ const LanguagePage = () => {
         setShowConfirmation(true);
     };
     const handleBackClick = () => {
-        // Redirect to /Surveys/:iduser
-        navigate(`/Surveys/${iduser}`);
+        // Redirect to /Surveys
+        navigate(`/Surveys`);
     };
     const handleCloseConfirmation = () => {
         setShowConfirmation(false);
@@ -47,6 +47,10 @@ const LanguagePage = () => {
             <div style={{width: '100%', height: '100%', position: 'relative', background: '#EFEFEF', marginLeft: !sidebarVisible ? -100 : 0, transition: 'margin-left 0.3s ease', filter: showConfirmation ? 'blur(5px)' : 'none' }}>
                 <Header/>
                 <div style={{width: 1400, height: 736, left: 340, top: 80, position: 'absolute', background: 'white', borderRadius: 16}} >
+
+                    <div style={{position:"absolute",left:1300,top:10,width: '3%', height: '3%', paddingLeft: 8, paddingRight: 8, paddingTop: 4, paddingBottom: 4, background: '#ED1C24', borderRadius: 4, justifyContent: 'center', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
+                        <div style={{textAlign: 'center', color: 'white', fontSize: 12, fontFamily: 'Open Sans', fontWeight: '700', lineHeight: 16, wordWrap: 'break-word'}}>• Live</div>
+                    </div>
                     <div style={{ width: 993, left: -65, top: 15, position: 'absolute', color: '#111111', fontSize: 24, fontFamily: 'revert', fontWeight: '700', lineHeight: 1, wordWrap: 'break-word' }}>Mauris egestas leo vel nulla tincidunt, ac molestie sem consectetur</div>
 
                     {/* Back button */}

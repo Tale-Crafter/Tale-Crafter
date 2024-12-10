@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import {Link, useNavigate, useParams} from "react-router-dom";
 import '../../App.css';  // Import the CSS file
 import Header from "./Header";
 import Leftsidebar from "./Leftsidebar";
@@ -63,7 +63,17 @@ const Jitci = () => {
         <div style={{ width: '100%', height: '100%', position: 'relative', background: '#EFEFEF', marginLeft: !sidebarVisible ? -100 : 0, transition: 'margin-left 0.3s ease' }}>
           <Header />
           <div style={{ width: 1400, height: 736, left: 340, top: 80, position: 'absolute', background: 'white', borderRadius: 16 }}>
-            <div ref={jitsiContainerRef} style={{ width: '100%', height: '100%' }}></div>
+            <Link to={`/livesurvey`}>
+            <div style={{width: '100%', height: '100%',position:"absolute",left:1280}}>
+              <div style={{position:"absolute",left:-10,top:-5,width: '5%', height: '8%', opacity: 0.08, background: 'linear-gradient(90deg, #F9BC33 0%, #FE346E 100%)', borderRadius: 9999}} />
+              <div style={{width: '4%', height: '7%', opacity: 0.15, background: 'linear-gradient(90deg, #F9BC33 0%, #FE346E 100%)', borderRadius: 9999}} />
+              <div style={{width: '3%', height: '6%', background: 'linear-gradient(90deg, #F9BC33 0%, #FE346E 100%)', borderRadius: 9999,position:"relative",top:-48,left:7}} />
+              <div style={{width: '100%', height: '100%', position: 'absolute',top:8,left:10}}>
+                <img src={process.env.PUBLIC_URL + '/image10.png'} style={{ width: 34, height: 35, left: 0, top: 0, position: 'absolute' }} />
+              </div>
+            </div>
+            </Link>
+            <div ref={jitsiContainerRef} style={{ width: '100%', height: '100%',top: 50, position: 'absolute' }}></div>
           </div>
         </div>
       </div>

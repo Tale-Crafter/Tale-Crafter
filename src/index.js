@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import { Auth0Provider } from '@auth0/auth0-react';
+
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Register from './pages/Register';
@@ -60,121 +62,343 @@ import Policy from "./pages/Dashboard/Policy";
 import Changepwd from "./pages/Dashboard/Changepwd";
 import Assistancechangepwd from "./pages/Dashboard/Assistancechangepwd";
 import AssistanceO from './pages/Dashboard/AssistanceO';
+import TaleCustomerSubscribe from "./pages/TaleCustomerSubscribe";
+import CustomerExperience from "./pages/Dashboard/CustomerExperienceSurvey";
+import BusinessSurveys from "./pages/Dashboard/BusinessSurveys";
+import CreateSurveySTEP1 from "./pages/Dashboard/CreateSurveySTEP1";
+import CreateSurveySTEP2 from "./pages/Dashboard/CreateSurveySTEP2";
+import CreateSurveySTEP3 from "./pages/Dashboard/CreateSurveySTEP3";
+import Tale5 from "./pages/Dashboard/Tale5";
+import LoginO from './pages/blogin';
+import BusinessRegister from './pages/BusinessRegister';
+import Bverif from './pages/Bemailverif';
+import Chsurvey from './pages/ChSurvey';
+import Simplesurvey from './pages/SipmleSurvey';
+import Createpwd from "./components/Createpwd";
+import Createpassword from "./pages/Createpassword";
+import Businesshome from "./pages/Dashboard/Businesshome";
+import Businesshomedata from "./pages/Dashboard/Businesshomedata";
+import Surveyia from "./pages/Dashboard/Surveyia";
+import Importqs1 from "./pages/Dashboard/Importqs1";
+import CreateSurveySTEP4 from "./pages/Dashboard/CreateSurveySTEP4";
+import CreateSurveySTEP5 from "./pages/Dashboard/CreateSurveySTEP5";
+import CreateSurveySTEP6 from "./pages/Dashboard/CreateSurveySTEP6";
+import CreateSurveySTEP7 from "./pages/Dashboard/CreateSurveySTEP7";
+import CreateSurveySTEP8 from "./pages/Dashboard/CreateSurveySTEP8";
+import CreateSurveySTEP9 from "./pages/Dashboard/CreateSurveySTEP9";
+import CustomerExperienceSurveylv3 from "./pages/Dashboard/CustomerExperienceSurveylv3";
+import ReviewPreview1 from "./pages/Review&Preview1";
+import ReviewPreview2 from "./pages/Review&Preview2";
+import SurveyLink from "./pages/Dashboard/SurveyLink";
+import ReviewPreview3 from "./pages/Review&Preview3";
+import SurveyColl from "./pages/Dashboard/SurveyColl";
+import Order from "./pages/Dashboard/Order";
+import Ordertest from "./pages/Dashboard/Ordertest";
+import Cigaro from "./pages/Dashboard/Cigaro";
+import TobaccoC from "./pages/Dashboard/TobaccoC";
+import TLanguage from "./pages/Dashboard/TLanguage";
+import TobaccoC10 from "./pages/Dashboard/TobaccoC10";
+import TobaccoC20 from "./pages/Dashboard/TobaccoC20";
+import TobaccoC30 from "./pages/Dashboard/TobaccoC30";
+import TobaccoC40 from "./pages/Dashboard/TobaccoC40";
+import TobaccoC50 from "./pages/Dashboard/TobaccoC50";
+import TobaccoC60 from "./pages/Dashboard/TobaccoC60";
+import TobaccoC70 from "./pages/Dashboard/TobaccoC70";
+import TobaccoC80 from "./pages/Dashboard/TobaccoC80";
+import TobaccoC90 from "./pages/Dashboard/TobaccoC90";
+import TobaccoC100 from "./pages/Dashboard/TobaccoC100";
+import TobaccoC110 from "./pages/Dashboard/TobaccoC110";
+import TSport from "./pages/Dashboard/TSport";
+import TWl from "./pages/Dashboard/TWl";
+import TActivw from "./pages/Dashboard/TActivw";
+import TcarD from "./pages/Dashboard/TcarD";
+import TConsumptionB from "./pages/Dashboard/TConsumptionB";
+import THT from "./pages/Dashboard/THT";
+import TheStudies from "./pages/Dashboard/TheStudies";
+import Tltelevision from "./pages/Dashboard/Tltelevision";
+import SocialNetworks from "./pages/Dashboard/SocialNetworks";
+import ConsumptionHabits from "./pages/Dashboard/ConsumptionHabits";
+import EntOfTunisia from "./pages/Dashboard/EntOfTunisia";
+import EducationFormation from "./pages/Dashboard/Education&Formation";
+import LoginAdmin from "./pages/LoginAdmin";
+import Adminhome from "./pages/Dashboard/Adminhome";
+import {ProtectedRoutes}  from "./pages/Dashboard/ProtectedRoutes";
+import Chart from "./pages/Dashboard/chart";
+import GestionUser from "./pages/Dashboard/GestionUser";
+import AssistanceAdmin from "./pages/Dashboard/AssistanceAdmin";
+import ConfirmationPopup from "./pages/Dashboard/ConfirmationPopup";
+import GestionSanction from "./pages/Dashboard/GestionSanction";
+import Oneto10Component from "./pages/Dashboard/1to10Component";
+import ReviewAndPreview from "./pages/Dashboard/R&P";
+import SurveyCreationFlow from "./pages/Dashboard/SurveyCreationFlow";
+import CreateSurveySTEP21 from "./pages/Dashboard/CreateSurveySTEP2.1";
+import ChooseSurvey1 from "./components/ChooseSurvey1";
+import ChooseSurvey2 from "./components/ChooseSurvey2";
+import ChooseSurvey3 from "./components/ChooseSurvey3";
+import Login from "./pages/login/Login";
+
 const routes = createBrowserRouter([
+
+  {
+    path: "/Businesslogin", element: <LoginO />,
+  },
+  {
+    path: "/login", element: <Login />,
+  },
+  {
+    path: "/Adminlogin", element: <LoginAdmin />,
+  },
+  {
+    path: "/BusinessRegister", element: <BusinessRegister />,
+  },
   {
     path: "/register", element: <Register />,
   },
   {
-    path: "/*", element: <Notfound />,
+    path: "/Verif", element: <Bverif />,
+  },{
+    path: "/ForgotPassword", element: <ForgotPasswordOne />,
   },
+  // {
+  //   path: "/ForgotPasswordTwo", element: <ForgotPasswordTwo />,
+  // },
   {
-    path: "/login", element: <LoginOne />,
+    path: "/ChangePassword", element: <ForgotPasswordThree />,
   },
-  {
-    path: "/ForgotPasswordOne", element: <ForgotPasswordOne />,
-  },
-  {
-    path: "/ForgotPasswordTwo", element: <ForgotPasswordTwo />,
-  },
-  {
-    path: "/ForgotPasswordThree", element: <ForgotPasswordThree />,
-  },
-  {
-    path: "/home/:iduser", element: <HomeFull />,
-  },
-  {
-    path: "/surveys/:iduser", element: <Surveys />,
-  },
-  {
-    path: "/Focusgroup/:iduser", element: <Focusgroup />,
-  },
-  {
-    path: "/Awards/:iduser", element: <Awards />,
-  },
-  {
-    path: "/Assistance/:iduser", element: <Assistance />,
-  }, {
-    path: "/surveydetails/:iduser", element: <SurveyDetail />,
-  }, {
-    path: "/dataverification/:iduser", element: <Datasecurity />,
-  },
-  {path: "/dashboard40", element: <DashboardSurvery40 />,
-  },
-  {path: "/dashboard50", element: <DashboardSurvery50 />,
-},
-{path: "/dashboard60", element: <DashboardSurvery60 />,
-},
-{path: "/dashboard70", element: <DashboardSurvery70 />, 
-},
-{path: "/DashboardSurveryDetail", element: <DashboardSurveryDetail />,
-},
-{path: "/dashboard30", element: <DashboardSurvery30 />,
-},
-{path: "/dashboard10", element: <DashboardSurvery10 />,
-},
-{path: "/dashboard20", element: <DashboardSurvery20 />,
-},
-{path: "/dashboard80", element: <DashboardSurvery80 />,
-},
-{path: "/dashboard90", element: <DashboardSurvery90 />,
-},
-{path: "/dashboard901", element: <DashboardSurvery901 />,
-},
-{path: "/dashboard902", element: <DashboardSurvery902 />,
-},
-{path: "/dashboard903", element: <DashboardSurvery903 />,
-},
-{path: "/dashboard904", element: <DashboardSurvery904 />,
-},
-{path: "/dashboard905", element: <DashboardSurvery905 />,
-},
-{path: "/dashboard906", element: <DashboardSurvery906 />,
-},
-{path: "/dashboard907", element: <DashboardSurvery907 />,
-},
-{path: "/dashboard908", element: <DashboardSurvery908 />,
-},
-{path: "/dashboard9090", element: <DashboardSurvery9090 />,
-},
-{path:"/surveydetails/:iduser", element: <SurveyDetail />,},
-{ path: "/dataverification/:iduser", element: <Datasecurity /> },
-{ path: "/focusgroup/:iduser", element: <Focusgroup /> },
-{ path: "/awards/:iduser", element: <Awards /> },
-{ path: "/focusgroupdetails/:iduser", element: <Focusgroupdetails /> },
-{ path: "/language/:iduser", element: <LanguagePage /> },
-{ path: "/opinionsurvey/:iduser", element: <OpinionSurvey /> },
-{ path: "/generallyspeaking/:iduser", element: <OneanswerSurv /> },
-{ path: "/endsurvey/:iduser", element: <EarnsPage /> },
-{ path: "/very/:iduser", element: <Verylikely /> },
-{ path: "/DashboardSurvery101", element: <DashboardSurvery101 /> },
-{ path: "/Dashboard909", element: <DashboardSurvery909 /> },
-{ path: "/jitci", element: <Jitci /> },
-{ path: "/Points/:iduser", element: <PointsDashboard /> },
-{ path: "/PhoneRecharge/:iduser", element: <PhoneRecharge /> },
-{ path: "/CouponRecharge/:iduser", element: <CouponRecharge /> },
-{path:"/accountpwd/:iduser", element: <Assistancechangepwd /> },
-{path:"/account/:iduser", element: <Assistance /> },
-{path:"/policy/:iduser", element: <Policy />},
 
-{path:"/assistancevid/:iduser", element: <AssistanceRegisterAccountmanagement />},
-{path:"/livesurvey1/:iduser", element: <LiveSurvey1 />},
-{path:"/livesurvey/:iduser", element: <LiveSurvey />},
-{path:"/very/:iduser", element: <VerylikelyVierge />},
+  // Protected routes
+  {
+    path: "/",
+    element: <ProtectedRoutes />, // This will wrap all child routes below
+    children: [
+      {path:"/Oneto10Component", element: <Oneto10Component/>},
+      {path:"/Businesshome", element: <Businesshome/>},
+      {path:"/GestionDesSanctions", element: <GestionSanction/>},
+      {path:"/ConfirmationPopup", element: <ConfirmationPopup/>},
+      {path:"/AssistanceAdmin", element: <AssistanceAdmin/>},
+      {path:"/GestionDesUtilisateurs", element: <GestionUser/>},
+      {path:"/Adminhome", element: <Adminhome/>},
+      {path:"/Businesshomedata", element: <Businesshomedata />},
+      {path:"/chart", element: <Chart />},
+      {path:"/customexperiencelv3", element: <ReviewAndPreview />},
+      {path:"/SurveyCreationFlow", element: <SurveyCreationFlow />},
+      {path:"/Surveyia", element: <Surveyia/>},
+      {
+        path: "/Tobacco", element: <TobaccoC />,
+      },{
+        path: "/TSport", element: <TSport />,
+      },{
+        path: "/tlearning", element: <TWl />,
+      },{
+        path: "/tactiv", element: <TActivw />,
+      },{
+        path: "/tcarD", element: <TcarD />,
+      },{
+        path: "/tconsumptionb", element: <TConsumptionB />,
+      },{
+        path: "/travelhabitst", element: <THT />,
+      },{
+        path: "/studies", element: <TheStudies />,
+      },{
+        path: "/education", element: <EducationFormation />,
+      },{
+        path: "/television", element: <Tltelevision />,
+      },{
+        path: "/socialnet", element: <SocialNetworks />,
+      },{
+        path: "/habits", element: <ConsumptionHabits />,
+      },{
+        path: "/Entertainment", element: <EntOfTunisia />,
+      },
+      {
+        path: "/subscribe", element: <TaleCustomerSubscribe />,
+      },
+      {
+        path: "/*", element: <Notfound />,
+      }, {
+        path: "/Surveycoll", element: <SurveyColl />,
+      },{
+        path: "/Order", element: <Order />,
+      },{
+        path: "/Ordert", element: <Ordertest />,
+      }, {
+        path: "/CustomerExperience", element: <CustomerExperience/>,
+      }, {
+        path: "/CustomerExperiencelv3", element: <CustomerExperienceSurveylv3/>,
+      },{
+        path: "/SurveyLink", element: <SurveyLink/>,
+      },
+      {
+        path: "/chsurvey", element: <Chsurvey />,
+      },{
+        path: "/chsurvey1", element: <ChooseSurvey1 />,
+      },{
+        path: "/chsurvey2", element: <ChooseSurvey2 />,
+      },{
+        path: "/chsurvey3", element: <ChooseSurvey3 />,
+      },
+      {
+        path: "/simplesurvey", element: <Simplesurvey />,
+      },{path:"/Importqs1", element: <Importqs1/>},
+      {
+        path: "/createpwd", element: <Createpassword />,
+      },
+      {
+        path: "", element: <HomeFull />,
+      },
+      {
+        path: "/surveys", element: <Surveys />,
+      },
+      {
+        path: "/createsurvey", element: <CreateSurveySTEP1 />,
+      },
+      {
+        path: "/createsurvey2", element: <CreateSurveySTEP2 />,
+      },
+      {
+        path: "/createsurvey21", element: <CreateSurveySTEP21/>,
+      },
+      {
+        path: "/createsurvey3", element: <CreateSurveySTEP3 />,
+      },
+      {
+        path: "/createsurvey4", element: <CreateSurveySTEP4 />,
+      },{
+        path: "/createsurvey5", element: <CreateSurveySTEP5 />,
+      },{
+        path: "/createsurvey6", element: <CreateSurveySTEP6 />,
+      },{
+        path: "/createsurvey7", element: <CreateSurveySTEP7 />,
+      },{
+        path: "/createsurvey8", element: <CreateSurveySTEP8 />,
+      },{
+        path: "/createsurvey9", element: <CreateSurveySTEP9 />,
+      },
+      {
+        path: "/tale", element: <Tale5 />,
+      },
+      {
+        path: "/bsurveys", element: <BusinessSurveys />,
+      },
+      {
+        path: "/Focusgroup", element: <Focusgroup />,
+      },
+      {
+        path: "/Awards", element: <Awards />,
+      },
+      {
+        path: "/Assistance", element: <Assistance />,
+      }, {
+        path: "/surveydetails", element: <SurveyDetail />,
+      }, {
+        path: "/dataverification", element: <Datasecurity />,
+      },
+      {path: "/dashboard40", element: <DashboardSurvery40 />,
+      },
+      {path: "/dashboard50", element: <DashboardSurvery50 />,
+      },
+      {path: "/dashboard60", element: <DashboardSurvery60 />,
+      },
+      {path: "/dashboard70", element: <DashboardSurvery70 />,
+      },
+      {path: "/DashboardSurveryDetail", element: <DashboardSurveryDetail />,
+      },
+      {path: "/dashboard30", element: <DashboardSurvery30 />,
+      },
+      {path: "/dashboard10", element: <DashboardSurvery10 />,
+      },
+      {path: "/dashboard20", element: <DashboardSurvery20 />,
+      },
+      {path: "/dashboard80", element: <DashboardSurvery80 />,
+      },
+      {path: "/dashboard90", element: <DashboardSurvery90 />,
+      },
+      {path: "/dashboard901", element: <DashboardSurvery901 />,
+      },
+      {path: "/dashboard902", element: <DashboardSurvery902 />,
+      },
+      {path: "/dashboard903", element: <DashboardSurvery903 />,
+      },
+      {path: "/dashboard904", element: <DashboardSurvery904 />,
+      },
+      {path: "/dashboard905", element: <DashboardSurvery905 />,
+      },
+      {path: "/dashboard906", element: <DashboardSurvery906 />,
+      },
+      {path: "/dashboard907", element: <DashboardSurvery907 />,
+      },
+      {path: "/dashboard908", element: <DashboardSurvery908 />,
+      },
+      {path: "/dashboard9090", element: <DashboardSurvery9090 />,
+      },
+      {path:"/surveydetails/:idSurvey", element: <SurveyDetail />,},
+      { path: "/dataverification", element: <Datasecurity /> },
+      { path: "/focusgroup", element: <Focusgroup /> },
+      { path: "/awards", element: <Awards /> },
+      { path: "/focusgroupdetails", element: <Focusgroupdetails /> },
+      { path: "/language", element: <LanguagePage /> },
+      { path: "/tlanguage/:idSurvey", element: <TLanguage /> },
+      { path: "/tobacco", element: <TobaccoC10 /> },
+      { path: "/tobacco2", element: <TobaccoC20 /> },
+      { path: "/tobacco3", element: <TobaccoC30 /> },
+      { path: "/tobacco4", element: <TobaccoC40 /> },
+      { path: "/tobacco5", element: <TobaccoC50 /> },
+      { path: "/tobacco6", element: <TobaccoC60 /> },
+      { path: "/tobacco7", element: <TobaccoC70 /> },
+      { path: "/tobacco8", element: <TobaccoC80 /> },
+      { path: "/tobacco9", element: <TobaccoC90 /> },
+      { path: "/tobacco10", element: <TobaccoC100 /> },
+      { path: "/tobacco11", element: <TobaccoC110 /> },
+      { path: "/opinionsurvey", element: <OpinionSurvey /> },
+      { path: "/generallyspeaking", element: <OneanswerSurv /> },
+      { path: "/endsurvey", element: <EarnsPage /> },
+// { path: "/very", element: <Verylikely /> },
+      { path: "/DashboardSurvery101", element: <DashboardSurvery101 /> },
+      { path: "/Dashboard909", element: <DashboardSurvery909 /> },
+      { path: "/jitci", element: <Jitci /> },
+      { path: "/Points", element: <PointsDashboard /> },
+      { path: "/PhoneRecharge", element: <PhoneRecharge /> },
+      { path: "/CouponRecharge", element: <CouponRecharge /> },
+      {path:"/accountpwd", element: <Assistancechangepwd /> },
+      {path:"/account", element: <Assistance /> },
+      {path:"/policy", element: <Policy />},
 
-{path:"/endsurvey/:iduser", element: <EarnsPage />},
-{path:"/AssistanceO/:iduser", element: <AssistanceO/>},
+      {path:"/assistancevid", element: <AssistanceRegisterAccountmanagement />},
+      {path:"/livesurvey1", element: <LiveSurvey1 />},
+      {path:"/livesurvey", element: <LiveSurvey />},
+      {path:"/very", element: <VerylikelyVierge />},
+      {path:"/veryl", element: <Verylikely />},
 
+      {path:"/endsurvey", element: <EarnsPage />},
+      {path:"/AssistanceO", element: <AssistanceO/>}
+    ],
+  },
 
-
-
+  // Catch-all route
+  { path: "/*", element: <Notfound /> },
 
 ]);
 
+const domain = "dev-8ja5z27gacw183vf.eu.auth0.com";
+const clientId = "P5ePbyjmq6xLc09ZxshMaqkwcNmVbKNX";
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <UserProvider>
-    <RouterProvider router={routes} />
-  </UserProvider>
+
+    <Auth0Provider
+        domain={domain}
+        clientId={clientId}
+        authorizationParams={{
+          redirect_uri: window.location.origin, // Ensure this matches the callback URL in your Auth0 dashboard
+          audience: "http://localhost/api",    // Add audience if using API authorization
+        }}
+        cacheLocation="localstorage" // Helps persist login state across page reloads
+    >
+      <UserProvider>
+        <RouterProvider router={routes} />
+      </UserProvider>
+    </Auth0Provider>
 );
 
 reportWebVitals();
+

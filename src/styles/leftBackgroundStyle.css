@@ -47,17 +47,29 @@
 
 }
 
+/* Logo container styles */
 .logoTale {
-    display: flex;
-    width: 126px;
-    height: 37px;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    position: absolute;
-    top: 16px;
-    left: 435px;
+    /*width: 20vw; !* Make width responsive *!*/
+    height: 100px; /* Maintain aspect ratio */
+    max-width: 126px; /* Max width for larger screens */
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
+/* Media Queries */
+@media (max-width: 768px) {
+    .logoTale {
+        width: 30vw; /* Increase size for tablets */
+        max-width: 150px; /* Increase max width for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .logoTale {
+        width: 40vw; /* Further increase size for smaller screens */
+        max-width: 160px; /* Increase max-width for small screens */
+    }
 }
 
 

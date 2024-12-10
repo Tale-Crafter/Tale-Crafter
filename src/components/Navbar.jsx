@@ -5,7 +5,7 @@ function Navbar() {
         width: '411px',
         height: '816px',
         top: '1px',
-        left: '1050px',
+        left: '1450px',
         padding: '8px',
         borderRadius: '30px',
         position: 'absolute'
@@ -22,7 +22,7 @@ function Navbar() {
     };
     return (
         <div style={navbarStyle}>
-            <img src={Left_background} alt="nd" />
+            <img src={Left_background} alt="nd" style={{width:411, height:816}} />
             <div style={textStyle}>
                 <h1>Hello,Friend!</h1>
                 <p>Enter your personal details

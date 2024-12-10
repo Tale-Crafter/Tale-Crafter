@@ -36,7 +36,7 @@ const Awards = () => {
 
         <div style={{ position: 'absolute', width: 'calc(100% - 72px)', textAlign: 'center', color: 'black', fontSize: '14px', fontFamily: 'Open Sans', fontWeight: '400', lineHeight: '20px', wordWrap: 'break-word', top: '248px', left: '36px', right: '36px', bottom: '148px' }}>I'm your virtual assistant here to help make your experience seamless and enjoyable</div>
 
-        <Link to={`/Talebot2/${iduser}`}>
+        <Link to={`/Talebot2`}>
          <div style={{ position: 'absolute',top: 381,width: 170, height: 19, padding: '16px', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)', display: 'flex', borderRadius: '10px', justifyContent: 'center', alignItems: 'center', display: 'inline-flex',  right: 41,left:41, bottom: 24 }}>
                      
                          <div style={{ color: 'white', fontSize: '14px', fontFamily: 'Open Sans', fontWeight: '600', wordWrap: 'break-word' }}>Next</div>

@@ -47,8 +47,8 @@ const CouponRecharge  = () => {
         setShowConfirmation(true);
     };
     const handleBackClick = () => {
-        // Redirect to /Surveys/:iduser
-        navigate(`/CouponRecharge/${iduser}`);
+        // Redirect to /Surveys
+        navigate(`/CouponRecharge`);
     };
     const handleCloseConfirmation = () => {
         setShowConfirmation(false);
@@ -288,7 +288,7 @@ const CouponRecharge  = () => {
                     
                     
                     
-                <Link to={`/Points/${iduser}`}>
+                <Link to={`/Points`}>
     <img src={arrow_backward} alt="Backward Arrow" style={{ width: '37px', height: '42px', marginRight: '10px' }} />
 </Link>    <span style={{ whiteSpace: 'nowrap', fontSize: '25px' }}>Phone recharges</span>
 </div>

@@ -1,0 +1,147 @@
+/* General reset for margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container for both sections */
+.register-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background: white;
+}
+
+/* Left section containing the form */
+.left-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Logo styles */
+.logo {
+    width: 160px;
+    height: auto;
+    padding: 10px;
+}
+
+/* Language selector styles */
+.language-selector {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.language-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.language-dropdown {
+    border: none;
+    font-size: 14px;
+    padding: 5px;
+}
+.logo-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+/* Right section with background and text */
+.right-section {
+    position: relative;
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.background-image {
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+.text-overlay {
+    position: absolute;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    z-index: 1;
+    padding: 0 20px;
+}
+
+.text-overlay h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.text-overlay p {
+    font-size: 16px;
+}
+
+/* Media Queries for responsiveness */
+
+/* For tablets and below (max-width: 768px) */
+@media (max-width: 768px) {
+    .register-container {
+        flex-direction: column;
+    }
+
+    .left-section {
+        flex: 1 1 100%;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .right-section {
+        flex: 1 1 100%;
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .background-image {
+        height: auto;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .text-overlay h1 {
+        font-size: 20px;
+    }
+
+    .text-overlay p {
+        font-size: 14px;
+    }
+}
+
+/* For smaller mobile devices (max-width: 480px) */
+@media (max-width: 480px) {
+    .logo {
+        width: 120px;
+    }
+
+    .language-selector {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .language-dropdown {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    .text-overlay h1 {
+        font-size: 18px;
+    }
+
+    .text-overlay p {
+        font-size: 12px;
+    }
+}

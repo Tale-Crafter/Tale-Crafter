@@ -1,128 +1,135 @@
-import React, { useState } from "react"
-
-import '../../styles/forgotPassword.css'
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import '../../styles/forgotPassword.css';
 import LeftBackground from '../../components/LeftBackground';
-import { useUser } from "./UserContext";
 
-function ForgotPasswordOne() {
+function ForgotPassword() {
+    const { domain, clientId } = {
+        domain: "dev-8ja5z27gacw183vf.eu.auth0.com",
+        clientId: "P5ePbyjmq6xLc09ZxshMaqkwcNmVbKNX"
+    };
 
-    const { setUserEmail } = useUser();
-    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('');
+    const [emailSent, setEmailSent] = useState(false);
+    const navigate = useNavigate();
 
     const handleEmailChange = (e) => {
         const inputValue = e.target.value;
         setEmail(inputValue);
-        if (!inputValue.includes('@')) {
+        // Validate email format
+        if (!inputValue.includes('@') || !inputValue.includes('.')) {
             setEmailError('Please enter a valid email address');
         } else {
             setEmailError('');
         }
     };
 
-    const handleForgotPassword = () => {
-        if (!emailError) {
-            setUserEmail(email); // Set the email in the context
-            console.log('Redirecting to reset password page...');
-            navigate('/ForgotPasswordTwo');
+    const handleForgotPassword = async (e) => {
+        e.preventDefault();
+
+        if (!emailError && email) {
+            try {
+                // Make the POST request to Auth0 passwordless API with the correct connection
+                const response = await axios.post(`https://${domain}/passwordless/start`, {
+                    client_id: clientId,
+                    connection: 'email',  // Using the passwordless email connection
+                    email,
+                    send: 'link', // Send reset email link
+                    authParams: {
+                        redirect_uri: 'http://localhost:3000/ChangePassword' // The URI to redirect the user after clicking the reset link
+                    }
+                });
+
+                if (response.status === 200) {
+                    setEmailSent(true);  // Trigger the UI change to inform the user
+                }
+            } catch (error) {
+                console.error("Error sending reset email", error);
+                alert("An error occurred while sending the reset email. Please try again.");
+            }
         }
     };
 
 
-
-    const titleStyle = {
-        color: "#000",
-        //fontFamily: "Open Sans",
-        fontSize: "14px",
-        fontStyle: "normal",
-        fontWeight: "600",
-        lineHeight: "normal",
-        width: "96px",
-        height: "19px",
-        top: "-2px",
-        position: "absolute",
-
-    };
-    const placeholderStyle = {
-        width: "400px",
-        height: "51px",
-        flexShrink: "0",
-        borderRadius: "10px",
-        top: "25px",
-        position: "absolute",
-
-    };
-    const errorStyle = {
-        color: "#ED1C24",
-        // fontFamily: "Open Sans",
-        fontSize: "14px",
-        width: "400px",
-        height: "51px",
-        flexShrink: "0",
-        borderRadius: "10px",
-        bottom: "-50px",
-        position: "absolute",
-
-    };
-    const buttonStyle = {
-        background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)',
-        width: '400px',
-        height: '51px',
-        padding: '16px',
-        borderRadius: '10px',
-        color: 'white',
-        textAlign: 'center',
-        lineHeight: '19px',
-        fontFamily: 'TaleBlue, sans-serif',
-        fontSize: '14px',
-        cursor: 'pointer',
-        border: 'none',
-        outline: 'none',
-    }
-
     return (
-        <div className='forgotPassword'>
-            <span className="forgotPasswordTitle">Forgot Password</span>
-            <span className="forgotPasswordInfo">
-                Kindly provide the email address linked to your account. We will send you instructions via email on how to reset your password
-            </span>
-            <form action="/forgotpassword" method="post" onSubmit={handleForgotPassword}>
-                <div className="forgotPasswordForm">
-                    <label style={titleStyle}>Email Address</label>
-                    <input
-                        style={placeholderStyle}
-                        type="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        value={email}
-                        onChange={handleEmailChange}
-                    />
-                    {emailError && <p style={errorStyle}>{emailError}</p>}
-                </div>
-                <div className="sendEmailButton">
-                    <button
-                        style={buttonStyle}
-                        type="submit"  
-                        disabled={!!emailError}>
-                        Send Email
-                    </button>
-                </div>
-            </form>
+        <div className="forgotPassword">
+            {emailSent ? (
+                <>
+                    <img src={require('../../images/emailSentIcon.png')} alt='Email Sent Icon' className='emailSentIconStyle' />
+                    <span className="forgotPasswordTitle">Email Sent</span>
+                    <span className="forgotPasswordInfo">
+                        We have sent you an email at <span style={{ color: '#ED1C24' }}>{email}</span>.
+                        Check your inbox and follow the instructions to reset your account password.
+                    </span>
+                    <div className='forgotPasswordEmail'>
+                        <div className='didntRecieveEmail'>
+                            <span>Did not receive email? </span>
+                            <span style={{ color: "#00C0FC", fontWeight: "600" }}>
+                                <Link to="/">Resend Email</Link>
+                            </span>
+                        </div>
+                        <div className='wrongEmail'>
+                            <span>Wrong email address? </span>
+                            <span style={{ color: "#00C0FC", fontWeight: "600" }}>
+                                <Link to="/ForgotPasswordOne">Change email address</Link>
+                            </span>
+                        </div>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <span className="forgotPasswordTitle">Forgot Password</span>
+                    <span className="forgotPasswordInfo">
+                        Kindly provide the email address linked to your account. We will send you instructions via email on how to reset your password.
+                    </span>
+                    <form onSubmit={handleForgotPassword}>
+                        <div className="forgotPasswordForm">
+                            <label>Email Address</label>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                value={email}
+                                onChange={handleEmailChange}
+                            />
+                            {emailError && <p className="errorMessage">{emailError}</p>}
+                        </div>
+                        <button
+                            type="submit"
+                            disabled={!!emailError || !email}
+                            style={{
+                                background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)',
+                                width: '400px',
+                                height: '51px',
+                                padding: '16px',
+                                borderRadius: '10px',
+                                color: 'white',
+                                textAlign: 'center',
+                                lineHeight: '19px',
+                                fontFamily: 'TaleBlue, sans-serif',
+                                fontSize: '14px',
+                                cursor: 'pointer',
+                                border: 'none',
+                                outline: 'none',
+                            }}
+                        >
+                            Send Email
+                        </button>
+                    </form>
 
-            <div className="rememberPassword">
-                <span>Remember Password? </span>
-                <span style={{ color: "#000", fontWeight: "600", }}>
-                    <Link to="/login">
-                        <span>Login</span>
-                    </Link>
-                </span>
-            </div>
-
+                    <div className="rememberPassword">
+                        <span>Remember Password? </span>
+                        <span style={{ color: "#000", fontWeight: "600" }}>
+                            <Link to="/login">Login</Link>
+                        </span>
+                    </div>
+                </>
+            )}
             <LeftBackground mainText={"Forget PWD?"} detailsText={"Don't worry :))"} />
         </div>
-    )
+    );
 }
 
-export default ForgotPasswordOne
+export default ForgotPassword;

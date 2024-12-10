@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import useAuthToken from "../Dashboard/useAuthToken";
 
 const UserContext = createContext();
 
@@ -8,6 +9,7 @@ export const UserProvider = ({ children }) => {
   const setUserEmail = (newEmail) => {
     setEmail(newEmail);
   };
+  useAuthToken(); // Fetch and set the token when the provider is initialized
 
   return (
     <UserContext.Provider value={{ email, setUserEmail }}>

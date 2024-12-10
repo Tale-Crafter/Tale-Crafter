@@ -11,9 +11,9 @@ function Header() {
     const imglanguage = {
         position: 'absolute',
         top: '16px',
-        right: '0',
-        width: '500px',
-        height: 'auto',
+        right: '440px',
+        width: '160px',
+        height: '40px',
     }
     return (
         <div className="row-4" >
@@ -22,8 +22,8 @@ function Header() {
             </div>
             <div className="d-flex" style={imglanguage}>
                 <img src={iconoir_language} alt="Language" />
-                <select className="language-dropdown" style={{ border: 'none' }}>
-                    <option value="en" style={{ width: '12px', height: '12px' }} >EN</option>
+                <select className="language-dropdown" style={{ position:"relative",top:-10,border: 'none' }}>
+                    <option value="en" style={{width: '12px', height: '12px',fontSize: 14, font:"revert"}} >EN</option>
                     <option value="fr">FR</option>
                 </select>
             </div>

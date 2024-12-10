@@ -112,7 +112,7 @@ const Home = () => {
         if (label === 'Assistance') {
             console.log('iduser:', iduser);
             // Redirection vers la route avec l'id utilisateur
-            navigate(`/assistance/${iduser}`);
+            navigate(`/assistance`);
         }
         // Add specific code to execute when the button is clicked
     };

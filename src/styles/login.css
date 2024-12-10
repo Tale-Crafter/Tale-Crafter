@@ -1,155 +1,237 @@
+/* Login Container */
 .login {
-    height: 100%;
-    flex: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative;
-
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    margin: 0 auto;
 }
 
+/* Title */
 .loginTitle {
-    color: #111;
-    text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
     font-size: 32px;
-    font-style: normal;
     font-weight: 700;
-    line-height: normal;
-    position: absolute;
-    width: 266px;
-    height: 44px;
-    top: 120px;
-    left: 716px;
+    margin-bottom: 20px;
 }
 
+/* Social Icons */
+.socialIcons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.socialButton{
+    border: none;
+    background: none;
+}
+/* Social Buttons */
+.socialButton img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Email Account Text */
 .emailAccount {
-    color: var(--text-666, #666);
-    text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
     font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    position: absolute;
-    width: 172px;
-    height: 19px;
-    top: 252px;
-    left: 763px;
-
+    color: #666;
+    margin-bottom: 20px;
 }
 
-.loginForm {
-    width: 400px;
-    height: 96px;
-    flex-shrink: 0;
-    top: 295px;
-    left: 649px;
-    position: absolute;
-
+/* Input Fields */
+.inputGroup {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
 }
 
-.passwordForm {
-    width: 400px;
-    height: 96px;
-    flex-shrink: 0;
-    top: 399px;
-    left: 649px;
-    position: absolute;
-
-}
-
-.emailAddress {
-    color: #000;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
+.inputLabel {
     font-size: 14px;
-    font-style: normal;
     font-weight: 600;
-    line-height: normal;
-    width: 96px;
-    height: 19px;
-    top: -2px;
-    position: absolute;
-
+    margin-bottom: 5px;
 }
 
-.emailPlaceholder {
-    width: 400px;
-    height: 51px;
-    flex-shrink: 0;
+.inputField {
+    width: 100%;
+    padding: 15px;
     border-radius: 10px;
-    background: rgba(17, 17, 17, 0.10);
-    top: 25px;
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    font-size: 14px;
+}
+
+/* Forgot Password Button */
+.forgotPassword {
+    background: none;
+    border: none;
+    color: #FE346E;
+    font-size: 14px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* Submit Button */
+.submitButton {
+    width: 100%;
+    max-width: 400px;
+    height: 50px;
+    background: linear-gradient(90deg, #FE346E 0%, #F9BC33 100%);
     border-radius: 10px;
-    position: absolute;
-
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    margin-top: 20px;
 }
 
-.nextButton {
-    top: 503px;
-    left: 649px;
-    position: relative;
-
+.submitButton:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
 }
 
+/* Error Message */
+.error {
+    color: #ED1C24;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* reCAPTCHA Text */
+.reCAPTCHA {
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+}
+
+/* Signup Link */
 .signupLink {
     text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-
     font-size: 14px;
-    font-style: normal;
-    line-height: normal;
-    width: 205px;
-    height: 19px;
-    top: 586px;
-    left: 747px;
-    position: absolute;
-
+    margin-top: 20px;
 }
 
-.loginContainer {
-    margin-left: auto;
-}
-
-.forgotPasswordLabel {
-    color: #00BDA9;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-
-    font-size: 14px;
-    font-style: normal;
+.signupRedirect {
+    color: #FE346E;
     font-weight: 600;
-    line-height: normal;
-    width: 400px;
-    height: 19px;
-    top: -2px;
-    position: absolute;
-    text-align: right;
+    cursor: pointer;
 }
 
-.reCAPTCHA {
-    color: var(--text-666, #666);
-    text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    position: relative;
-    width: 273px;
-    height: 28px;
-    top: 713px;
-    left: 713px;
+/* Media Queries */
+@media (max-width: 768px) {
+    .login {
+        padding: 10px;
+    }
 
+    .loginTitle {
+        font-size: 28px;
+    }
+
+    .socialIcons {
+        gap: 10px;
+    }
+
+    .inputGroup {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .inputField {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .submitButton {
+        width: 100%;
+    }
+
+    .error {
+        font-size: 12px;
+    }
+
+    .reCAPTCHA {
+        font-size: 12px;
+    }
+
+    .signupLink {
+        font-size: 12px;
+    }
+}
+
+/* Main page container */
+.loginPage {
+    background-color: white;
+    padding: 20px;
+}
+
+/* Container for left and right sections */
+.container {
+    display: flex;
+    margin: 0 auto;
+    gap: 10%; /* Add some space between the two sections */
+    flex-wrap: wrap; /* Ensure it wraps on small screens */
+    align-items: center;
+}
+
+/* Left section with image and text */
+.leftSection {
+    position: relative;
+    border-radius: 30px;
+    overflow: hidden; /* Ensure the image stays within the container */
+}
+
+/* Text inside the left section */
+.leftSection div {
+    position: absolute;
+    top: 32%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 1.125rem;
+    text-align: center;
+    z-index: 1;
+}
+
+.leftSection img {
+    object-fit: cover;
+}
+
+/* Right section containing the language selector and login form */
+.rightSection {
+    flex: 1;
+    max-width: 500px;
+    /*padding: 20px;*/
+}
+
+/* Language selector */
+.language-dropdown {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack sections vertically on smaller screens */
+        gap: 0;
+    }
+
+    .leftSection {
+        width: 100%;
+        height: 250px;
+    }
+
+    .rightSection {
+        width: 100%;
+    }
+
+    .leftSection div {
+        font-size: 1rem;
+    }
+
+    .language-dropdown {
+        font-size: 12px;
+    }
 }

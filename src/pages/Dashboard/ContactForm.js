@@ -93,7 +93,7 @@ const ContactForm = () => {
     const handleDecline = () => {
         // Logic when the user declines
         // For example, you might redirect the user to a different page
-        window.location.href =`/home/${iduser}`;
+        window.location.href =`/home`;
         // Alternatively, you could display a message or take other actions.
     };
 

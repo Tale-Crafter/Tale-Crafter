@@ -40,4 +40,30 @@ body {
   }
 }
 
-
+.Rectangle-1133 {
+  width: 810px;
+  height: 116px;
+  flex-grow: 0;
+  text-align: left;
+  margin: 50px 0 16px;
+  padding: 16px 17px 16px 16px;
+  border-radius: 10px;
+  /*border-style: solid;*/
+  /*border-width: 1px;*/
+  border: 3px solid #61dafb;
+background: #FFFFFF;
+  /*border-image-source: linear-gradient(to right, #00bda9 0%, #00c0fc 100%);*/
+  /*border-image-slice: 1;*/
+  /*!*background-image: linear-gradient(to bottom, #fff, #fff);*!*/
+  /*background-origin: border-box;*/
+  /*background-clip: content-box, border-box;*/
+}
+.custom-table-header .ant-table-thead > tr > th {
+  background-color: gray !important;
+  color: #FFFFFF;
+}
+.custom-table-header .ant-table-content {
+  width: 95%;
+  position: relative;
+  left: 30px;
+}

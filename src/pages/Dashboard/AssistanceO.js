@@ -61,7 +61,7 @@ const AssistanceO = () => {
                                   <div style={{position: 'absolute', top: '72px', right: '450px', left: '110px', bottom: '853px'}}>
                                      
 
-                                    <Link to={`/Awards/${iduser}`}>
+                                    <Link to={`/Awards`}>
                 
                                    
                                      <div style={{color: '#111111', width: '100%',fontSize: '14px', fontFamily: 'Revert', fontWeight: '700', wordWrap: 'break-word', textAlign: 'left'}}>Registration and Account Management
@@ -84,7 +84,7 @@ const AssistanceO = () => {
     <div>
     <div style={{position: 'absolute', top: '179px', right: '450px', left: '110px', bottom: '746px'}}>
                                  <div style={{color: '#111111', width: '100%',fontSize: '14px', fontFamily: 'Revert', fontWeight: '700', wordWrap: 'break-word', textAlign: 'left'}}>
-                                    <Link to="/Surveys/:iduser">
+                                    <Link to="/Surveys">
                                     Survey Participation
                                     </Link></div>
                                  </div>
@@ -103,7 +103,7 @@ const AssistanceO = () => {
     <div>
     <div style={{position: 'absolute', top: '286px', right: '450px', left: '110px', bottom: '639px'}}>
                                     <div style={{color: '#111111', width: '100%',fontSize: '14px', fontFamily: 'Revert', fontWeight: '700', wordWrap: 'break-word', textAlign: 'left'}}>
-                                        <Link to="/Focusgroup/:iduser">
+                                        <Link to="/Focusgroup">
                                         
                                         Focus group</Link>
                                         </div>
@@ -124,7 +124,7 @@ const AssistanceO = () => {
 <div>
 <div style={{position: 'absolute', top: '394px', right: '450px', left: '110px', bottom: '531px'}}>
                                           <div style={{color: '#111111', width: '100%',fontSize: '14px', fontFamily: 'Revert', fontWeight: '700', wordWrap: 'break-word', textAlign: 'left'}}>
-                                            <Link to="/Points/:iduser">
+                                            <Link to="/Points">
                                             
                                             Earning and Redeeming Point
                                             </Link></div>

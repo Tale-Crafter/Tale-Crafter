@@ -1,193 +1,210 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from './Button';
-import FB from '../images/FB.png';
-import X from '../images/X.png';
-import Linkedin from '../images/Linkedin.png';
-import Gmail from '../images/Gmail.png';
-import { Link } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Button from './BButton';
+import '../styles/signup.css';
+import { FaEyeSlash, FaEye, FaCheck } from 'react-icons/fa';
+import axios from 'axios';
 
-function Form() {
+function Signup() {
     const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [strength, setStrength] = useState('');
-    const [isChecked1, setIsChecked1] = useState(false);
-    const [isChecked2, setIsChecked2] = useState(false);
-    const [isChecked1password, setChecked1] = useState(false);
-    const [isChecked2password, setChecked2] = useState(false);
-    const [isChecked3password, setChecked3] = useState(false);
-    const [checked, setChecked] = React.useState(false);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [strength, setStrength] = useState('');
+    const [passwordStrength, setPasswordStrength] = useState({
+        containsNameOrEmail: false,
+        length: false,
+        containsSymbolOrNumber: false,
+        containsUppercase: false
+    });
+    const [isNextButtonEnabled, setIsNextButtonEnabled] = useState(false);
+
+    const domain = "dev-8ja5z27gacw183vf.eu.auth0.com";
+    const clientId = "P5ePbyjmq6xLc09ZxshMaqkwcNmVbKNX";
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleClick = () => {
-        setChecked(!checked);
-        const isWeak = !password.toLowerCase().includes('name') && !password.toLowerCase().includes('@' || '.com' || '.tn');
-        const isGood = password.length >= 8;
-        const isStrong = /[!@#$%^&*()_+\-={};':"\\|,.<>?0-9]/.test(password);
+    const validatePassword = (password) => {
+        const emailLower = email.toLowerCase();
+        const passwordStrengthObj = {
+            containsNameOrEmail: !password.toLowerCase().includes(emailLower), // check if password contains email
+            length: password.length >= 8, // check if password has at least 8 characters
+            containsSymbolOrNumber: /[\W_0-9]/.test(password), // check if password contains a symbol or number
+            containsUppercase: /[A-Z]/.test(password) // check if password contains at least one uppercase letter
+        };
+        setPasswordStrength(passwordStrengthObj);
 
-        setChecked1(isWeak);
-        setChecked2(isGood);
-        setChecked3(isStrong);
-
-
-        console.log('Checkbox states:', isChecked1password, isChecked2password, isChecked3password);
-
-        if (isChecked1password && isChecked2password && isChecked3password) {
-            navigate('/dashboard');
-        }
-    };
-
-    const handleChange = (event) => {
-        setChecked(event.target.checked);
-    };
-    const handleCheckboxChangep1 = () => {
-        setIsChecked1(true);
-    };
-
-    const handleCheckboxChange1 = () => {
-        setIsChecked1(!isChecked1);
-    };
-
-    const handleCheckboxChange2 = () => {
-        setIsChecked2(!isChecked2);
-    };
-
-    const validatePassword = () => {
-        const containsNameEmail = !password.toLowerCase().includes('name') && !password.toLowerCase().includes('@' || '.com' || '.tn');
-        const containsSymbolNumber = /[!@#$%^&*()_+\-={};':"\\|,.<>?0-9]/.test(password);
-        const hasValidLength = password.length >= 8;
-
-        if (containsNameEmail && containsSymbolNumber && hasValidLength) {
-            setStrength('strong');
-        } else if ((containsNameEmail && hasValidLength)) {
-            setStrength('Good');
-        } else if (containsNameEmail || containsSymbolNumber || hasValidLength) {
-            setStrength('weak');
+        // Calculate password strength
+        if (passwordStrengthObj.length && passwordStrengthObj.containsSymbolOrNumber && passwordStrengthObj.containsUppercase) {
+            setStrength('Strong');
+            setIsNextButtonEnabled(true); // Enable next button when strong password
+        } else if (passwordStrengthObj.length) {
+            setStrength('Medium');
+            setIsNextButtonEnabled(false); // Disable next button if password is not strong enough
         } else {
-            setStrength('');
-        }
-    };
-    // Function to determine color dynamically
-    const getColor = () => {
-        switch (strength) {
-            case 'strong':
-                return '#198754';
-            case 'Good':
-                return '#0d6efd';
-            case 'weak':
-                return '#dc3545';
-            default:
-                return '#000';
+            setStrength('Weak');
+            setIsNextButtonEnabled(false); // Disable next button if password is weak
         }
     };
 
-    const handleEmailSubmit = (e) => {
+    useEffect(() => {
+        if (password) {
+            validatePassword(password);
+        }
+    }, [password]);
+
+    const handleEmailSubmit = async (e) => {
         e.preventDefault();
         console.log('Email:', email);
+
+        // Move to step 2 for password setup
         setStep(2);
     };
 
-    const handlePasswordSubmit = (e) => {
+    const handlePasswordSubmit = async (e) => {
         e.preventDefault();
-        console.log('Password:', password);
-    };
 
-    const handlePreviousClick = () => {
-        setEmail('');
-        setPassword('');
-        setChecked1(false);
-        setChecked2(false);
-        setChecked3(false);
-        setStrength('');
-        setStep(1);
+        try {
+            const response = await axios.post(
+                `https://${domain}/dbconnections/signup`,
+                {
+                    client_id: clientId,
+                    email,
+                    password,
+                    connection: 'Username-Password-Authentication',
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            if (response.status === 200) {
+                setSuccess(true);
+                setError(null);
+                alert('Signup successful');
+                // Redirect to Verif page and pass email as part of the URL
+                navigate(`/Verif?email=${encodeURIComponent(email)}`);
+            }
+        } catch (error) {
+            console.error('Error:', error.response ? error.response.data : error.message);
+
+            // Custom error handling: Show message if email already exists
+            if (error.response?.status === 400) {
+                setError('Email is already used!');
+            } else {
+                setError(error.response?.data?.error_description || error.message);
+            }
+            setSuccess(false);
+        }
     };
 
     const FormStyle = {
         backgroundColor: '#FFFFF',
-        padding: '100px',
-        top: '50 %',
-        paddingLeft: '100 %',
+        padding: '5vw',
         textAlign: 'center',
         fontWeight: '400',
         lineHeight: '20px',
         letterSpacing: '0em',
         position: 'relative',
-        height: '700px',
+        minHeight: '700px',
     };
+
     const passwordStyle = {
-        padding: '100px',
-        paddingTop: '100px',
-        paddingLeft: '300px',
+        padding: '5vw',
+        paddingTop: '5vw',
         textAlign: 'center',
-        height: '700px',
+        minHeight: '700px',
         position: 'relative',
-    }
+    };
+
+    const getColor = () => {
+        switch (strength) {
+            case 'Strong':
+                return 'green';
+            case 'Medium':
+                return 'orange';
+            default:
+                return 'red';
+        }
+    };
 
     const renderContent = () => {
         if (step === 1) {
             return (
                 <>
-                    {/** Create Account Area **/}
-                    <div className="container" style={FormStyle} >
+                    <div className="container" style={FormStyle}>
                         <div><h1>Create Account</h1></div>
-                        <div>
-                            <span>
-                                <Link to="https://www.linkedin.com">
-                                    <img src={FB} className="rounded" alt="Facebook" />
-                                </Link>
-                            </span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span>
-                                <Link to="https://www.linkedin.com">
-                                    <img src={Gmail} className="rounded" alt="Gmail" />
-                                </Link>
-                            </span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span>
-                                <Link to="https://www.facebook.com">
-                                    <img src={X} className="rounded" alt="X" />
-                                </Link>
-                            </span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span>
-                                <Link to="https://www.linkedin.com">
-                                    <img src={Linkedin} className="rounded" alt="Linkedin" />
-                                </Link>
-                            </span>
-                        </div>
-                        <div style={{ color: '#666666', paddingTop: '15px' }}> Or use your email account</div>
-
-                        <div style={{
-                            padding: '170px', paddingTop: '40px', textAlign: 'Left',
-                        }}>
+                        {/*<div>*/}
+                        {/*    /!* Social login buttons *!/*/}
+                        {/*    <span>*/}
+                        {/*        <a href="https://www.linkedin.com">*/}
+                        {/*            <img src={FB} className="rounded" alt="Facebook" style={{ width: 56, height: 56 }} />*/}
+                        {/*        </a>*/}
+                        {/*    </span>&nbsp;&nbsp;&nbsp;&nbsp;*/}
+                        {/*    <span>*/}
+                        {/*        <a href="https://www.linkedin.com">*/}
+                        {/*            <img src={Gmail} className="rounded" alt="Gmail" />*/}
+                        {/*        </a>*/}
+                        {/*    </span>&nbsp;&nbsp;&nbsp;&nbsp;*/}
+                        {/*    <span>*/}
+                        {/*        <a href="https://www.facebook.com">*/}
+                        {/*            <img src={X} className="rounded" alt="X" />*/}
+                        {/*        </a>*/}
+                        {/*    </span>&nbsp;&nbsp;&nbsp;&nbsp;*/}
+                        {/*    <span>*/}
+                        {/*        <a href="https://www.linkedin.com">*/}
+                        {/*            <img src={Linkedin} className="rounded" alt="Linkedin" />*/}
+                        {/*        </a>*/}
+                        {/*    </span>*/}
+                        {/*</div>*/}
+                        <div style={{ color: '#666666', paddingTop: '15px' }}>Or use your email account</div>
+                        <div style={{ paddingTop: '40px', textAlign: 'left' }}>
                             <form onSubmit={handleEmailSubmit}>
                                 <div className="mb-3">
-                                    <label htmlFor="Email" className="form-label" ><strong>Email Address</strong></label>
-                                    <input type="email" className="form-control" id="Email" placeholder="Enter your email" style={{ width: '400px !important', Height: '96px', Top: '295px', Left: '2px', border: '2px solid #00C0FC', padding: '16px', transition: 'border-color 0.4s ease', borderColor: '#00C0FC' }} onChange={(e) => setEmail(e.target.value)} required />
+                                    <label htmlFor="Email" className="form-label"><strong>Email Address</strong><br /></label>
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        id="Email"
+                                        placeholder="Enter your email"
+                                        style={{ width: '100%', maxWidth: '470px', height: '51px', border: '2px solid #00C0FC', padding: '16px', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10 }}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        required
+                                    />
                                 </div>
+                                <br />
                                 <div>
                                     <div className="form-check">
-                                        <input className="form-check-input" style={{
-                                            width: '24px', height: '24px', backgroundColor: isChecked1 ? '#00BDA9' : '#ffffff',
-                                        }}
-                                            onChange={handleCheckboxChange1} type="checkbox" id="gridCheck" required />
-                                        <label className="form-check-label" htmlFor="gridCheck" style={{ paddingLeft: '12px' }} required>
+                                        <input
+                                            className="form-check-input"
+                                            style={{ width: '24px', height: '24px' }}
+                                            type="checkbox"
+                                            id="gridCheck"
+                                            required
+                                        />
+                                        <label className="form-check-label" htmlFor="gridCheck" style={{ paddingLeft: '12px' }}>
                                             You agree to the <u><strong>Terms of Use</strong></u> and <strong><u>Privacy Notice</u></strong>
                                         </label>
                                     </div>
                                 </div>
                                 <div style={{ paddingBottom: '17px', paddingTop: '17px' }}>
-                                    <div className="form-check" style={{ Top: '17px' }}>
-                                        <input className="form-check-input" type="checkbox" id="gridCheck" style={{
-                                            width: '24px', height: '24px', backgroundColor: isChecked2 ? '#00BDA9' : '#ffffff',
-                                        }}
-                                            onChange={handleCheckboxChange2} required />
+                                    <div className="form-check" >
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id="gridCheck"
+                                            style={{ width: '24px', height: '24px' }}
+                                            required
+                                        />
                                         <label className="form-check-label" htmlFor="gridCheck" style={{ paddingLeft: '12px' }}>
-                                            By agreeing, you'll receive information and special offers about <br /> our products via email. You can unsubscribe from these emails at <br /> any time through the My Account page
+                                            By agreeing, you'll receive information and special offers about <br /> our products via email. You can unsubscribe from these emails at any time.
                                         </label>
                                     </div>
                                 </div>
@@ -195,189 +212,150 @@ function Form() {
                                     <Button type="submit" />
                                 </div>
                             </form>
-                            <div style={{ color: '#666666', textAlign: 'center', paddingTop: '20px' }}>Have an account? <Link to="/login" style={{ color: '#000000' }}>
-                                <strong> Sign-In</strong>
-                            </Link></div>
+                            <div style={{ color: '#666666', textAlign: 'center', paddingTop: '20px' }}>
+                                Have an account? <a href="/login" style={{ color: '#000000' }}><strong> Sign-In</strong></a></div>
                         </div>
-
                     </div>
-
                 </>
             );
         } else if (step === 2) {
             return (
                 <>
-                    {/***create password interface***/}
                     <div className="container" style={passwordStyle}>
-                        <div>
-                            <h1>Create Password</h1>
-                        </div>
-                        <div style={{ textAlign: 'Left', paddingTop: '30px' }}>
+                        <div><h1>Create Password</h1></div>
+                        <div style={{ textAlign: 'left', paddingTop: '30px' }}>
                             <form onSubmit={handlePasswordSubmit}>
                                 <div>
-                                    <label htmlFor="formGroupPassword" className="form-label" >
-                                        <strong>
-                                            Password</strong>
-                                    </label>
+                                    <label htmlFor="formGroupPassword" className="form-label"><strong>Password</strong></label>
                                     <div style={{ display: "flex", paddingTop: "15px", position: "relative" }}>
                                         <input
                                             type={showPassword ? 'text' : 'password'}
                                             className="form-control"
                                             id="formGroupPassword"
                                             placeholder="Enter a password"
-                                            style={{ width: '400px !important', height: '51px', border: '2px solid #00C0FC', padding: '12px', transition: 'border-color 0.3s ease', borderColor: '#00C0FC' }}
-                                            onChange={(e) => {
-                                                setPassword(e.target.value);
-                                                validatePassword();
-                                            }}
+                                            style={{ width: '100%', maxWidth: '380px', height: '35px', border: '0px solid black', padding: '12px', background: 'rgba(17, 17, 17, 0.10)', borderRadius: 10 }}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            required
                                         />
-                                        <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', paddingTop: '11px' }}>
-                                            {/* Utilisez l'icône de l'oeil pour montrer/masquer le mot de passe */}
+                                        <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)' }}>
                                             {showPassword ? (
                                                 <FaEyeSlash
                                                     onClick={togglePasswordVisibility}
-                                                    style={{
-                                                        //position: 'relative',
-                                                        width: '19px',
-                                                        height: '19px',
-                                                        left: '660px',
-                                                        top: '120px',
-                                                        border: 'none',
-                                                        cursor: 'pointer',
-                                                        color: "#606060",
-
-                                                    }}
+                                                    style={{ width: '19px', height: '19px', cursor: 'pointer', color: "#606060" }}
                                                 />
-
                                             ) : (
                                                 <FaEye
                                                     onClick={togglePasswordVisibility}
-                                                    style={{
-                                                        //position: 'absolute',
-                                                        width: '19px',
-                                                        height: '19px',
-                                                        left: '660px',
-                                                        top: '180px',
-                                                        border: 'none',
-                                                        cursor: 'pointer',
-                                                        color: "#606060",
-
-                                                    }}
+                                                    style={{ width: '19px', height: '19px', cursor: 'pointer', color: "#606060" }}
                                                 />
-
                                             )}
                                         </div>
                                     </div>
+                                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                                    {success && <p style={{ color: 'green' }}>Signup successful!</p>}
 
+                                    <div style={{ paddingTop: '20px', display: 'flex', color: '#666666', fontSize: '16' }}>
+                                        Password Strength:
+                                        <div style={{ color: getColor(), paddingLeft: '15px' }}>{strength}</div>
+                                    </div>
 
-                                    <div style={{ paddingTop: '20px', display: 'flex', color: '#666666', fontSize: '16' }}>Password Strength: <div style={{ color: getColor(), paddingLeft: '15px' }}>{strength}</div></div>
-                                    {/**CHeck valid of Password */}
                                     <div>
                                         <div style={{ display: "flex" }}>
                                             <div className="form-check">
-                                                <input className="form-check-input" style={{
-                                                    marginTop: '5px',
-                                                    border: '2px solid',
-                                                    borderRadius: '14px',
-                                                    marginBottom: '15px',
-                                                    marginRight: '5px',
-                                                    width: '24px', height: '24px', backgroundColor: isChecked1password ? '#00BDA9' : '#ffffff',
-                                                    color: isChecked1password ? '#ffffff' : '#00BDA9',
-
-                                                }}
-
-                                                    onChange={() => handleCheckboxChangep1(isChecked1password)} checked={isChecked1password} type="checkbox" id="gridCheckp1" />
-                                                <label className="form-check-label" htmlFor="gridCheckp1" style={{ paddingLeft: '12px', color: '#666666' }} >
+                                                <FaCheck
+                                                    className="form-check-input"
+                                                    style={{
+                                                        marginTop: '5px',
+                                                        border: '2px solid',
+                                                        borderRadius: '14px',
+                                                        width: '24px',
+                                                        height: '24px',
+                                                        marginBottom: '15px',
+                                                        marginRight: '5px',
+                                                        color: passwordStrength.containsNameOrEmail ? '#00BDA9' : '#999999',
+                                                        fontSize: 20
+                                                    }}
+                                                />
+                                                <label className="form-check-label" htmlFor="gridCheckp1" style={{ position:"relative", top:-20, paddingLeft: '12px', color: '#666666' }} >
                                                     Must not contain your name or email
                                                 </label>
                                             </div>
                                         </div>
                                         <div style={{ display: "flex" }}>
                                             <div className="form-check">
-                                                <input className="form-check-input" style={{
-
-                                                    border: '2px solid', // Border color
-                                                    borderRadius: '14px', // Border radius
-                                                    marginBottom: '15px',
-                                                    marginRight: '5px',
-                                                    width: '24px', height: '24px', backgroundColor: isChecked2password ? '#00BDA9' : '#ffffff',
-                                                    color: isChecked2password ? '#ffffff' : '#00BDA9',
-                                                }}
-                                                    onChange={handleChange} checked={isChecked2password} type="checkbox" id="gridCheckp2" />
-                                                <label className="form-check-label" htmlFor="gridCheckp2" style={{ paddingLeft: '12px', color: '#666666' }} required>
+                                                <FaCheck
+                                                    className="form-check-input"
+                                                    style={{
+                                                        border: '2px solid',
+                                                        borderRadius: '14px',
+                                                        width: '24px',
+                                                        height: '24px',
+                                                        marginBottom: '15px',
+                                                        marginRight: '5px',
+                                                        color: passwordStrength.length ? '#00BDA9' : '#999999',
+                                                        fontSize: 20
+                                                    }}
+                                                />
+                                                <label className="form-check-label" htmlFor="gridCheckp2" style={{ position:"relative", top:-20, paddingLeft: '12px', color: '#666666' }} required>
                                                     At least 8 characters
                                                 </label>
                                             </div>
                                         </div>
                                         <div style={{ display: "flex", paddingBottom: '24px' }}>
                                             <div className="form-check" >
-                                                <input className="form-check-input" style={{
-                                                    border: '2px solid',
-                                                    borderRadius: '14px',
-                                                    marginRight: '5px',
-                                                    width: '24px', height: '24px', backgroundColor: isChecked3password ? '#00BDA9' : '#ffffff',
-                                                    color: isChecked3password ? '#ffffff' : '#00BDA9',
-                                                }}
-                                                    checked={isChecked3password} onChange={handleChange} type="checkbox" id="gridCheckp3" />
-                                                <label className="form-check-label" htmlFor="gridCheckp3" style={{ paddingLeft: '12px', color: '#666666' }} required>
-
+                                                <FaCheck
+                                                    className="form-check-input"
+                                                    style={{
+                                                        border: '2px solid',
+                                                        borderRadius: '14px',
+                                                        width: '24px',
+                                                        height: '24px',
+                                                        marginBottom: '15px',
+                                                        marginRight: '5px',
+                                                        color: passwordStrength.containsSymbolOrNumber ? '#00BDA9' : '#999999',
+                                                        fontSize: 20
+                                                    }}
+                                                />
+                                                <label className="form-check-label" htmlFor="gridCheckp3" style={{ position:"relative", top:-20, paddingLeft: '12px', color: '#666666' }} required>
                                                     Contains a symbol or a number
                                                 </label>
                                             </div>
                                         </div>
-
+                                        <div style={{ display: "flex", paddingBottom: '24px' }}>
+                                            <div className="form-check" >
+                                                <FaCheck
+                                                    className="form-check-input"
+                                                    style={{
+                                                        border: '2px solid',
+                                                        borderRadius: '14px',
+                                                        width: '24px',
+                                                        height: '24px',
+                                                        marginBottom: '15px',
+                                                        marginRight: '5px',
+                                                        color: passwordStrength.containsUppercase ? '#00BDA9' : '#999999',
+                                                        fontSize: 20
+                                                    }}
+                                                />
+                                                <label className="form-check-label" htmlFor="gridCheckp3" style={{ position:"relative", top:-20, paddingLeft: '12px', color: '#666666' }} required>
+                                                    Contains an Uppercase letter
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    {/**Buttons Previous Next */}
-                                    <div className="container" style={{ display: 'flex', padding: '24px!important' }}>
-                                        <button style={{
-                                            width: '192px',
-                                            height: '51px',
-                                            borderRadius: '10px',
-                                            background: 'linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 100%)', // White background
-                                            cursor: 'pointer',
-                                            transition: 'background 300ms ease-out',
-                                            border: '2px solid #00BDA9',
-                                            color: '#00BDA9',
-                                            alignItems: 'center',
-                                            justifyContent: 'center !important',
-                                            marginRight: '14px',
 
-                                        }} onClick={handlePreviousClick}>Previous</button>
-
-                                        <button style={{
-                                            width: '192px',
-                                            height: '51px',
-                                            top: ' 463px',
-                                            left: ' 438px',
-                                            borderRadius: '10px', background: 'linear-gradient(90deg, #00BDA9 0%, #00C0FC 100%)',
-                                            cursor: 'pointer',
-                                            transition: 'background 300ms ease-out',
-                                            border: 'none',
-                                            color: '#FFFFFF',
-                                            justifyContent: 'center !important',
-                                        }} onClick={handleClick}  >Next</button>
+                                    <div>
+                                        <Button type="submit" disabled={!isNextButtonEnabled} />
                                     </div>
                                 </div>
                             </form>
-                        </div >
-                    </div >
+                        </div>
+                    </div>
                 </>
             );
         }
     };
 
-    return (
-        <div className="container">
-            {renderContent()}
-        </div>
-    );
+    return renderContent();
 }
 
-
-export default Form
-
-
-
-
-
-
+export default Signup;

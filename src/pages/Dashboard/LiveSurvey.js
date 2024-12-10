@@ -45,8 +45,8 @@ const LiveSurvey = () => {
     const [showLanguageComponent, setShowLanguageComponent] = useState(false);
 
     const handleBackClick = () => {
-        // Redirect to /Surveys/:iduser
-        navigate(`/Surveys/${iduser}`);
+        // Redirect to /Surveys
+        navigate(`/Surveys`);
     };
 
     const handleStartClick = () => {
@@ -105,7 +105,9 @@ const LiveSurvey = () => {
                 <div style={{ left: 100, width: '80%', height: '100%', position: 'relative', background: '#EFEFEF', marginLeft: !sidebarVisible ? -100 : 0, transition: 'margin-left 0.3s ease' }}>
                     {/* Background elements */}
                     <div style={{ width: 1400, height: 800, left: 250, top: 80, position: 'absolute', background: 'white', borderRadius: 16 }} >
-
+                        <div style={{position:"absolute",left:1300,top:10,width: '3%', height: '3%', paddingLeft: 8, paddingRight: 8, paddingTop: 4, paddingBottom: 4, background: '#ED1C24', borderRadius: 4, justifyContent: 'center', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
+                            <div style={{textAlign: 'center', color: 'white', fontSize: 12, fontFamily: 'Open Sans', fontWeight: '700', lineHeight: 16, wordWrap: 'break-word'}}>• Live</div>
+                        </div>
                     {/* Number of Questions */}
                     <InfoBox1 titre={"Vestibulum ac massa in dui vehicula commodo"} num={1} color={{ ...TextStyle, paddingLeft: 16, paddingRight: 16, paddingTop: 10, paddingBottom: 10, left: 20, top: 40, position: 'absolute' }} />
                     <div style={{ position: 'absolute',left: -80, top: 180 }}>
@@ -180,7 +182,7 @@ const LiveSurvey = () => {
 
                     {/* Start button */}
                     <div onClick={handleStartClick} style={{ width: 170, padding: 16, left: 1180, top: 735, position: 'absolute', background: gradientColor, borderRadius: 10, justifyContent: 'center', alignItems: 'center', display: 'inline-flex', cursor: 'pointer' }}>
-                    <Link to="/livesurvey1/:iduser">
+                    <Link to="/livesurvey1">
                         <div style={{ color: 'white', fontSize: 14, fontFamily: 'revert', fontWeight: '600', wordWrap: 'break-word' }}>Submit</div>
                     </Link>
                     </div>

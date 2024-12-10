@@ -26,13 +26,13 @@ const DashboardSurvery10 = () => {
 
   const handleNextButtonClick = () => {
     if (nextButtonEnabled) {
-      navigate(`/opinionsurvey/${iduser}`); // Navigate to opinionsurvey with user id
+      navigate(`/opinionsurvey`); // Navigate to opinionsurvey with user id
     } else {
       alert('Please select your satisfaction level.'); // Show alert if no choice is made
     }
   };
   const handlePreviousButtonClick = () => {
-    navigate(`/generallyspeaking/${iduser}`);
+    navigate(`/generallyspeaking`);
   };
   
   return (
